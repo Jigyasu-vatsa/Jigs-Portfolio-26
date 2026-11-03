@@ -1,0 +1,6 @@
+# robots.txt for https://jigyasu.jigsy.in
+User-agent: *
+Allow: /
+
+# Canonical Sitemap
+Sitemap: https://jigyasu.jigsy.in/sitemap.xml

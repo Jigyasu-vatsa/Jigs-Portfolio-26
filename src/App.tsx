@@ -96,6 +96,22 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // SEO & UX: Keep page title optimized for "Jigyasu" and "Jigyasu Vatsa" across all child pages
+  useEffect(() => {
+    const titles: Record<PageView, string> = {
+      all: 'Jigyasu Vatsa | Official Website & Research Portfolio | jigyasu.jigsy.in',
+      research: 'Research & Publications | Jigyasu Vatsa | jigyasu.jigsy.in',
+      conferences: 'Conference Proceedings & Presentations | Jigyasu Vatsa | jigyasu.jigsy.in',
+      fdp: 'FDP & Academic Leadership | Jigyasu Vatsa | jigyasu.jigsy.in',
+      academics: 'Dual Masters & Academic Rigor | Jigyasu Vatsa | jigyasu.jigsy.in',
+      projects: 'Engineering Projects & Innovations | Jigyasu Vatsa | jigyasu.jigsy.in',
+      interactive: 'Interactive Code Lab & Skills | Jigyasu Vatsa | jigyasu.jigsy.in',
+      'jigsy-india': 'JIGSY INDIA | Jigyasu Integrated Global Services | jigyasu.jigsy.in',
+      'admin-vault': 'Confidential Admin Vault | Jigyasu Vatsa | jigyasu.jigsy.in',
+    };
+    document.title = titles[activeView] || 'Jigyasu Vatsa | Official Website & Research Portfolio | jigyasu.jigsy.in';
+  }, [activeView]);
+
   return (
     <div
       className={`min-h-screen ${
