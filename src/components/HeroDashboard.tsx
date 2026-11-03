@@ -236,7 +236,7 @@ export const HeroDashboard: React.FC<HeroDashboardProps> = ({
             </div>
             <div>
               <div className="text-2xl font-bold font-mono text-white tabular-nums">
-                4
+                5
               </div>
               <div className="text-xs text-slate-400">
                 Research Publications
