@@ -282,13 +282,11 @@ export const AdminVaultPage: React.FC<AdminVaultPageProps> = ({ onBackToHome }) 
                   </h4>
                   <p className="text-slate-300 mt-1 leading-relaxed">
                     Because GitHub Pages hosts static web pages without a central SQL/NoSQL backend server, visitor feedback
-                    submitted on <code>jigyasu.jigsy.in</code> is transmitted directly to your primary email address:{' '}
-                    <strong className="text-cyan-300">jigyasu.vatsa@gmail.com</strong>.
+                    submitted on <code>jigyasu.jigsy.in</code> is transmitted directly to your primary email address{' '}
+                    (<strong className="text-cyan-300">jigyasu.vatsa@gmail.com</strong>) via an obfuscated anti-spam hash token (<code>1b8b2a9a...</code>) preventing email harvesting.
                   </p>
                   <p className="text-slate-400 mt-1 text-[11px]">
-                    <strong>Activation Note:</strong> When the very first message is submitted, FormSubmit sends a 1-time activation
-                    confirmation link to <code>jigyasu.vatsa@gmail.com</code>. Click &quot;Activate Form&quot; in that email to allow all future messages
-                    to arrive smoothly in your inbox.
+                    <strong>Activation Note:</strong> If you haven&apos;t already, verify the 1-time activation confirmation link sent to <code>jigyasu.vatsa@gmail.com</code> by FormSubmit upon the first submission to allow all incoming messages to reach your inbox.
                   </p>
                 </div>
               </div>

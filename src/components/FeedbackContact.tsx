@@ -68,9 +68,9 @@ export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault })
       // Ignore localStorage quotas
     }
 
-    // 2. Dispatch real submission directly to Mr. Jigyasu Vatsa's email via static form dispatch
+    // 2. Dispatch real submission securely via obfuscated FormSubmit endpoint
     try {
-      const response = await fetch('https://formsubmit.co/ajax/jigyasu.vatsa@gmail.com', {
+      const response = await fetch('https://formsubmit.co/ajax/1b8b2a9a859274f2787f6402e5ca93c8', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -306,8 +306,8 @@ export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault })
                   <div>
                     <h5 className="font-bold text-white text-sm">Feedback Transmitted to Jigyasu Vatsa!</h5>
                     <p className="mt-0.5 text-slate-300">
-                      Thank you! Your feedback has been safely dispatched directly to Mr. Jigyasu Vatsa&apos;s primary inbox
-                      (<code>jigyasu.vatsa@gmail.com</code>) and recorded into the confidential administrative ledger.
+                      Thank you! Your feedback has been safely dispatched directly to Mr. Jigyasu Vatsa&apos;s protected inbox
+                      and recorded into the confidential administrative ledger.
                     </p>
                   </div>
                 </div>
@@ -320,7 +320,12 @@ export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault })
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+              <form
+                action="https://formsubmit.co/1b8b2a9a859274f2787f6402e5ca93c8"
+                method="POST"
+                onSubmit={handleSubmit}
+                className="space-y-4 text-xs"
+              >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-slate-300 font-medium mb-1.5">Your Full Name *</label>
