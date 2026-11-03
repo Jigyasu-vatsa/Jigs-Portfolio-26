@@ -23,6 +23,7 @@ import { FeedbackContact } from './components/FeedbackContact';
 import { CitationModal } from './components/CitationModal';
 import { CommandPalette } from './components/CommandPalette';
 import { JigsyIndiaSection } from './components/JigsyIndiaSection';
+import { AdminVaultPage } from './components/AdminVaultPage';
 import {
   RESEARCH_PAPERS,
   CONFERENCES,
@@ -36,7 +37,17 @@ import { ResearchPaper, PageView } from './types';
 import { ArrowUp } from 'lucide-react';
 
 export default function App() {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(() => {
+    try {
+      const saved = localStorage.getItem('jigsy_theme');
+      if (saved !== null) {
+        return saved === 'dark';
+      }
+    } catch {
+      // fallback
+    }
+    return true;
+  });
   const [selectedPaperForCite, setSelectedPaperForCite] = useState<ResearchPaper | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -46,10 +57,20 @@ export default function App() {
 
   // Sync dark class on document element
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
+    try {
+      if (darkMode) {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('jigsy_theme', 'dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('jigsy_theme', 'light');
+      }
+    } catch {
+      // fallback
     }
   }, [darkMode]);
 
@@ -76,7 +97,11 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-cyan-500 selection:text-slate-950 transition-colors relative">
+    <div
+      className={`min-h-screen ${
+        darkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'
+      } selection:bg-cyan-500 selection:text-slate-950 transition-colors relative`}
+    >
       {/* Background Interactive Cyber-Snake Animation */}
       <CyberSnakeBackground />
 
@@ -136,15 +161,23 @@ export default function App() {
             <AchievementsHonor />
 
             {/* Universal Footer with Contact & Confidential Vault */}
-            <FeedbackContact />
+            <FeedbackContact onOpenVault={() => handleSelectView('admin-vault')} />
           </>
+        )}
+
+        {/* Detached Page View: Confidential Admin Vault Portal */}
+        {activeView === 'admin-vault' && (
+          <div className="pt-6">
+            <AdminVaultPage onBackToHome={() => handleSelectView('all')} />
+            <FeedbackContact onOpenVault={() => handleSelectView('admin-vault')} />
+          </div>
         )}
 
         {/* Detached Page View: JIGSY INDIA Founded Enterprise Showcase */}
         {activeView === 'jigsy-india' && (
           <div className="pt-6">
             <JigsyIndiaSection />
-            <FeedbackContact />
+            <FeedbackContact onOpenVault={() => handleSelectView('admin-vault')} />
           </div>
         )}
 
@@ -159,7 +192,7 @@ export default function App() {
               papers={RESEARCH_PAPERS}
               metrics={researchMetrics}
             />
-            <FeedbackContact />
+            <FeedbackContact onOpenVault={() => handleSelectView('admin-vault')} />
           </div>
         )}
 
@@ -167,7 +200,7 @@ export default function App() {
         {activeView === 'fdp' && (
           <div className="pt-6">
             <FdpWorkshopsSection items={FDP_WORKSHOPS} />
-            <FeedbackContact />
+            <FeedbackContact onOpenVault={() => handleSelectView('admin-vault')} />
           </div>
         )}
 
@@ -175,7 +208,7 @@ export default function App() {
         {activeView === 'conferences' && (
           <div className="pt-6">
             <ConferencesSection conferences={CONFERENCES} />
-            <FeedbackContact />
+            <FeedbackContact onOpenVault={() => handleSelectView('admin-vault')} />
           </div>
         )}
 
@@ -186,7 +219,7 @@ export default function App() {
               <DualMastersCard />
             </div>
             <EducationCertifications />
-            <FeedbackContact />
+            <FeedbackContact onOpenVault={() => handleSelectView('admin-vault')} />
           </div>
         )}
 
@@ -196,7 +229,7 @@ export default function App() {
             <ExperienceTimeline experiences={EXPERIENCES} />
             <ProjectsShowcase projects={PROJECTS} />
             <SkillsMatrix skills={SKILLS_DATA} />
-            <FeedbackContact />
+            <FeedbackContact onOpenVault={() => handleSelectView('admin-vault')} />
           </div>
         )}
 
@@ -221,7 +254,7 @@ export default function App() {
             </div>
             <InteractivePlayground />
             <SkillsMatrix skills={SKILLS_DATA} />
-            <FeedbackContact />
+            <FeedbackContact onOpenVault={() => handleSelectView('admin-vault')} />
           </div>
         )}
       </main>

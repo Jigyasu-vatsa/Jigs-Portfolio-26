@@ -141,6 +141,12 @@ export const HeroDashboard: React.FC<HeroDashboardProps> = ({
                   {/* Subtle backlight glow */}
                   <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-cyan-500/30 via-teal-400/20 to-blue-600/30 blur-md opacity-75" />
                   
+                  {/* Active Status Beacon - Placed cleanly above photo on top right */}
+                  <div className="absolute -top-4 -right-3 z-20 flex items-center gap-1.5 bg-slate-900/95 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-emerald-500/60 shadow-lg shadow-emerald-500/20">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-[10px] font-mono font-bold text-emerald-300">ACTIVE</span>
+                  </div>
+
                   {/* Executive double-ring luxury frame */}
                   <div className="relative p-1 rounded-2xl bg-gradient-to-tr from-cyan-400 via-teal-300 to-indigo-500 shadow-xl shadow-cyan-500/20">
                     <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-[14px] overflow-hidden bg-slate-950 relative">
@@ -155,11 +161,6 @@ export const HeroDashboard: React.FC<HeroDashboardProps> = ({
                         role="img"
                         aria-label="Jigyasu Vatsa - Founder & Systems Researcher"
                       />
-                      {/* Active Status Beacon */}
-                      <div className="absolute top-2 right-2 flex items-center gap-1 bg-slate-950/85 backdrop-blur-md px-1.5 py-0.5 rounded-full border border-emerald-500/40">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                        <span className="text-[9px] font-mono font-bold text-emerald-300">ACTIVE</span>
-                      </div>
                     </div>
                   </div>
 

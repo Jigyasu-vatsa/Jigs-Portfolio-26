@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 import { FeedbackSubmission } from '../types';
 import {
@@ -12,25 +12,19 @@ import {
   Instagram,
   CheckCircle2,
   Lock,
-  Unlock,
-  Shield,
-  ShieldAlert,
-  Inbox,
-  Download,
-  Trash2,
-  Info,
-  X,
   ExternalLink,
   ShieldCheck,
+  ShieldAlert,
   Building,
   AtSign,
   User,
-  HelpCircle,
-  Eye,
-  KeyRound,
 } from 'lucide-react';
 
-export const FeedbackContact: React.FC = () => {
+interface FeedbackContactProps {
+  onOpenVault?: () => void;
+}
+
+export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -38,41 +32,6 @@ export const FeedbackContact: React.FC = () => {
     suggestion: '',
   });
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [adminModalOpen, setAdminModalOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [passkeyInput, setPasskeyInput] = useState('');
-  const [passkeyError, setPasskeyError] = useState(false);
-  const [feedbacks, setFeedbacks] = useState<FeedbackSubmission[]>([]);
-
-  // Default admin passkey for Mr. Jigyasu Vatsa
-  const ADMIN_PASSKEY = 'JIGSY2025';
-
-  // Load feedbacks from localStorage (client persistence for static hosting)
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem('jigsy_feedbacks_vault');
-      if (stored) {
-        setFeedbacks(JSON.parse(stored));
-      } else {
-        // Initial sample seed feedback for demonstration
-        const sample: FeedbackSubmission[] = [
-          {
-            id: 'fb-sample-1',
-            name: 'Dr. Ramesh Sharma',
-            email: 'ramesh.sharma@research.ac.in',
-            designation: 'Professor of Computer Science @ NIT',
-            suggestion:
-              'Impressive research footprint! The priority-based algorithm for food redistribution published in Springer Nature is very promising. Looking forward to potential collaborative research on circular systems.',
-            timestamp: 'October 28, 2026, 11:30 AM',
-          },
-        ];
-        setFeedbacks(sample);
-        localStorage.setItem('jigsy_feedbacks_vault', JSON.stringify(sample));
-      }
-    } catch {
-      // Hermetic fallback
-    }
-  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -93,10 +52,10 @@ export const FeedbackContact: React.FC = () => {
       }),
     };
 
-    const updated = [newFeedback, ...feedbacks];
-    setFeedbacks(updated);
     try {
-      localStorage.setItem('jigsy_feedbacks_vault', JSON.stringify(updated));
+      const stored = localStorage.getItem('jigsy_feedbacks_vault');
+      const existing: FeedbackSubmission[] = stored ? JSON.parse(stored) : [];
+      localStorage.setItem('jigsy_feedbacks_vault', JSON.stringify([newFeedback, ...existing]));
     } catch {
       // Fallback
     }
@@ -106,44 +65,6 @@ export const FeedbackContact: React.FC = () => {
     setTimeout(() => {
       setStatus('idle');
     }, 8000);
-  };
-
-  const handleVerifyPasskey = (e: React.FormEvent) => {
-    e.preventDefault();
-    const entered = passkeyInput.trim().toUpperCase();
-    if (entered === ADMIN_PASSKEY || entered === 'JIGSY2025' || entered === '1234') {
-      setIsAuthenticated(true);
-      setPasskeyError(false);
-    } else {
-      setPasskeyError(true);
-    }
-  };
-
-  const handleExportFeedbacks = () => {
-    const json = JSON.stringify(feedbacks, null, 2);
-    const blob = new Blob([json], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `jigyasu-vatsa-private-feedbacks-${new Date().toISOString().slice(0, 10)}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
-
-  const handleClearFeedbacks = () => {
-    if (confirm('Are you sure you want to clear your private administrative inbox?')) {
-      setFeedbacks([]);
-      localStorage.removeItem('jigsy_feedbacks_vault');
-    }
-  };
-
-  const handleLogoutAdmin = () => {
-    setIsAuthenticated(false);
-    setPasskeyInput('');
-    setPasskeyError(false);
-    setAdminModalOpen(false);
   };
 
   return (
@@ -172,14 +93,15 @@ export const FeedbackContact: React.FC = () => {
             {/* Admin Vault Access Button */}
             <button
               onClick={() => {
-                setAdminModalOpen(true);
-                setPasskeyError(false);
+                if (onOpenVault) {
+                  onOpenVault();
+                }
               }}
               className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-cyan-400 hover:text-white rounded-xl border border-slate-700/80 font-medium transition-colors flex items-center gap-2 shrink-0 shadow-sm"
-              title="Protected for Mr. Jigyasu Vatsa"
+              title="Protected for Mr. Jigyasu Vatsa (Opens Dedicated Admin Portal)"
             >
               <Lock className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Admin Vault (Jigyasu Only)</span>
+              <span>Admin Vault (Separate Portal) &rarr;</span>
             </button>
           </div>
         </div>
@@ -478,171 +400,6 @@ export const FeedbackContact: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* Admin Passkey / Private Vault Modal */}
-      {adminModalOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md"
-        >
-          <div className="bg-slate-900 border border-slate-750 rounded-2xl max-w-2xl w-full p-6 shadow-2xl relative animate-fadeIn max-h-[90vh] flex flex-col">
-            <button
-              onClick={() => {
-                setAdminModalOpen(false);
-                setPasskeyError(false);
-              }}
-              className="absolute top-4 right-4 p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            {!isAuthenticated ? (
-              /* Passkey Authentication Challenge */
-              <div className="py-4">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
-                    <KeyRound className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-white">
-                      Administrator Authentication Required
-                    </h3>
-                    <p className="text-xs text-slate-400">
-                      Submissions are confidential. Please enter Jigyasu Vatsa&apos;s owner passkey to access.
-                    </p>
-                  </div>
-                </div>
-
-                <form onSubmit={handleVerifyPasskey} className="space-y-4 mt-6">
-                  <div>
-                    <label className="block text-xs font-mono text-slate-300 mb-1.5">
-                      Owner Passkey PIN
-                    </label>
-                    <input
-                      type="password"
-                      autoFocus
-                      value={passkeyInput}
-                      onChange={(e) => {
-                        setPasskeyInput(e.target.value);
-                        setPasskeyError(false);
-                      }}
-                      placeholder="Enter administrative passkey..."
-                      className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder:text-slate-600 focus:outline-none focus:border-cyan-500 text-sm font-mono"
-                    />
-                    <div className="text-[11px] text-slate-500 mt-2 flex items-center justify-between">
-                      <span>Confidential Vault Protection</span>
-                      <span className="text-cyan-400 font-mono">Hint for Jigyasu: JIGSY2025</span>
-                    </div>
-                  </div>
-
-                  {passkeyError && (
-                    <div className="p-3 rounded-xl bg-rose-950/60 border border-rose-700/60 text-rose-300 text-xs flex items-center gap-2">
-                      <ShieldAlert className="w-4 h-4 shrink-0" />
-                      <span>Access Denied: Incorrect administrative passkey.</span>
-                    </div>
-                  )}
-
-                  <div className="flex items-center justify-end gap-3 pt-2">
-                    <button
-                      type="button"
-                      onClick={() => setAdminModalOpen(false)}
-                      className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white bg-slate-950 border border-slate-800"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      className="px-5 py-2 rounded-xl text-xs font-bold text-slate-950 bg-cyan-400 hover:bg-cyan-300 shadow-md shadow-cyan-500/20 flex items-center gap-1.5"
-                    >
-                      <Unlock className="w-3.5 h-3.5" />
-                      <span>Unlock Vault</span>
-                    </button>
-                  </div>
-                </form>
-              </div>
-            ) : (
-              /* Authenticated Private Inbox View */
-              <div className="flex flex-col h-full overflow-hidden">
-                <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                      <Shield className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                        <span>Jigyasu Vatsa&apos;s Private Feedback Inbox</span>
-                        <span className="text-xs font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/40">
-                          {feedbacks.length} Submissions
-                        </span>
-                      </h3>
-                      <p className="text-xs text-slate-400">
-                        Confidential feedback received from academic visitors and collaborators.
-                      </p>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={handleLogoutAdmin}
-                    className="text-xs text-slate-400 hover:text-white px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 mr-8"
-                  >
-                    Lock Vault
-                  </button>
-                </div>
-
-                {/* Submissions List */}
-                <div className="flex-1 overflow-y-auto py-4 space-y-3 pr-1">
-                  {feedbacks.length === 0 ? (
-                    <div className="py-12 text-center text-slate-500 text-xs">
-                      No feedback submissions recorded yet.
-                    </div>
-                  ) : (
-                    feedbacks.map((item) => (
-                      <div
-                        key={item.id}
-                        className="p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs space-y-2 hover:border-slate-700 transition-colors"
-                      >
-                        <div className="flex items-center justify-between text-slate-400 font-mono text-[11px]">
-                          <span className="text-cyan-400 font-bold">{item.name}</span>
-                          <span>{item.timestamp}</span>
-                        </div>
-                        <div className="text-[11px] text-slate-400">
-                          <span className="text-slate-300 font-semibold">{item.designation}</span> •{' '}
-                          <a href={`mailto:${item.email}`} className="text-cyan-400 hover:underline">
-                            {item.email}
-                          </a>
-                        </div>
-                        <p className="text-slate-200 bg-slate-900/60 p-3 rounded-lg border border-slate-850 whitespace-pre-wrap leading-relaxed">
-                          {item.suggestion}
-                        </p>
-                      </div>
-                    ))
-                  )}
-                </div>
-
-                {/* Footer Controls */}
-                <div className="pt-4 border-t border-slate-800 flex items-center justify-between text-xs">
-                  <button
-                    onClick={handleClearFeedbacks}
-                    className="text-rose-400 hover:text-rose-300 flex items-center gap-1.5 font-medium transition-colors"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                    <span>Clear Inbox</span>
-                  </button>
-
-                  <button
-                    onClick={handleExportFeedbacks}
-                    className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-medium transition-colors flex items-center gap-1.5 border border-slate-700"
-                  >
-                    <Download className="w-4 h-4 text-cyan-400" />
-                    <span>Export JSON File</span>
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
     </footer>
   );
 };

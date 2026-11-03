@@ -197,4 +197,5 @@ export type PageView =
   | 'academics'
   | 'projects'
   | 'interactive'
-  | 'jigsy-india';
+  | 'jigsy-india'
+  | 'admin-vault';
