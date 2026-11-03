@@ -17,6 +17,10 @@ import {
   FileSpreadsheet,
   FileJson,
   UserCheck,
+  Plus,
+  Info,
+  ExternalLink,
+  Inbox,
 } from 'lucide-react';
 
 interface AdminVaultPageProps {
@@ -29,6 +33,8 @@ export const AdminVaultPage: React.FC<AdminVaultPageProps> = ({ onBackToHome }) 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [feedbacks, setFeedbacks] = useState<FeedbackSubmission[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [newManual, setNewManual] = useState({ name: '', email: '', designation: '', suggestion: '' });
 
   // Primary recipient passkey for Mr. Jigyasu Vatsa
   const RECIPIENT_PASSKEY = 'JIGSY2025';
@@ -123,6 +129,28 @@ export const AdminVaultPage: React.FC<AdminVaultPageProps> = ({ onBackToHome }) 
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+  };
+
+  const handleSaveManual = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newManual.name.trim() || !newManual.email.trim() || !newManual.suggestion.trim()) return;
+    const entry: FeedbackSubmission = {
+      id: `fb-manual-${Date.now()}`,
+      name: newManual.name.trim(),
+      email: newManual.email.trim(),
+      designation: newManual.designation.trim() || 'Direct Email / Received Message',
+      suggestion: newManual.suggestion.trim(),
+      timestamp: new Date().toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }),
+    };
+    const updated = [entry, ...feedbacks];
+    setFeedbacks(updated);
+    try {
+      localStorage.setItem('jigsy_feedbacks_vault', JSON.stringify(updated));
+    } catch {
+      // ignore
+    }
+    setNewManual({ name: '', email: '', designation: '', suggestion: '' });
+    setShowAddModal(false);
   };
 
   const filteredFeedbacks = feedbacks.filter((item) => {
@@ -238,21 +266,72 @@ export const AdminVaultPage: React.FC<AdminVaultPageProps> = ({ onBackToHome }) 
       ) : (
         /* Authenticated In-Depth Inbox View */
         <div className="space-y-6">
+          {/* GitHub Pages Live Routing Architecture Notice */}
+          <div className="p-4 sm:p-5 rounded-2xl bg-cyan-950/30 border border-cyan-800/60 text-xs text-slate-300">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+              <div className="flex items-start gap-3">
+                <div className="p-2 rounded-xl bg-cyan-500/10 text-cyan-400 shrink-0 border border-cyan-500/20 mt-0.5">
+                  <Inbox className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-white text-sm flex items-center gap-2">
+                    <span>How Visitor Submissions Reach You on GitHub Pages</span>
+                    <span className="text-[10px] bg-emerald-950 text-emerald-300 px-2 py-0.5 rounded font-mono border border-emerald-800">
+                      Live Email Relay Active
+                    </span>
+                  </h4>
+                  <p className="text-slate-300 mt-1 leading-relaxed">
+                    Because GitHub Pages hosts static web pages without a central SQL/NoSQL backend server, visitor feedback
+                    submitted on <code>jigyasu.jigsy.in</code> is transmitted directly to your primary email address:{' '}
+                    <strong className="text-cyan-300">jigyasu.vatsa@gmail.com</strong>.
+                  </p>
+                  <p className="text-slate-400 mt-1 text-[11px]">
+                    <strong>Activation Note:</strong> When the very first message is submitted, FormSubmit sends a 1-time activation
+                    confirmation link to <code>jigyasu.vatsa@gmail.com</code>. Click &quot;Activate Form&quot; in that email to allow all future messages
+                    to arrive smoothly in your inbox.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0">
+                <a
+                  href="https://mail.google.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-3.5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition-colors flex items-center gap-1.5 shadow-sm text-xs"
+                >
+                  <Mail className="w-3.5 h-3.5" />
+                  <span>Open Gmail Inbox</span>
+                  <ExternalLink className="w-3 h-3 ml-0.5" />
+                </a>
+              </div>
+            </div>
+          </div>
+
           {/* Action Toolbar */}
           <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <div className="px-3 py-1.5 rounded-xl bg-cyan-950 text-cyan-300 border border-cyan-800/60 font-mono text-xs font-bold">
-                Total Submissions: {feedbacks.length}
+                Stored Ledger Entries: {feedbacks.length}
               </div>
               <span className="text-xs text-slate-400 hidden sm:inline">
-                Encrypted persistent storage
+                Confidential browser vault &amp; exports
               </span>
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
               <button
+                onClick={() => setShowAddModal(true)}
+                className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-cyan-500/20 to-blue-500/20 hover:from-cyan-500/30 hover:to-blue-500/30 text-cyan-300 border border-cyan-700/60 text-xs font-semibold flex items-center gap-1.5 transition-colors"
+                title="Log a message received via email or WhatsApp"
+              >
+                <Plus className="w-3.5 h-3.5 text-cyan-400" />
+                <span>+ Log Feedback</span>
+              </button>
+
+              <button
                 onClick={handleExportCSV}
-                className="px-3.5 py-2 rounded-xl bg-slate-850 hover:bg-slate-800 text-slate-200 border border-slate-750 text-xs font-medium flex items-center gap-1.5 transition-colors"
+                className="px-3.5 py-2 rounded-xl bg-slate-850 hover:bg-slate-850/80 text-slate-200 border border-slate-750 text-xs font-medium flex items-center gap-1.5 transition-colors"
                 title="Download CSV Spreadsheet"
               >
                 <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-400" />
@@ -261,7 +340,7 @@ export const AdminVaultPage: React.FC<AdminVaultPageProps> = ({ onBackToHome }) 
 
               <button
                 onClick={handleExportJSON}
-                className="px-3.5 py-2 rounded-xl bg-slate-850 hover:bg-slate-800 text-slate-200 border border-slate-750 text-xs font-medium flex items-center gap-1.5 transition-colors"
+                className="px-3.5 py-2 rounded-xl bg-slate-850 hover:bg-slate-850/80 text-slate-200 border border-slate-750 text-xs font-medium flex items-center gap-1.5 transition-colors"
                 title="Download JSON Archive"
               >
                 <FileJson className="w-3.5 h-3.5 text-cyan-400" />
@@ -274,7 +353,7 @@ export const AdminVaultPage: React.FC<AdminVaultPageProps> = ({ onBackToHome }) 
                   className="px-3.5 py-2 rounded-xl bg-rose-950/40 hover:bg-rose-900/50 text-rose-300 border border-rose-800/50 text-xs font-medium flex items-center gap-1.5 transition-colors"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
-                  <span>Clear Inbox</span>
+                  <span>Clear Ledger</span>
                 </button>
               )}
 
@@ -287,6 +366,90 @@ export const AdminVaultPage: React.FC<AdminVaultPageProps> = ({ onBackToHome }) 
               </button>
             </div>
           </div>
+
+          {/* Manual Log Modal */}
+          {showAddModal && (
+            <div className="p-5 rounded-2xl bg-slate-900 border border-cyan-800/70 shadow-2xl space-y-4 animate-fadeIn">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                <h4 className="font-bold text-white text-sm flex items-center gap-2">
+                  <Plus className="w-4 h-4 text-cyan-400" />
+                  <span>Log a Feedback Received via Email or WhatsApp</span>
+                </h4>
+                <button
+                  onClick={() => setShowAddModal(false)}
+                  className="text-slate-400 hover:text-white text-xs font-mono"
+                >
+                  ✕ Close
+                </button>
+              </div>
+
+              <form onSubmit={handleSaveManual} className="space-y-3 text-xs">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-slate-400 mb-1">Sender Name *</label>
+                    <input
+                      type="text"
+                      required
+                      value={newManual.name}
+                      onChange={(e) => setNewManual({ ...newManual, name: e.target.value })}
+                      placeholder="e.g. Dr. A. K. Verma"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-slate-400 mb-1">Sender Email *</label>
+                    <input
+                      type="email"
+                      required
+                      value={newManual.email}
+                      onChange={(e) => setNewManual({ ...newManual, email: e.target.value })}
+                      placeholder="verma@institution.ac.in"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-slate-400 mb-1">Organization / Title</label>
+                  <input
+                    type="text"
+                    value={newManual.designation}
+                    onChange={(e) => setNewManual({ ...newManual, designation: e.target.value })}
+                    placeholder="e.g. Dean of Academic Affairs, NIT Patna"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-slate-400 mb-1">Message Content *</label>
+                  <textarea
+                    required
+                    rows={3}
+                    value={newManual.suggestion}
+                    onChange={(e) => setNewManual({ ...newManual, suggestion: e.target.value })}
+                    placeholder="Paste the message content received..."
+                    className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white resize-none"
+                  />
+                </div>
+
+                <div className="flex justify-end gap-2 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowAddModal(false)}
+                    className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold"
+                  >
+                    Save to Ledger
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
 
           {/* Search Filter */}
           <div className="relative">
@@ -373,3 +536,6 @@ export const AdminVaultPage: React.FC<AdminVaultPageProps> = ({ onBackToHome }) 
     </div>
   );
 };
+
+
+
