@@ -45,9 +45,9 @@ export const JigsyIndiaSection: React.FC = () => {
       brand: 'JIGSY R&D',
       title: "Jigsy's Research & Development Cell",
       subtitle: 'Foundational Research & Algorithmic Systems',
-      icon: <Cpu className="w-5 h-5 text-cyan-400" />,
+      icon: <Cpu className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />,
       tag: 'Core R&D Cell',
-      badgeColor: 'border-cyan-500/40 bg-cyan-950/60 text-cyan-300',
+      badgeColor: 'border-cyan-500/40 bg-cyan-100 dark:bg-cyan-950/60 text-cyan-900 dark:text-cyan-300',
       description:
         "Jigsy's dedicated R&D cell focused on core scientific discovery, algorithm design, distributed architectures, circular economy resource allocation, and AI-assisted optimization frameworks.",
       capabilities: [
@@ -63,9 +63,9 @@ export const JigsyIndiaSection: React.FC = () => {
       brand: 'JIGSY DigiTech',
       title: 'Digital Media & Content Publishing',
       subtitle: 'Books, Papers, Posters & Multimedia Creation',
-      icon: <Film className="w-5 h-5 text-purple-400" />,
+      icon: <Film className="w-5 h-5 text-purple-600 dark:text-purple-400" />,
       tag: 'Publishing & Media',
-      badgeColor: 'border-purple-500/40 bg-purple-950/60 text-purple-300',
+      badgeColor: 'border-purple-500/40 bg-purple-100 dark:bg-purple-950/60 text-purple-900 dark:text-purple-300',
       description:
         'The specialized publishing and multimedia production arm responsible for authoring and distributing textbooks, research papers, educational reels, scientific posters, institutional branding, and digital media campaigns.',
       capabilities: [
@@ -81,9 +81,9 @@ export const JigsyIndiaSection: React.FC = () => {
       brand: 'JIGSY Consult',
       title: 'Corporate, Legal & Advisory Services',
       subtitle: 'Company Formations, GST, DSC & Academic Admissions',
-      icon: <Briefcase className="w-5 h-5 text-amber-400" />,
+      icon: <Briefcase className="w-5 h-5 text-amber-600 dark:text-amber-400" />,
       tag: 'Corporate & Legal',
-      badgeColor: 'border-amber-500/40 bg-amber-950/60 text-amber-300',
+      badgeColor: 'border-amber-500/40 bg-amber-100 dark:bg-amber-950/60 text-amber-900 dark:text-amber-300',
       description:
         'Comprehensive business incorporation, regulatory taxation, and institutional consulting. Supporting entrepreneurs, educational institutions, and professionals with legal compliance, registrations, and strategic administration.',
       capabilities: [
@@ -101,9 +101,9 @@ export const JigsyIndiaSection: React.FC = () => {
       brand: 'JIGSY Tech',
       title: 'IT Services & Software Engineering',
       subtitle: 'Enterprise Platforms, Portals & Real-Time Messengers',
-      icon: <Code2 className="w-5 h-5 text-emerald-400" />,
+      icon: <Code2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />,
       tag: 'IT & Cloud Services',
-      badgeColor: 'border-emerald-500/40 bg-emerald-950/60 text-emerald-300',
+      badgeColor: 'border-emerald-500/40 bg-emerald-100 dark:bg-emerald-950/60 text-emerald-900 dark:text-emerald-300',
       description:
         'Delivering production-grade bespoke enterprise web applications, real-time collaboration engines, candidate applicant pipelines, and cloud database optimization for institutional and commercial clients.',
       capabilities: [
@@ -119,9 +119,9 @@ export const JigsyIndiaSection: React.FC = () => {
       brand: 'JIGSY Youth',
       title: 'Internships, Mentorship & Industrial Training',
       subtitle: 'Empowering Next-Generation Tech Leaders',
-      icon: <Users className="w-5 h-5 text-blue-400" />,
+      icon: <Users className="w-5 h-5 text-blue-600 dark:text-blue-400" />,
       tag: 'Youth Empowerment',
-      badgeColor: 'border-blue-500/40 bg-blue-950/60 text-blue-300',
+      badgeColor: 'border-blue-500/40 bg-blue-100 dark:bg-blue-950/60 text-blue-900 dark:text-blue-300',
       description:
         'Youth-centric engineering development hub offering practical industrial apprenticeships, student developer internships, and capstone project co-guidance for ambitious undergraduate scholars.',
       capabilities: [
@@ -137,9 +137,9 @@ export const JigsyIndiaSection: React.FC = () => {
       brand: 'JIGSY EduTech',
       title: 'Educational Technology & Courses',
       subtitle: 'Structured Computing & Algorithm Curriculums',
-      icon: <GraduationCap className="w-5 h-5 text-rose-400" />,
+      icon: <GraduationCap className="w-5 h-5 text-rose-600 dark:text-rose-400" />,
       tag: 'Upcoming Sector',
-      badgeColor: 'border-rose-500/40 bg-rose-950/60 text-rose-300',
+      badgeColor: 'border-rose-500/40 bg-rose-100 dark:bg-rose-950/60 text-rose-900 dark:text-rose-300',
       description:
         'The emerging academic learning platform designed to host structured online coursework in Data Structures, Advanced Algorithms, and AI architectures.',
       capabilities: [
@@ -167,7 +167,7 @@ export const JigsyIndiaSection: React.FC = () => {
         </div>
 
         {/* Corporate Header Banner */}
-        <div className="relative rounded-3xl bg-gradient-to-br from-slate-900 via-slate-900/90 to-slate-950 border-2 border-cyan-500/30 p-6 sm:p-10 shadow-2xl overflow-hidden mb-12">
+        <div className="relative rounded-3xl bg-white dark:bg-gradient-to-br dark:from-slate-900 dark:via-slate-900/90 dark:to-slate-950 border-2 border-cyan-500/30 p-6 sm:p-10 shadow-2xl overflow-hidden mb-12">
           {/* Ambient decorative glow */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 left-10 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
@@ -175,44 +175,44 @@ export const JigsyIndiaSection: React.FC = () => {
           <div className="relative z-10 flex flex-col lg:flex-row items-center gap-8 justify-between">
             {/* Left Column: Corporate Brand & Profile */}
             <div className="space-y-4 max-w-2xl text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-cyan-950/70 border border-cyan-800/60 text-cyan-300 text-xs font-mono">
-                <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-cyan-50 dark:bg-cyan-950/70 border border-cyan-200 dark:border-cyan-800/60 text-cyan-800 dark:text-cyan-300 text-xs font-mono font-medium">
+                <Sparkles className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
                 <span>DPIIT Recognised Startup • CIN: U62099BR2025PTC078592</span>
               </div>
 
-              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
+              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
                 Jigyasu Integrated Global Services Private Limited
               </h1>
 
-              <div className="text-base sm:text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-blue-400">
+              <div className="text-base sm:text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 dark:from-cyan-400 dark:via-teal-300 dark:to-blue-400">
                 JIGSY INDIA • Adaptive Innovation &amp; Ethical Technology
               </div>
 
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                Founded and directed by <strong className="text-white">Mr. Jigyasu Vatsa</strong>, JIGSY INDIA operates as a multi-sector technology and advisory enterprise structured across specialized brand divisions: <strong>JIGSY R&amp;D</strong>, <strong>JIGSY DigiTech</strong>, <strong>JIGSY Consult</strong>, <strong>JIGSY Tech</strong>, <strong>JIGSY Youth</strong>, and <strong>JIGSY EduTech</strong>.
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Founded and directed by <strong className="text-slate-900 dark:text-white">Mr. Jigyasu Vatsa</strong>, JIGSY INDIA operates as a multi-sector technology and advisory enterprise structured across specialized brand divisions: <strong>JIGSY R&amp;D</strong>, <strong>JIGSY DigiTech</strong>, <strong>JIGSY Consult</strong>, <strong>JIGSY Tech</strong>, <strong>JIGSY Youth</strong>, and <strong>JIGSY EduTech</strong>.
               </p>
 
               {/* Corporate Registration Numbers Strip */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2 text-xs font-mono">
-                <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800">
-                  <span className="text-[10px] text-slate-400 block uppercase">DPIIT Startup</span>
-                  <span className="text-cyan-300 font-bold text-xs mt-0.5 block">{PERSONAL_INFO.dpiit}</span>
+                <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800">
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block uppercase font-medium">DPIIT Startup</span>
+                  <span className="text-cyan-700 dark:text-cyan-300 font-bold text-xs mt-0.5 block">{PERSONAL_INFO.dpiit}</span>
                 </div>
-                <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800">
-                  <span className="text-[10px] text-slate-400 block uppercase">GSTIN Registration</span>
-                  <span className="text-emerald-300 font-bold text-xs mt-0.5 block">{PERSONAL_INFO.gstin}</span>
+                <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800">
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block uppercase font-medium">GSTIN Registration</span>
+                  <span className="text-emerald-700 dark:text-emerald-300 font-bold text-xs mt-0.5 block">{PERSONAL_INFO.gstin}</span>
                 </div>
-                <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800">
-                  <span className="text-[10px] text-slate-400 block uppercase">MSME Udyam</span>
-                  <span className="text-amber-300 font-bold text-xs mt-0.5 block">UDYAM-BR-34-0051280</span>
+                <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800">
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block uppercase font-medium">MSME Udyam</span>
+                  <span className="text-amber-700 dark:text-amber-300 font-bold text-xs mt-0.5 block">UDYAM-BR-34-0051280</span>
                 </div>
-                <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800">
-                  <span className="text-[10px] text-slate-400 block uppercase">Official Portal</span>
+                <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800">
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block uppercase font-medium">Official Portal</span>
                   <a
                     href="https://jigsy.in"
                     target="_blank"
                     rel="noreferrer"
-                    className="text-cyan-400 font-bold text-xs mt-0.5 hover:underline flex items-center gap-1"
+                    className="text-cyan-600 dark:text-cyan-400 font-bold text-xs mt-0.5 hover:underline flex items-center gap-1"
                   >
                     <span>jigsy.in</span>
                     <ExternalLink className="w-3 h-3" />

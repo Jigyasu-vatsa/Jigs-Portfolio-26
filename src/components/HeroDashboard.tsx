@@ -288,32 +288,32 @@ export const HeroDashboard: React.FC<HeroDashboardProps> = ({
         </div>
 
         {/* What's Uniqueness in Jigyasu Vatsa: Synthesized R&D, Enterprise & Academics */}
-        <div className="mt-8 p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-slate-900/90 via-cyan-950/30 to-slate-900/90 border border-cyan-800/40 shadow-xl">
+        <div className="mt-8 p-5 sm:p-6 rounded-2xl bg-white dark:bg-gradient-to-r dark:from-slate-900/90 dark:via-cyan-950/30 dark:to-slate-900/90 border border-slate-200 dark:border-cyan-800/40 shadow-xl">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div className="space-y-2">
-              <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-cyan-400">
-                <Sparkles className="w-4 h-4 text-cyan-400" />
+              <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-cyan-600 dark:text-cyan-400 font-semibold">
+                <Sparkles className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
                 <span>Executive Architectural Synthesis</span>
               </div>
-              <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight">
+              <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight">
                 What&apos;s Uniqueness in Jigyasu Vatsa: Synthesizing R&amp;D, Enterprise Systems &amp; Academic Pedagogy
               </h2>
-              <p className="text-xs sm:text-sm text-slate-300 max-w-4xl leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-4xl leading-relaxed">
                 A rare, multidimensional synergy across four core pillars: <strong>Dual Masters</strong> (Regular M.Tech CSE @ Sandip University + Distance MBA @ IGNOU under UGC dual-degree guidelines), <strong>DPIIT Recognised Startup Founder</strong> (JIGSY INDIA), <strong>Academic Leadership</strong> (Assistant Examination Coordinator @ SOCSE, FDP Coordinator, Training Placement Committee Member), and <strong>Production Systems Engineering</strong> (IRCTC DMRC QR Ticketing Integration, Amazon Published Author).
               </p>
             </div>
 
             <div className="shrink-0 flex flex-wrap lg:flex-col gap-2 font-mono text-xs">
-              <div className="px-3 py-1.5 rounded-lg bg-cyan-950/80 border border-cyan-700/60 text-cyan-300 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+              <div className="px-3 py-1.5 rounded-lg bg-cyan-50 dark:bg-cyan-950/80 border border-cyan-200 dark:border-cyan-700/60 text-cyan-800 dark:text-cyan-300 flex items-center gap-2 font-medium">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-600 dark:bg-cyan-400" />
                 <span>UGC-NET Qualified (Ph.D.)</span>
               </div>
-              <div className="px-3 py-1.5 rounded-lg bg-emerald-950/80 border border-emerald-700/60 text-emerald-300 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              <div className="px-3 py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-200 dark:border-emerald-700/60 text-emerald-800 dark:text-emerald-300 flex items-center gap-2 font-medium">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400" />
                 <span>Bihar STET Qualified</span>
               </div>
-              <div className="px-3 py-1.5 rounded-lg bg-purple-950/80 border border-purple-700/60 text-purple-300 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
+              <div className="px-3 py-1.5 rounded-lg bg-purple-50 dark:bg-purple-950/80 border border-purple-200 dark:border-purple-700/60 text-purple-800 dark:text-purple-300 flex items-center gap-2 font-medium">
+                <span className="w-1.5 h-1.5 rounded-full bg-purple-600 dark:bg-purple-400" />
                 <span>DPIIT: DIPP228528</span>
               </div>
             </div>

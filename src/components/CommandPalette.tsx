@@ -83,29 +83,29 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       onClick={onClose}
     >
       <div
-        className="w-full max-w-2xl bg-slate-900 border border-slate-750 rounded-2xl shadow-2xl overflow-hidden text-slate-100"
+        className="w-full max-w-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-750 rounded-2xl shadow-2xl overflow-hidden text-slate-800 dark:text-slate-100"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search Input Bar */}
-        <div className="relative flex items-center px-4 border-b border-slate-800">
-          <Search className="w-5 h-5 text-cyan-400 mr-3 shrink-0" />
+        <div className="relative flex items-center px-4 border-b border-slate-200 dark:border-slate-800">
+          <Search className="w-5 h-5 text-cyan-600 dark:text-cyan-400 mr-3 shrink-0" />
           <input
             type="text"
             autoFocus
             placeholder="Search research papers, conferences, projects, skills..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full py-4 bg-transparent text-sm text-white placeholder:text-slate-500 focus:outline-none"
+            className="w-full py-4 bg-transparent text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none"
           />
           {query && (
             <button
               onClick={() => setQuery('')}
-              className="p-1 text-slate-500 hover:text-white"
+              className="p-1 text-slate-400 hover:text-slate-900 dark:text-slate-500 dark:hover:text-white"
             >
               <X className="w-4 h-4" />
             </button>
           )}
-          <kbd className="hidden sm:inline-block text-[10px] font-mono text-slate-500 bg-slate-950 px-2 py-0.5 rounded border border-slate-800 ml-2">
+          <kbd className="hidden sm:inline-block text-[10px] font-mono text-slate-500 bg-slate-100 dark:bg-slate-950 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 ml-2">
             ESC
           </kbd>
         </div>
@@ -129,7 +129,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                     key={item.href}
                     href={item.href}
                     onClick={onClose}
-                    className="p-2 rounded-lg bg-slate-950/60 hover:bg-slate-800 text-slate-300 hover:text-cyan-400 transition-colors text-center font-medium block"
+                    className="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-cyan-700 border border-slate-200 dark:bg-slate-950/60 dark:hover:bg-slate-800 dark:text-slate-300 dark:hover:text-cyan-400 dark:border-transparent transition-colors text-center font-medium block"
                   >
                     {item.label}
                   </a>

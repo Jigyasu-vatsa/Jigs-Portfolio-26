@@ -344,24 +344,24 @@ export const VisualAnalytics: React.FC<VisualAnalyticsProps> = ({
 
           {/* Right Column: Key Infrastructure & Engineering Telemetry */}
           <div className="lg:col-span-4 flex flex-col justify-between gap-4">
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900/90 to-slate-950 border border-slate-800 shadow-xl">
-              <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-cyan-400 mb-3">
-                <Cpu className="w-4 h-4" />
+            <div className="p-6 rounded-2xl bg-white dark:bg-gradient-to-br dark:from-slate-900 dark:via-slate-900/90 dark:to-slate-950 border border-slate-200 dark:border-slate-800 shadow-xl">
+              <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-cyan-600 dark:text-cyan-400 mb-3 font-semibold">
+                <Cpu className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
                 <span>Engineering Telemetry</span>
               </div>
-              <h3 className="text-base font-bold text-white mb-4">
+              <h3 className="text-base font-bold text-slate-900 dark:text-white mb-4">
                 Production-Grade System Metrics
               </h3>
 
               <div className="space-y-3 text-xs font-mono">
                 {/* IRCTC and DMRC Integration */}
-                <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800">
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-400 flex items-center gap-1.5">
-                      <Database className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                    <span className="text-slate-700 dark:text-slate-400 flex items-center gap-1.5 font-medium">
+                      <Database className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 shrink-0" />
                       <span>IRCTC &amp; DMRC QR Systems</span>
                     </span>
-                    <span className="font-bold text-cyan-300 text-[11px]">IRCTC and DMRC Integration - testing</span>
+                    <span className="font-bold text-cyan-700 dark:text-cyan-300 text-[11px]">IRCTC and DMRC Integration - testing</span>
                   </div>
                   <p className="text-[10px] text-slate-500 font-sans mt-1">
                     Integration, regression, and functional test validation across passenger ticketing workflows.
@@ -369,40 +369,40 @@ export const VisualAnalytics: React.FC<VisualAnalyticsProps> = ({
                 </div>
 
                 {/* Student Coached: DAA */}
-                <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/60 border border-slate-800">
-                  <span className="text-slate-400 flex items-center gap-1.5">
-                    <Activity className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800">
+                  <span className="text-slate-700 dark:text-slate-400 flex items-center gap-1.5 font-medium">
+                    <Activity className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 shrink-0" />
                     <span>Students Coached in DAA</span>
                   </span>
-                  <span className="font-bold text-cyan-300 tabular-nums">180+ Students</span>
+                  <span className="font-bold text-cyan-700 dark:text-cyan-300 tabular-nums">180+ Students</span>
                 </div>
 
                 {/* Student Coached: DSA */}
-                <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/60 border border-slate-800">
-                  <span className="text-slate-400 flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800">
+                  <span className="text-slate-700 dark:text-slate-400 flex items-center gap-1.5 font-medium">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                     <span>Students Coached in DSA</span>
                   </span>
-                  <span className="font-bold text-emerald-300 tabular-nums">120+ Students</span>
+                  <span className="font-bold text-emerald-700 dark:text-emerald-300 tabular-nums">120+ Students</span>
                 </div>
 
                 {/* Student Coached: Advance Technology */}
-                <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/60 border border-slate-800">
-                  <span className="text-slate-400 flex items-center gap-1.5">
-                    <Cpu className="w-3.5 h-3.5 text-purple-400 shrink-0" />
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800">
+                  <span className="text-slate-700 dark:text-slate-400 flex items-center gap-1.5 font-medium">
+                    <Cpu className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400 shrink-0" />
                     <span>Students in Advance Tech</span>
                   </span>
-                  <span className="font-bold text-purple-300 tabular-nums">80+ Students</span>
+                  <span className="font-bold text-purple-700 dark:text-purple-300 tabular-nums">80+ Students</span>
                 </div>
 
                 {/* Capstone Co-Guide / Mentor */}
-                <div className="p-2.5 rounded-xl bg-slate-950/60 border border-slate-800">
+                <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800">
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-400 flex items-center gap-1.5">
-                      <Layers className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                    <span className="text-slate-700 dark:text-slate-400 flex items-center gap-1.5 font-medium">
+                      <Layers className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
                       <span>B.Tech Project Co-Guide</span>
                     </span>
-                    <span className="font-bold text-amber-300 tabular-nums">4 Students</span>
+                    <span className="font-bold text-amber-700 dark:text-amber-300 tabular-nums">4 Students</span>
                   </div>
                   <p className="text-[10px] text-slate-500 font-sans mt-0.5">
                     Mentored undergraduate capstone major project &amp; industrial training cohorts.
@@ -410,9 +410,9 @@ export const VisualAnalytics: React.FC<VisualAnalyticsProps> = ({
                 </div>
 
                 {/* Query latency optimization */}
-                <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/60 border border-slate-800">
-                  <span className="text-slate-400">Query Latency Optimization</span>
-                  <span className="font-bold text-emerald-400 tabular-nums">-34% (Nabeng)</span>
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800">
+                  <span className="text-slate-700 dark:text-slate-400 font-medium">Query Latency Optimization</span>
+                  <span className="font-bold text-emerald-700 dark:text-emerald-400 tabular-nums">-34% (Nabeng)</span>
                 </div>
               </div>
             </div>

@@ -246,7 +246,7 @@ export const InteractivePlayground: React.FC = () => {
 
               {/* Interactive Publication Card Stage */}
               <div
-                className={`p-6 rounded-2xl bg-gradient-to-br ${currentPub.color} text-white shadow-2xl transition-all duration-300 relative overflow-hidden flex flex-col justify-between min-h-[260px]`}
+                className={`preserve-card-text p-6 rounded-2xl bg-gradient-to-br ${currentPub.color} text-white shadow-2xl transition-all duration-300 relative overflow-hidden flex flex-col justify-between min-h-[260px]`}
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-2">
@@ -431,21 +431,23 @@ export const InteractivePlayground: React.FC = () => {
                   key={step.id}
                   className={`p-3.5 rounded-xl border transition-all flex items-center justify-between ${
                     isSolved
-                      ? 'bg-emerald-950/40 border-emerald-500/60 text-emerald-200'
-                      : 'bg-slate-950 border-slate-800 text-slate-200 hover:border-slate-700'
+                      ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-500/60 text-emerald-900 dark:text-emerald-200'
+                      : 'bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-700'
                   }`}
                 >
                   <div className="flex items-start gap-3">
                     <span
                       className={`w-6 h-6 rounded-lg flex items-center justify-center font-mono font-bold text-xs shrink-0 ${
-                        isSolved ? 'bg-emerald-500 text-slate-950' : 'bg-slate-800 text-cyan-400'
+                        isSolved
+                          ? 'bg-emerald-500 text-slate-950'
+                          : 'bg-cyan-100 dark:bg-slate-800 text-cyan-800 dark:text-cyan-400 font-semibold'
                       }`}
                     >
                       {idx + 1}
                     </span>
                     <div>
                       <div className="font-bold">{step.label}</div>
-                      <div className="text-[11px] text-slate-400 mt-0.5">{step.desc}</div>
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{step.desc}</div>
                     </div>
                   </div>
 
@@ -454,7 +456,7 @@ export const InteractivePlayground: React.FC = () => {
                       <button
                         onClick={() => moveStep(idx, 'up')}
                         disabled={idx === 0}
-                        className="px-2 py-0.5 text-[10px] bg-slate-850 hover:bg-slate-700 disabled:opacity-30 rounded text-slate-300 font-bold"
+                        className="px-2 py-0.5 text-[10px] bg-slate-100 hover:bg-slate-200 dark:bg-slate-850 dark:hover:bg-slate-700 disabled:opacity-30 rounded text-slate-700 dark:text-slate-300 font-bold border border-slate-200 dark:border-transparent"
                         title="Move Up"
                       >
                         ▲
@@ -462,7 +464,7 @@ export const InteractivePlayground: React.FC = () => {
                       <button
                         onClick={() => moveStep(idx, 'down')}
                         disabled={idx === userSequence.length - 1}
-                        className="px-2 py-0.5 text-[10px] bg-slate-850 hover:bg-slate-700 disabled:opacity-30 rounded text-slate-300 font-bold"
+                        className="px-2 py-0.5 text-[10px] bg-slate-100 hover:bg-slate-200 dark:bg-slate-850 dark:hover:bg-slate-700 disabled:opacity-30 rounded text-slate-700 dark:text-slate-300 font-bold border border-slate-200 dark:border-transparent"
                         title="Move Down"
                       >
                         ▼
@@ -475,11 +477,11 @@ export const InteractivePlayground: React.FC = () => {
 
             {/* Solved Banner */}
             {isSolved ? (
-              <div className="mt-4 p-4 rounded-xl bg-emerald-950/70 border border-emerald-500 text-xs text-emerald-300 flex items-start gap-3 animate-fadeIn">
-                <Trophy className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+              <div className="mt-4 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/70 border border-emerald-300 dark:border-emerald-500 text-xs text-emerald-900 dark:text-emerald-300 flex items-start gap-3 animate-fadeIn">
+                <Trophy className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                 <div>
-                  <h5 className="font-bold text-white text-sm">Pipeline Assembled Successfully!</h5>
-                  <p className="mt-1 text-slate-300 leading-relaxed">
+                  <h5 className="font-bold text-slate-900 dark:text-white text-sm">Pipeline Assembled Successfully!</h5>
+                  <p className="mt-1 text-slate-700 dark:text-slate-300 leading-relaxed">
                     You have unlocked the core logic behind the <strong>Springer Nature ICIPAI-2026</strong> publication.
                     Priority coefficient <em>λ = (100 / (t + 1)) × (1 + δ)</em> ensures food with highest spoilage risk
                     is prioritized first for immediate civil delivery.
@@ -487,9 +489,9 @@ export const InteractivePlayground: React.FC = () => {
                 </div>
               </div>
             ) : (
-              <div className="mt-4 p-3 rounded-xl bg-slate-950/60 border border-slate-800 text-[11px] text-slate-400 flex items-center justify-between">
+              <div className="mt-4 p-3 rounded-xl bg-slate-100 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-400 flex items-center justify-between font-medium">
                 <span>Use the arrows to place step 01 to 04 in order</span>
-                <span className="font-mono text-cyan-400">Step 1 of 4</span>
+                <span className="font-mono text-cyan-700 dark:text-cyan-400 font-bold">Step 1 of 4</span>
               </div>
             )}
           </div>
