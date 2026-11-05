@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { Play, Pause, Compass, Sparkles, Trophy, Gamepad2, Volume2, VolumeX, Eye, RotateCcw } from 'lucide-react';
+import { Play, Pause, Compass, Sparkles, Trophy, Gamepad2, Volume2, VolumeX, Eye, EyeOff, X, RotateCcw } from 'lucide-react';
 
 interface Point {
   x: number;
@@ -41,6 +41,7 @@ export const CyberSnakeBackground: React.FC = () => {
   const [score, setScore] = useState(0);
   const [frogsCaught, setFrogsCaught] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isCardHidden, setIsCardHidden] = useState(false);
 
   // References for game loop state without recreating event listeners
   const gameStateRef = useRef({
@@ -55,18 +56,33 @@ export const CyberSnakeBackground: React.FC = () => {
     gameStateRef.current.playMode = playMode;
   }, [playMode]);
 
-  // Handle keyboard arrow and WASD keys when manual play is active
+  const handleResetGame = useCallback(() => {
+    setScore(0);
+    setFrogsCaught(0);
+    gameStateRef.current.score = 0;
+    gameStateRef.current.frogsCaught = 0;
+  }, []);
+
+  // Handle keyboard arrow, WASD, and Escape keys when manual play is active
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && gameStateRef.current.playMode === 'manual') {
+        setPlayMode('auto');
+        return;
+      }
       if (gameStateRef.current.playMode !== 'manual') return;
       const key = e.key.toLowerCase();
       if (key === 'arrowup' || key === 'w') {
+        e.preventDefault();
         gameStateRef.current.manualDirection = { x: 0, y: -1 };
       } else if (key === 'arrowdown' || key === 's') {
+        e.preventDefault();
         gameStateRef.current.manualDirection = { x: 0, y: 1 };
       } else if (key === 'arrowleft' || key === 'a') {
+        e.preventDefault();
         gameStateRef.current.manualDirection = { x: -1, y: 0 };
       } else if (key === 'arrowright' || key === 'd') {
+        e.preventDefault();
         gameStateRef.current.manualDirection = { x: 1, y: 0 };
       }
     };
@@ -469,131 +485,255 @@ export const CyberSnakeBackground: React.FC = () => {
   }, [enabled]);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-      {/* Universe Canvas */}
-      {enabled && <canvas ref={canvasRef} className="w-full h-full opacity-85" />}
+    <>
+      {/* Universe Canvas Layer: In Manual Play, elevated to z-40 with top-layer visibility so snake & frog are 100% visible */}
+      <div
+        className={`fixed inset-0 overflow-hidden transition-all duration-300 ${
+          playMode === 'manual'
+            ? 'z-40 pointer-events-auto bg-slate-950/85 backdrop-blur-[2px]'
+            : 'z-0 pointer-events-none'
+        }`}
+      >
+        {enabled && (
+          <canvas
+            ref={canvasRef}
+            className={`w-full h-full transition-opacity duration-300 ${
+              playMode === 'manual' ? 'opacity-100' : 'opacity-85'
+            }`}
+          />
+        )}
+      </div>
 
-      {/* Interactive Cyber-Snake & Frog Universe Control Dock (Bottom-Left) */}
-      <div className="pointer-events-auto fixed bottom-5 left-5 z-30">
-        <div className="p-3 rounded-2xl bg-slate-950/90 border border-cyan-500/30 backdrop-blur-xl shadow-2xl shadow-cyan-500/10 text-xs text-slate-200 transition-all max-w-sm">
-          {/* Main Top Status Bar */}
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <span className="relative flex h-3 w-3">
+      {/* Top Arcade HUD when Manual Play is Active (z-50) */}
+      {playMode === 'manual' && (
+        <aside
+          aria-label="Cyber-Snake Manual Arcade HUD"
+          className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[94%] max-w-2xl animate-fadeIn"
+        >
+          <div className="p-3 sm:px-5 sm:py-3.5 rounded-2xl bg-slate-950/95 border border-emerald-500/60 shadow-2xl shadow-emerald-500/25 backdrop-blur-xl flex flex-col sm:flex-row items-center justify-between gap-3 text-slate-100">
+            <div className="flex items-center gap-3 w-full sm:w-auto">
+              <span className="relative flex h-3.5 w-3.5 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500" />
+                <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500" />
               </span>
               <div>
-                <span className="font-bold text-white font-mono text-[11px] block leading-tight">
-                  Cyber-Snake & Frog Universe
-                </span>
-                <span className="text-[10px] text-cyan-400 font-mono">
-                  {playMode === 'auto' ? 'AI Autonomous Hunt' : 'Manual Arcade Mode'}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs sm:text-sm font-bold font-mono text-white tracking-wide">
+                    Cyber-Snake Arcade
+                  </span>
+                  <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold border border-emerald-500/40">
+                    TOP VIEW ACTIVE
+                  </span>
+                </div>
+                <p className="text-[10px] text-slate-400 font-mono">
+                  Steer the cyber snake to catch quantum frogs &bull; Arrow Keys / WASD
+                </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-mono">
+                <span className="text-slate-400">Score:</span>
+                <span className="text-cyan-400 font-bold">{score}</span>
+                <span className="text-slate-600">|</span>
+                <span className="text-emerald-400 font-bold">{frogsCaught} frogs</span>
+              </div>
+
               <button
-                onClick={() => setIsExpanded(!isExpanded)}
-                className="px-2 py-1 text-[10px] font-mono rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 transition-colors"
-                title="Expand interactive controls"
+                type="button"
+                onClick={handleResetGame}
+                className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 transition-colors"
+                title="Reset Game Score"
               >
-                {isExpanded ? 'Collapse' : 'Play / Stats'}
+                <RotateCcw className="w-3.5 h-3.5" />
               </button>
 
               <button
-                onClick={() => setEnabled(!enabled)}
-                className="p-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors"
-                title={enabled ? 'Turn animation off' : 'Turn animation on'}
+                type="button"
+                onClick={() => setPlayMode('auto')}
+                className="px-3 py-2 text-xs font-mono font-bold rounded-xl bg-gradient-to-r from-rose-500 to-amber-500 hover:from-rose-400 hover:to-amber-400 text-slate-950 transition-all flex items-center gap-1.5 shadow-md shadow-rose-500/20 whitespace-nowrap"
+                title="Return to background AI Auto-Hunt (Esc)"
               >
-                {enabled ? <Eye className="w-3.5 h-3.5 text-cyan-400" /> : <Eye className="w-3.5 h-3.5 text-slate-500" />}
+                <X className="w-3.5 h-3.5" />
+                <span>Exit Arcade</span>
               </button>
             </div>
           </div>
+        </aside>
+      )}
 
-          {/* Expanded Interactive Control Tray */}
-          {isExpanded && (
-            <div className="mt-3 pt-3 border-t border-slate-800/80 space-y-3 animate-fadeIn">
-              {/* Score and Stats Badges */}
-              <div className="grid grid-cols-2 gap-2 text-[11px] font-mono">
-                <div className="p-2 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
-                  <span className="text-slate-400">Score:</span>
-                  <span className="text-cyan-400 font-bold">{score}</span>
-                </div>
-                <div className="p-2 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
-                  <span className="text-slate-400">Frogs Caught:</span>
-                  <span className="text-emerald-400 font-bold">{frogsCaught}</span>
-                </div>
-              </div>
-
-              {/* Mode Toggle Buttons */}
+      {/* Interactive Cyber-Snake & Frog Universe Control Dock (Independent z-50, 100% Clickable) */}
+      {isCardHidden && playMode === 'auto' ? (
+        /* Minimized Floating Trigger Pill when card is hidden */
+        <button
+          type="button"
+          onClick={() => setIsCardHidden(false)}
+          className="fixed bottom-5 right-5 sm:bottom-6 sm:right-24 z-50 cursor-pointer pointer-events-auto px-3.5 py-2 rounded-2xl bg-slate-900/95 hover:bg-slate-850 border border-emerald-500/50 text-emerald-400 hover:text-white text-xs font-mono shadow-2xl backdrop-blur-xl flex items-center gap-2 transition-all hover:scale-105 active:scale-95"
+          title="Show Cyber-Snake Play / Stats Card"
+        >
+          <Gamepad2 className="w-4 h-4 text-emerald-400 animate-pulse" />
+          <span className="font-bold">Snake: {score} pts</span>
+          <span className="text-[10px] text-cyan-400 underline ml-0.5">Open Card</span>
+        </button>
+      ) : (
+        <div className="fixed bottom-5 right-5 sm:bottom-6 sm:right-24 z-50 pointer-events-auto">
+          <div className="p-3 sm:p-3.5 rounded-2xl bg-slate-950/95 border border-cyan-500/40 backdrop-blur-2xl shadow-2xl shadow-cyan-500/20 text-xs text-slate-200 transition-all max-w-sm">
+            {/* Main Top Status Bar */}
+            <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setPlayMode('auto')}
-                  className={`flex-1 py-1.5 px-2 text-[11px] font-medium rounded-lg transition-colors flex items-center justify-center gap-1.5 ${
-                    playMode === 'auto'
-                      ? 'bg-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-500/20'
-                      : 'bg-slate-900 text-slate-300 hover:bg-slate-800'
-                  }`}
-                >
-                  <Compass className="w-3.5 h-3.5" />
-                  <span>AI Auto-Hunt</span>
-                </button>
-
-                <button
-                  onClick={() => setPlayMode('manual')}
-                  className={`flex-1 py-1.5 px-2 text-[11px] font-medium rounded-lg transition-colors flex items-center justify-center gap-1.5 ${
-                    playMode === 'manual'
-                      ? 'bg-emerald-500 text-slate-950 font-bold shadow-md shadow-emerald-500/20'
-                      : 'bg-slate-900 text-slate-300 hover:bg-slate-800'
-                  }`}
-                >
-                  <Gamepad2 className="w-3.5 h-3.5" />
-                  <span>Manual Play</span>
-                </button>
+                <span className="relative flex h-3 w-3 shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500" />
+                </span>
+                <div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-bold text-white font-mono text-[11px] block leading-tight">
+                      Cyber-Snake
+                    </span>
+                    <span className="px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-300 font-mono text-[10px] font-bold">
+                      {score} pts
+                    </span>
+                  </div>
+                  <span className="text-[10px] text-cyan-400 font-mono">
+                    {playMode === 'auto' ? 'AI Auto-Hunt' : 'Manual Arcade'}
+                  </span>
+                </div>
               </div>
 
-              {/* On-screen D-Pad for manual mode */}
-              {playMode === 'manual' && (
-                <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800">
-                  <div className="text-[10px] font-mono text-slate-400 mb-2 text-center">
-                    Use Arrow Keys, WASD, or Click D-Pad:
+              <div className="flex items-center gap-1.5">
+                {/* Play / Stats Toggle */}
+                <button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className={`px-2.5 py-1 text-[10px] font-mono rounded-lg transition-colors flex items-center gap-1 font-semibold ${
+                    isExpanded
+                      ? 'bg-cyan-500 text-slate-950 shadow-sm'
+                      : 'bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700'
+                  }`}
+                  title={isExpanded ? 'Collapse card stats' : 'Expand score stats & game controls'}
+                >
+                  <Gamepad2 className="w-3 h-3" />
+                  <span>{isExpanded ? 'Collapse' : 'Play / Stats'}</span>
+                </button>
+
+                {/* Canvas Animation Toggle */}
+                <button
+                  onClick={() => setEnabled(!enabled)}
+                  className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors"
+                  title={enabled ? 'Turn snake canvas off' : 'Turn snake canvas on'}
+                >
+                  {enabled ? <Eye className="w-3.5 h-3.5 text-cyan-400" /> : <EyeOff className="w-3.5 h-3.5 text-slate-500" />}
+                </button>
+
+                {/* Hide Card Completely */}
+                <button
+                  onClick={() => setIsCardHidden(true)}
+                  className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-rose-400 transition-colors"
+                  title="Hide this card"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Expanded Interactive Control Tray */}
+            {isExpanded && (
+              <div className="mt-3 pt-3 border-t border-slate-800/80 space-y-3 animate-fadeIn">
+                {/* Score and Stats Badges */}
+                <div className="grid grid-cols-2 gap-2 text-[11px] font-mono">
+                  <div className="p-2 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+                    <span className="text-slate-400">Score:</span>
+                    <span className="text-cyan-400 font-bold">{score} pts</span>
                   </div>
-                  <div className="flex flex-col items-center gap-1">
-                    <button
-                      onClick={() => handleManualDirection(0, -1)}
-                      className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 font-bold text-xs flex items-center justify-center border border-slate-700 transition-colors"
-                    >
-                      ▲
-                    </button>
-                    <div className="flex items-center gap-1">
+                  <div className="p-2 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+                    <span className="text-slate-400">Frogs Caught:</span>
+                    <span className="text-emerald-400 font-bold">{frogsCaught}</span>
+                  </div>
+                </div>
+
+                {/* Mode Toggle Buttons: AI Auto vs Manual Play */}
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setPlayMode('auto')}
+                    className={`flex-1 py-1.5 px-2 text-[11px] font-medium rounded-lg transition-colors flex items-center justify-center gap-1.5 ${
+                      playMode === 'auto'
+                        ? 'bg-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-500/20'
+                        : 'bg-slate-900 text-slate-300 hover:bg-slate-800'
+                    }`}
+                  >
+                    <Compass className="w-3.5 h-3.5" />
+                    <span>AI Auto-Hunt</span>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      setPlayMode('manual');
+                      setIsExpanded(true);
+                      setIsCardHidden(false);
+                    }}
+                    className={`flex-1 py-1.5 px-2 text-[11px] font-medium rounded-lg transition-colors flex items-center justify-center gap-1.5 ${
+                      playMode === 'manual'
+                        ? 'bg-emerald-500 text-slate-950 font-bold shadow-md shadow-emerald-500/20'
+                        : 'bg-slate-900 text-slate-300 hover:bg-slate-800'
+                    }`}
+                  >
+                    <Gamepad2 className="w-3.5 h-3.5" />
+                    <span>Manual Play</span>
+                  </button>
+                </div>
+
+                {/* On-screen D-Pad for manual mode */}
+                {playMode === 'manual' && (
+                  <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800">
+                    <div className="text-[10px] font-mono text-slate-400 mb-2 text-center">
+                      Use Arrow Keys, WASD, or Click D-Pad:
+                    </div>
+                    <div className="flex flex-col items-center gap-1">
                       <button
-                        onClick={() => handleManualDirection(-1, 0)}
+                        onClick={() => handleManualDirection(0, -1)}
                         className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 font-bold text-xs flex items-center justify-center border border-slate-700 transition-colors"
                       >
-                        ◀
+                        ▲
                       </button>
-                      <button
-                        onClick={() => handleManualDirection(0, 1)}
-                        className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 font-bold text-xs flex items-center justify-center border border-slate-700 transition-colors"
-                      >
-                        ▼
-                      </button>
-                      <button
-                        onClick={() => handleManualDirection(1, 0)}
-                        className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 font-bold text-xs flex items-center justify-center border border-slate-700 transition-colors"
-                      >
-                        ▶
-                      </button>
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={() => handleManualDirection(-1, 0)}
+                          className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 font-bold text-xs flex items-center justify-center border border-slate-700 transition-colors"
+                        >
+                          ◀
+                        </button>
+                        <button
+                          onClick={() => handleManualDirection(0, 1)}
+                          className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 font-bold text-xs flex items-center justify-center border border-slate-700 transition-colors"
+                        >
+                          ▼
+                        </button>
+                        <button
+                          onClick={() => handleManualDirection(1, 0)}
+                          className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 font-bold text-xs flex items-center justify-center border border-slate-700 transition-colors"
+                        >
+                          ▶
+                        </button>
+                      </div>
                     </div>
                   </div>
+                )}
+
+                {/* Quick hide card action */}
+                <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 pt-1 border-t border-slate-800/60">
+                  <span>Arrow keys &amp; WASD supported</span>
+                  <button
+                    onClick={() => setIsCardHidden(true)}
+                    className="text-cyan-400 hover:underline flex items-center gap-0.5"
+                  >
+                    <span>Hide Card</span>
+                    <X className="w-3 h-3" />
+                  </button>
                 </div>
-              )}
-            </div>
-          )}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };

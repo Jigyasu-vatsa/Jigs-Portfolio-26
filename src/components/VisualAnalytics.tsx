@@ -353,24 +353,26 @@ export const VisualAnalytics: React.FC<VisualAnalyticsProps> = ({
                 Production-Grade System Metrics
               </h3>
 
-              <div className="space-y-3 text-xs font-mono">
-                {/* IRCTC and DMRC Integration */}
-                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800">
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-700 dark:text-slate-400 flex items-center gap-1.5 font-medium">
+              <div className="space-y-2.5 text-xs font-mono">
+                {/* IRCTC & DMRC Integration */}
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 transition-all hover:border-cyan-500/30">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-slate-800 dark:text-slate-300 flex items-center gap-1.5 font-medium">
                       <Database className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 shrink-0" />
-                      <span>IRCTC &amp; DMRC QR Systems</span>
+                      <span className="font-semibold">IRCTC &amp; DMRC</span>
                     </span>
-                    <span className="font-bold text-cyan-700 dark:text-cyan-300 text-[11px]">IRCTC and DMRC Integration - testing</span>
+                    <span className="font-bold text-cyan-700 dark:text-cyan-300 text-[11px] px-2 py-0.5 rounded-md bg-cyan-50 dark:bg-cyan-950/60 border border-cyan-200 dark:border-cyan-800/60 whitespace-nowrap">
+                      Integration Testing
+                    </span>
                   </div>
-                  <p className="text-[10px] text-slate-500 font-sans mt-1">
+                  <p className="text-[10.5px] text-slate-500 dark:text-slate-400 font-sans mt-1.5 leading-relaxed">
                     Integration, regression, and functional test validation across passenger ticketing workflows.
                   </p>
                 </div>
 
                 {/* Student Coached: DAA */}
                 <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800">
-                  <span className="text-slate-700 dark:text-slate-400 flex items-center gap-1.5 font-medium">
+                  <span className="text-slate-800 dark:text-slate-300 flex items-center gap-1.5 font-medium">
                     <Activity className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 shrink-0" />
                     <span>Students Coached in DAA</span>
                   </span>
@@ -379,7 +381,7 @@ export const VisualAnalytics: React.FC<VisualAnalyticsProps> = ({
 
                 {/* Student Coached: DSA */}
                 <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800">
-                  <span className="text-slate-700 dark:text-slate-400 flex items-center gap-1.5 font-medium">
+                  <span className="text-slate-800 dark:text-slate-300 flex items-center gap-1.5 font-medium">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                     <span>Students Coached in DSA</span>
                   </span>
@@ -388,31 +390,33 @@ export const VisualAnalytics: React.FC<VisualAnalyticsProps> = ({
 
                 {/* Student Coached: Advance Technology */}
                 <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800">
-                  <span className="text-slate-700 dark:text-slate-400 flex items-center gap-1.5 font-medium">
+                  <span className="text-slate-800 dark:text-slate-300 flex items-center gap-1.5 font-medium">
                     <Cpu className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400 shrink-0" />
                     <span>Students in Advance Tech</span>
                   </span>
                   <span className="font-bold text-purple-700 dark:text-purple-300 tabular-nums">80+ Students</span>
                 </div>
 
-                {/* Capstone Co-Guide / Mentor */}
-                <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800">
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-700 dark:text-slate-400 flex items-center gap-1.5 font-medium">
+                {/* Students Guided/Mentored */}
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 transition-all hover:border-amber-500/30">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-slate-800 dark:text-slate-300 flex items-center gap-1.5 font-medium">
                       <Layers className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
-                      <span>B.Tech Project Co-Guide</span>
+                      <span className="font-semibold">Students Guided/Mentored</span>
                     </span>
-                    <span className="font-bold text-amber-700 dark:text-amber-300 tabular-nums">4 Students</span>
+                    <span className="font-bold text-amber-700 dark:text-amber-300 tabular-nums text-[11px] px-2 py-0.5 rounded-md bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800/60 whitespace-nowrap">
+                      385+ Students
+                    </span>
                   </div>
-                  <p className="text-[10px] text-slate-500 font-sans mt-0.5">
-                    Mentored undergraduate capstone major project &amp; industrial training cohorts.
+                  <p className="text-[10.5px] text-slate-500 dark:text-slate-400 font-sans mt-1.5 leading-relaxed">
+                    Also co-guided undergraduate (B.Tech) capstone major project &amp; guided students to do research paper.
                   </p>
                 </div>
 
                 {/* Query latency optimization */}
                 <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800">
-                  <span className="text-slate-700 dark:text-slate-400 font-medium">Query Latency Optimization</span>
-                  <span className="font-bold text-emerald-700 dark:text-emerald-400 tabular-nums">-34% (Nabeng)</span>
+                  <span className="text-slate-800 dark:text-slate-300 font-medium">Query Latency Optimization</span>
+                  <span className="font-bold text-emerald-700 dark:text-emerald-400 tabular-nums px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800/60 text-[11px]">-34% (Nabeng)</span>
                 </div>
               </div>
             </div>

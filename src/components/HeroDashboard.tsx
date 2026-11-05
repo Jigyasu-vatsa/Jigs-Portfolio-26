@@ -129,6 +129,18 @@ export const HeroDashboard: React.FC<HeroDashboardProps> = ({
                 <Gamepad2 className="w-4 h-4 text-purple-400" />
                 <span>Interactive Lab</span>
               </button>
+
+              {/* Quick Navigation to Jigyasu's X (Previous Portfolio) */}
+              <a
+                href="https://jigyasu1.jigsy.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Visit Jigyasu's X (Previous Portfolio)"
+                className="px-4 py-2.5 text-xs sm:text-sm font-semibold text-blue-700 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 border border-blue-200 dark:text-cyan-300 dark:hover:text-white dark:bg-cyan-950/60 dark:hover:bg-cyan-900/60 dark:border-cyan-800/80 rounded-xl transition-all flex items-center gap-1.5 shadow-sm"
+              >
+                <ExternalLink className="w-4 h-4 text-blue-600 dark:text-cyan-400" />
+                <span>Jigyasu&apos;s Previous Portfolio</span>
+              </a>
             </div>
           </div>
 
@@ -288,8 +300,8 @@ export const HeroDashboard: React.FC<HeroDashboardProps> = ({
         </div>
 
         {/* What's Uniqueness in Jigyasu Vatsa: Synthesized R&D, Enterprise & Academics */}
-        <div className="mt-8 p-5 sm:p-6 rounded-2xl bg-white dark:bg-gradient-to-r dark:from-slate-900/90 dark:via-cyan-950/30 dark:to-slate-900/90 border border-slate-200 dark:border-cyan-800/40 shadow-xl">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        <div className="mt-8 p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-cyan-500/30 shadow-xl relative overflow-hidden">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-cyan-600 dark:text-cyan-400 font-semibold">
                 <Sparkles className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
@@ -298,8 +310,8 @@ export const HeroDashboard: React.FC<HeroDashboardProps> = ({
               <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight">
                 What&apos;s Uniqueness in Jigyasu Vatsa: Synthesizing R&amp;D, Enterprise Systems &amp; Academic Pedagogy
               </h2>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-4xl leading-relaxed">
-                A rare, multidimensional synergy across four core pillars: <strong>Dual Masters</strong> (Regular M.Tech CSE @ Sandip University + Distance MBA @ IGNOU under UGC dual-degree guidelines), <strong>DPIIT Recognised Startup Founder</strong> (JIGSY INDIA), <strong>Academic Leadership</strong> (Assistant Examination Coordinator @ SOCSE, FDP Coordinator, Training Placement Committee Member), and <strong>Production Systems Engineering</strong> (IRCTC DMRC QR Ticketing Integration, Amazon Published Author).
+              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-200 max-w-4xl leading-relaxed">
+                A rare, multidimensional synergy across four core pillars: <strong className="text-slate-900 dark:text-cyan-300 font-semibold">Dual Masters</strong> (Regular M.Tech CSE @ Sandip University + Distance MBA @ IGNOU under UGC dual-degree guidelines), <strong className="text-slate-900 dark:text-cyan-300 font-semibold">DPIIT Recognised Startup Founder</strong> (JIGSY INDIA), <strong className="text-slate-900 dark:text-cyan-300 font-semibold">Academic Leadership</strong> (Assistant Examination Coordinator @ SOCSE, FDP Coordinator, Training Placement Committee Member), and <strong className="text-slate-900 dark:text-cyan-300 font-semibold">Production Systems Engineering</strong> (IRCTC DMRC QR Ticketing Integration, Amazon Published Author).
               </p>
             </div>
 

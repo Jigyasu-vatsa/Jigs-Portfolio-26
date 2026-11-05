@@ -19,6 +19,9 @@ import {
   AtSign,
   User,
   Loader2,
+  Globe,
+  BookOpen,
+  Award,
 } from 'lucide-react';
 
 interface FeedbackContactProps {
@@ -387,7 +390,7 @@ export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault })
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
                   <span className="text-[11px] text-slate-500 flex items-center gap-1 font-mono">
                     <Lock className="w-3 h-3 text-emerald-400" />
-                    <span>Dispatches to: jigyasu.vatsa@gmail.com</span>
+                    <span>End-to-End Encrypted Direct Transmission</span>
                   </span>
 
                   <div className="flex items-center gap-2">
@@ -424,6 +427,204 @@ export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault })
                   </div>
                 </div>
               </form>
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Links Directory: Professional Sites, Verified Portals & Scholarly Repositories */}
+        <div className="mt-14 pt-10 border-t border-slate-900">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6">
+            <div>
+              <div className="text-xs font-mono uppercase tracking-widest text-cyan-400 flex items-center gap-1.5 font-semibold">
+                <Globe className="w-3.5 h-3.5" />
+                <span>Verified Ecosystem &amp; Professional Portals</span>
+              </div>
+              <h3 className="text-base sm:text-lg font-bold text-white mt-1">
+                Quick Links Directory &amp; Scholarly Identifiers
+              </h3>
+            </div>
+            <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+              Live &amp; Verified
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+            {/* Col 1: Web Portals */}
+            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-cyan-500/30 transition-colors">
+              <div className="text-[11px] font-mono uppercase tracking-wider text-cyan-400 font-semibold mb-3 flex items-center gap-1.5">
+                <Globe className="w-3.5 h-3.5 text-cyan-400" />
+                <span>Official Web Portals</span>
+              </div>
+              <ul className="space-y-2.5">
+                <li>
+                  <a
+                    href="https://jigyasu1.jigsy.in"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between text-slate-300 hover:text-cyan-300 group py-0.5"
+                  >
+                    <div>
+                      <div className="font-semibold text-slate-200 group-hover:text-cyan-300">Jigyasu&apos;s Previous Portfolio</div>
+                      <div className="text-[10px] text-slate-500 font-mono">Archive &amp; Foundational Work</div>
+                    </div>
+                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-cyan-300 ml-1 shrink-0" />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://jigsy.in"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between text-slate-300 hover:text-cyan-300 group py-0.5"
+                  >
+                    <div>
+                      <div className="font-semibold text-slate-200 group-hover:text-cyan-300">JIGSY INDIA Corporate</div>
+                      <div className="text-[10px] text-slate-500 font-mono">jigsy.in (DPIIT Startup)</div>
+                    </div>
+                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-cyan-300 ml-1 shrink-0" />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://jigyasu.jigsy.in"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between text-slate-300 hover:text-cyan-300 group py-0.5"
+                  >
+                    <div>
+                      <div className="font-semibold text-slate-200 group-hover:text-cyan-300">Research &amp; Dossier (Current)</div>
+                      <div className="text-[10px] text-slate-500 font-mono">jigyasu.jigsy.in</div>
+                    </div>
+                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-cyan-300 ml-1 shrink-0" />
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Col 2: Scholarly Profiles & Author Catalog */}
+            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-emerald-500/30 transition-colors">
+              <div className="text-[11px] font-mono uppercase tracking-wider text-emerald-400 font-semibold mb-3 flex items-center gap-1.5">
+                <BookOpen className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Scholarly &amp; Books</span>
+              </div>
+              <ul className="space-y-2.5">
+                <li>
+                  <a
+                    href="https://orcid.org/0009-0006-1712-8520"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between text-slate-300 hover:text-emerald-300 group py-0.5"
+                  >
+                    <div>
+                      <div className="font-semibold text-slate-200 group-hover:text-emerald-300">ORCID Researcher ID</div>
+                      <div className="text-[10px] text-slate-500 font-mono">0009-0006-1712-8520</div>
+                    </div>
+                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-emerald-300 ml-1 shrink-0" />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.amazon.in/dp/B0H5QK7MF2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between text-slate-300 hover:text-emerald-300 group py-0.5"
+                  >
+                    <div>
+                      <div className="font-semibold text-slate-200 group-hover:text-emerald-300">Amazon Authored Book</div>
+                      <div className="text-[10px] text-slate-500 font-mono">Mastering DSA Without Fear</div>
+                    </div>
+                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-emerald-300 ml-1 shrink-0" />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://doi.org/10.1007/978-981-96-4848-1_15"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between text-slate-300 hover:text-emerald-300 group py-0.5"
+                  >
+                    <div>
+                      <div className="font-semibold text-slate-200 group-hover:text-emerald-300">Springer Nature ICIPAI-2026</div>
+                      <div className="text-[10px] text-slate-500 font-mono">WoS Indexed DOI Paper</div>
+                    </div>
+                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-emerald-300 ml-1 shrink-0" />
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Col 3: Professional Networks */}
+            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-purple-500/30 transition-colors">
+              <div className="text-[11px] font-mono uppercase tracking-wider text-purple-400 font-semibold mb-3 flex items-center gap-1.5">
+                <Linkedin className="w-3.5 h-3.5 text-purple-400" />
+                <span>Professional Networks</span>
+              </div>
+              <ul className="space-y-2.5">
+                <li>
+                  <a
+                    href={PERSONAL_INFO.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between text-slate-300 hover:text-purple-300 group py-0.5"
+                  >
+                    <div>
+                      <div className="font-semibold text-slate-200 group-hover:text-purple-300">LinkedIn Profile</div>
+                      <div className="text-[10px] text-slate-500 font-mono">in/jigyasu-vatsa</div>
+                    </div>
+                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-purple-300 ml-1 shrink-0" />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={PERSONAL_INFO.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between text-slate-300 hover:text-purple-300 group py-0.5"
+                  >
+                    <div>
+                      <div className="font-semibold text-slate-200 group-hover:text-purple-300">GitHub Repositories</div>
+                      <div className="text-[10px] text-slate-500 font-mono">github.com/jigyasu-vatsa</div>
+                    </div>
+                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-purple-300 ml-1 shrink-0" />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={PERSONAL_INFO.twitter}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between text-slate-300 hover:text-purple-300 group py-0.5"
+                  >
+                    <div>
+                      <div className="font-semibold text-slate-200 group-hover:text-purple-300">X (Twitter) Feed</div>
+                      <div className="text-[10px] text-slate-500 font-mono">@jigyasuvatsa</div>
+                    </div>
+                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-purple-300 ml-1 shrink-0" />
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Col 4: Accreditations & Roles */}
+            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-amber-500/30 transition-colors">
+              <div className="text-[11px] font-mono uppercase tracking-wider text-amber-400 font-semibold mb-3 flex items-center gap-1.5">
+                <Award className="w-3.5 h-3.5 text-amber-400" />
+                <span>Accreditations &amp; Roles</span>
+              </div>
+              <ul className="space-y-2.5">
+                <li className="py-0.5">
+                  <div className="font-semibold text-slate-200">UGC-NET Qualified (Ph.D.)</div>
+                  <div className="text-[10px] text-slate-500 font-mono">Computer Science &amp; Applications</div>
+                </li>
+                <li className="py-0.5">
+                  <div className="font-semibold text-slate-200">Bihar STET Qualified</div>
+                  <div className="text-[10px] text-slate-500 font-mono">Paper II (Computer Science)</div>
+                </li>
+                <li className="py-0.5">
+                  <div className="font-semibold text-slate-200">Assistant Exam Coordinator</div>
+                  <div className="text-[10px] text-slate-500 font-mono">SOCSE, Sandip University</div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

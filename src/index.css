@@ -317,3 +317,66 @@ html:not(.dark) [class*="to-cyan-950"] {
   background-image: linear-gradient(to bottom right, #eff6ff, #ecfeff, #f8fafc) !important;
 }
 
+/* Interactive Pop Larger to Smaller Opening Animation */
+@keyframes popLargerToSmaller {
+  0% {
+    opacity: 0;
+    transform: scale(1.15) translateY(24px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(0.97) translateY(-4px);
+  }
+  85% {
+    transform: scale(1.02) translateY(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-pop-larger {
+  animation: popLargerToSmaller 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: bottom left;
+}
+
+/* Attract User: 3-Times Enlarge & Pulse Glow Animation for JIGSY AI Button */
+@keyframes attractBlink3Times {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 10px 25px -5px rgba(6, 182, 212, 0.4);
+  }
+  15% {
+    transform: scale(1.35);
+    box-shadow: 0 0 35px 12px rgba(6, 182, 212, 0.8), 0 0 60px 20px rgba(59, 130, 246, 0.5);
+  }
+  30% {
+    transform: scale(1);
+    box-shadow: 0 10px 25px -5px rgba(6, 182, 212, 0.4);
+  }
+  45% {
+    transform: scale(1.35);
+    box-shadow: 0 0 35px 12px rgba(6, 182, 212, 0.8), 0 0 60px 20px rgba(59, 130, 246, 0.5);
+  }
+  60% {
+    transform: scale(1);
+    box-shadow: 0 10px 25px -5px rgba(6, 182, 212, 0.4);
+  }
+  75% {
+    transform: scale(1.35);
+    box-shadow: 0 0 35px 12px rgba(6, 182, 212, 0.8), 0 0 60px 20px rgba(59, 130, 246, 0.5);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 10px 25px -5px rgba(6, 182, 212, 0.4);
+  }
+}
+
+.animate-attract-3x {
+  animation: attractBlink3Times 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  transform-origin: bottom left;
+}
+
+
+

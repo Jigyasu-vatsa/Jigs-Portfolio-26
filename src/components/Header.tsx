@@ -79,6 +79,18 @@ export const Header: React.FC<HeaderProps> = ({
               AI · Cyber Security · Systems
             </span>
           </button>
+
+          {/* Quick link to Previous Portfolio X */}
+          <a
+            href="https://jigyasu1.jigsy.in"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Jigyasu's X (Previous Portfolio)"
+            className="hidden lg:flex items-center gap-1 text-[11px] font-mono px-2 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 dark:bg-indigo-950/70 dark:hover:bg-indigo-900/70 dark:text-indigo-300 dark:border-indigo-800/80 transition-colors shrink-0"
+          >
+            <span>Jigyasu&apos;s Previous Portfolio</span>
+            <ExternalLink className="w-3 h-3 text-indigo-500" />
+          </a>
         </div>
 
         {/* Zone 2: Navigation Page Links / Tabs */}
