@@ -71,15 +71,11 @@ export const HeroDashboard: React.FC<HeroDashboardProps> = ({
               <span aria-hidden="true" className="text-slate-600">·</span>
               <span className="text-amber-300 font-semibold">Entrepreneur</span>
               <span aria-hidden="true" className="text-slate-600">·</span>
-              <span className="text-cyan-300">4 International Conferences</span>
-              <span aria-hidden="true" className="text-slate-600">·</span>
               <span className="text-amber-300">UGC-NET Qualified (Ph.D.)</span>
               <span aria-hidden="true" className="text-slate-600">·</span>
               <span className="text-emerald-300">Bihar STET Qualified</span>
               <span aria-hidden="true" className="text-slate-600">·</span>
               <span className="text-cyan-300">Amazon Author (&quot;Mastering DSA Without Fear&quot;)</span>
-              <span aria-hidden="true" className="text-slate-600">·</span>
-              <span className="text-purple-300">Springer Nature &amp; WoS</span>
             </div>
 
             {/* CTAs */}

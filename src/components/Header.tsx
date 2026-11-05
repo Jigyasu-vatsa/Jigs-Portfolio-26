@@ -14,6 +14,7 @@ import {
   Layers,
   Building2,
   ExternalLink,
+  PhoneCall,
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -31,7 +32,13 @@ export const Header: React.FC<HeaderProps> = ({
   activeView,
   onSelectView,
 }) => {
-  const navTabs: { id: PageView; label: string; icon: React.ReactNode }[] = [
+  type NavItem = {
+    id: PageView | 'contact';
+    label: string;
+    icon: React.ReactNode;
+  };
+
+  const navTabs: NavItem[] = [
     { id: 'all', label: 'Dashboard', icon: <Layers className="w-3.5 h-3.5" /> },
     { id: 'research', label: 'Research Papers', icon: <BookOpen className="w-3.5 h-3.5" /> },
     { id: 'jigsy-india', label: 'JIGSY INDIA', icon: <Building2 className="w-3.5 h-3.5 text-cyan-400" /> },
@@ -40,7 +47,24 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'academics', label: 'Dual Masters', icon: <GraduationCap className="w-3.5 h-3.5" /> },
     { id: 'projects', label: 'Experience & Projects', icon: <Briefcase className="w-3.5 h-3.5" /> },
     { id: 'interactive', label: 'Interactive Lab', icon: <Gamepad2 className="w-3.5 h-3.5" /> },
+    { id: 'contact', label: 'Contact', icon: <PhoneCall className="w-3.5 h-3.5 text-emerald-400" /> },
   ];
+
+  const handleTabClick = (tabId: PageView | 'contact') => {
+    if (tabId === 'contact') {
+      const contactElem = document.getElementById('contact');
+      if (contactElem) {
+        contactElem.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        onSelectView('all');
+        setTimeout(() => {
+          document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+        }, 150);
+      }
+    } else {
+      onSelectView(tabId);
+    }
+  };
 
   return (
     <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-white/90 dark:bg-slate-950/85 border-b border-slate-200 dark:border-slate-800/80 transition-colors">
@@ -101,7 +125,7 @@ export const Header: React.FC<HeaderProps> = ({
           {navTabs.map((tab) => (
             <button
               key={tab.id}
-              onClick={() => onSelectView(tab.id)}
+              onClick={() => handleTabClick(tab.id)}
               className={`px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap shrink-0 ${
                 activeView === tab.id
                   ? 'bg-cyan-500 text-slate-950 font-bold shadow-sm'
@@ -141,7 +165,7 @@ export const Header: React.FC<HeaderProps> = ({
             className="px-3.5 py-2 text-xs font-semibold text-slate-950 bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 rounded-lg transition-all shadow-md shadow-cyan-500/10 whitespace-nowrap shrink-0 flex items-center gap-1.5"
           >
             <FileText className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Connect & CV</span>
+            <span className="hidden sm:inline">Connect &amp; CV</span>
             <span className="sm:hidden">CV</span>
           </a>
         </div>
@@ -152,7 +176,7 @@ export const Header: React.FC<HeaderProps> = ({
         {navTabs.map((tab) => (
           <button
             key={tab.id}
-            onClick={() => onSelectView(tab.id)}
+            onClick={() => handleTabClick(tab.id)}
             className={`px-2.5 py-1 text-[11px] rounded-lg transition-colors flex items-center gap-1 whitespace-nowrap shrink-0 ${
               activeView === tab.id
                 ? 'bg-cyan-500 text-slate-950 font-bold'

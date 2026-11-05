@@ -667,6 +667,20 @@ export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault })
               <span><strong className="text-purple-400">CIN:</strong> U62099BR2025PTC078592</span>
             </div>
           </div>
+
+          {/* Developer Memory GitHub Version Tag */}
+          <div className="w-full mt-2 pt-2 border-t border-slate-900/80 flex flex-col sm:flex-row items-center justify-between gap-2 text-[10px] sm:text-[11px] font-mono text-slate-400">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-slate-400 font-medium">Production Release Dossier</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="text-slate-400">GitHub Version:</span>
+              <span className="px-2 py-0.5 rounded bg-slate-900 text-cyan-400 font-bold border border-cyan-500/40 shadow-sm">
+                v10_26.0.5
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

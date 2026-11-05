@@ -13,6 +13,10 @@ import {
   Globe,
   Building,
   Radio,
+  Trash2,
+  Sparkles,
+  Activity,
+  CheckCircle2,
 } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
@@ -27,6 +31,8 @@ interface JigsyAIAssistantProps {
   pulseSignal?: boolean;
   autoOpenSignal?: boolean;
 }
+
+const STORAGE_KEY = 'jigsy_assistant_chat_history_v10';
 
 const getGreeting = (forVoice = false): string => {
   const hour = new Date().getHours();
@@ -55,21 +61,74 @@ export const JigsyAIAssistant: React.FC<JigsyAIAssistantProps> = ({ pulseSignal,
   const [activeVoiceLabel, setActiveVoiceLabel] = useState<string>('Soft Female Voice');
   const [listeningStatusNotice, setListeningStatusNotice] = useState<string | null>(null);
 
+  // Real-Time Audio Capture & Live Analysis State
+  const [audioVolume, setAudioVolume] = useState<number>(0);
+  const [liveTranscript, setLiveTranscript] = useState<string>('');
+  const [detectedIntent, setDetectedIntent] = useState<string | null>(null);
+
   const femaleVoiceRef = useRef<SpeechSynthesisVoice | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const recognitionRef = useRef<any>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const silenceTimerRef = useRef<any>(null);
   const speechTranscriptRef = useRef<string>('');
+  const mediaStreamRef = useRef<MediaStream | null>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const analyserRef = useRef<AnalyserNode | null>(null);
+  const animFrameRef = useRef<number | null>(null);
 
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 'init-1',
+  // Persistent conversation history across views and reloads
+  const [messages, setMessages] = useState<Message[]>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            return parsed;
+          }
+        }
+      } catch {
+        // ignore parse error
+      }
+    }
+    return [
+      {
+        id: 'init-1',
+        sender: 'jigsy',
+        text: `${getGreeting()} I am JIGSY, Mr. Jigyasu Vatsa's AI Assistant. How can I help you today? Ask me about his 5 research publications, Amazon authored book, simultaneous Dual Masters (M.Tech + MBA), JIGSY INDIA, or previous portfolio!`,
+        timestamp: formatCurrentTime(),
+      },
+    ];
+  });
+
+  // Automatically save conversation history to localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined' && messages.length > 0) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+      } catch {
+        // ignore quota error
+      }
+    }
+  }, [messages]);
+
+  const handleClearChat = () => {
+    const freshMsg: Message = {
+      id: `init-${Date.now()}`,
       sender: 'jigsy',
-      text: `${getGreeting()} I am JIGSY, Mr. Jigyasu Vatsa's AI Assistant. How can I help you today? Ask me about his 5 research publications, Amazon authored book, simultaneous Dual Masters (M.Tech + MBA), JIGSY INDIA, or previous portfolio!`,
+      text: `${getGreeting()} Chat history cleared. How may I assist you with Mr. Jigyasu Vatsa's portfolio today?`,
       timestamp: formatCurrentTime(),
-    },
-  ]);
+    };
+    setMessages([freshMsg]);
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch {
+        // ignore
+      }
+    }
+  };
 
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
@@ -247,9 +306,64 @@ export const JigsyAIAssistant: React.FC<JigsyAIAssistantProps> = ({ pulseSignal,
     }
   };
 
+  // Real-time Intent Recognition for live voice analysis
+  const analyzeIntent = (rawQuery: string): string | null => {
+    const q = rawQuery
+      .toLowerCase()
+      .replace(/[.,/#!$%^&*;:{}=\-_`~()?"'<>]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    if (!q) return null;
+    if (/\b(call|calling|dial|phone|mobile|cell|telephone|ring|mail|email|gmail|inbox|contact|contacts|reach|whatsapp|number|address|location)\b/i.test(q)) {
+      return '📞 Contact & Phone / Email';
+    }
+    if (/\b(help|support|assist|assistance|guide|guidance|what can you do|how to use|commands|topics)\b/i.test(q)) {
+      return '💡 Help & Guidance';
+    }
+    if (/\b(chat|chatbot|talk|speak|voice|dialogue|converse|conversation|bot|assistant)\b/i.test(q)) {
+      return '💬 Voice & Chat Mode';
+    }
+    if (/\b(paper|papers|research|publish|publication|scopus|wos|springer|taylor|vedanjali|journal)\b/i.test(q)) {
+      return '📄 5 Research Publications';
+    }
+    if (/\b(dual|master|masters|mtech|m\.tech|mba|degree|ugc dual)\b/i.test(q)) {
+      return '🎓 Dual Masters (M.Tech + MBA)';
+    }
+    if (/\b(ugc|net|stet|bihar stet|accreditation|eligibility|nta)\b/i.test(q)) {
+      return '🏆 UGC-NET & Bihar STET';
+    }
+    if (/\b(book|dsa|amazon|author|textbook|fear)\b/i.test(q)) {
+      return '📚 Mastering DSA Book';
+    }
+    if (/\b(irctc|dmrc|railway|ticket|testing|integration|tatkal)\b/i.test(q)) {
+      return '🚆 IRCTC & DMRC Systems';
+    }
+    if (/\b(jigsy|startup|founder|chairperson|vertical|verticals|dpiit|cin|gstin|msme)\b/i.test(q)) {
+      return '🏢 JIGSY INDIA Startup';
+    }
+    if (/\b(student|students|mentor|teach|pedagogy|guide|guided|daa|coached|capstone)\b/i.test(q)) {
+      return '👥 Mentorship (385+ Students)';
+    }
+    if (/\b(conference|conferences|seminar|symposium|proceeding|fair|gtisd|icipai|ictti|lnmi|talk)\b/i.test(q)) {
+      return '🎙️ Conferences & Proceedings';
+    }
+    if (/\b(previous|jigyasu1|old portfolio|x portfolio|former)\b/i.test(q)) {
+      return '🔗 Previous Portfolio (jigyasu1)';
+    }
+    if (/\b(hi|hello|hey|good morning|good afternoon|good evening|namaste|greetings)\b/i.test(q)) {
+      return '👋 Greeting & Welcome';
+    }
+    return '🔍 Analyzing Portfolio Query...';
+  };
+
   // Automated intelligent professional knowledge responder
   const generateResponse = (query: string): string => {
-    const q = query.toLowerCase().trim();
+    // Strip trailing punctuation from Speech Recognition transcript
+    const q = query
+      .toLowerCase()
+      .replace(/[.,/#!$%^&*;:{}=\-_`~()?"'<>]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
 
     // 1. Conversational Politeness & Wellness ("How are you")
     if (
@@ -731,6 +845,8 @@ How can I help you today? You can ask me with keywords like 'call', 'mail', 'hel
 
     setMessages((prev) => [...prev, userMsg, botMsg]);
     setInputValue('');
+    setLiveTranscript('');
+    setDetectedIntent(null);
     speakText(replyText);
   };
 
@@ -739,14 +855,36 @@ How can I help you today? You can ask me with keywords like 'call', 'mail', 'hel
       clearTimeout(silenceTimerRef.current);
       silenceTimerRef.current = null;
     }
+    if (animFrameRef.current) {
+      cancelAnimationFrame(animFrameRef.current);
+      animFrameRef.current = null;
+    }
+    if (audioContextRef.current) {
+      try {
+        audioContextRef.current.close();
+      } catch {
+        // ignore
+      }
+      audioContextRef.current = null;
+    }
+    if (mediaStreamRef.current) {
+      try {
+        mediaStreamRef.current.getTracks().forEach((track) => track.stop());
+      } catch {
+        // ignore
+      }
+      mediaStreamRef.current = null;
+    }
     if (recognitionRef.current) {
       try {
         recognitionRef.current.stop();
       } catch {
         // ignore
       }
+      recognitionRef.current = null;
     }
     setIsListening(false);
+    setAudioVolume(0);
   }, []);
 
   const handleToggleListening = async () => {
@@ -756,6 +894,8 @@ How can I help you today? You can ask me with keywords like 'call', 'mail', 'hel
       const query = speechTranscriptRef.current.trim() || inputValue.trim();
       if (query) {
         speechTranscriptRef.current = '';
+        setLiveTranscript('');
+        setDetectedIntent(null);
         handleSendMessage(query);
       }
       return;
@@ -776,11 +916,40 @@ How can I help you today? You can ask me with keywords like 'call', 'mail', 'hel
         window.speechSynthesis.cancel();
       }
 
-      // Pre-warm microphone permission if mediaDevices is supported
+      // Keep live mediaStream open and connect to Web Audio API for real-time visualizer
+      let micStream: MediaStream | null = null;
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         try {
-          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-          stream.getTracks().forEach((track) => track.stop());
+          micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          mediaStreamRef.current = micStream;
+
+          const AudioContextClass =
+            window.AudioContext ||
+            (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+          if (AudioContextClass) {
+            const audioCtx = new AudioContextClass();
+            audioContextRef.current = audioCtx;
+            const analyser = audioCtx.createAnalyser();
+            analyser.fftSize = 64;
+            analyserRef.current = analyser;
+            const source = audioCtx.createMediaStreamSource(micStream);
+            source.connect(analyser);
+
+            const dataArray = new Uint8Array(analyser.frequencyBinCount);
+            const checkVolume = () => {
+              if (!analyserRef.current) return;
+              analyserRef.current.getByteFrequencyData(dataArray);
+              let sum = 0;
+              for (let i = 0; i < dataArray.length; i++) {
+                sum += dataArray[i];
+              }
+              const avg = sum / dataArray.length;
+              const normalized = Math.min(100, Math.round((avg / 110) * 100));
+              setAudioVolume(normalized);
+              animFrameRef.current = requestAnimationFrame(checkVolume);
+            };
+            animFrameRef.current = requestAnimationFrame(checkVolume);
+          }
         } catch (err) {
           console.warn('Microphone permission check:', err);
         }
@@ -790,12 +959,14 @@ How can I help you today? You can ask me with keywords like 'call', 'mail', 'hel
       const recognition = new (SpeechRecognition as any)();
       recognitionRef.current = recognition;
       recognition.lang = 'en-US';
-      // Continuous mode ensures browser does not abruptly kill session after 1.5s silence
+      // Continuous mode ensures browser does not abruptly kill session
       recognition.continuous = true;
       recognition.interimResults = true;
       recognition.maxAlternatives = 1;
 
       speechTranscriptRef.current = '';
+      setLiveTranscript('');
+      setDetectedIntent(null);
       setIsListening(true);
       setListeningStatusNotice(null);
 
@@ -808,8 +979,9 @@ How can I help you today? You can ask me with keywords like 'call', 'mail', 'hel
         const trimmed = accumulated.trim();
         if (trimmed) {
           speechTranscriptRef.current = trimmed;
-          // Live stream transcript into input so user sees speech recognized in real-time
+          setLiveTranscript(trimmed);
           setInputValue(trimmed);
+          setDetectedIntent(analyzeIntent(trimmed));
 
           // Clear previous silence timer and reset
           if (silenceTimerRef.current) {
@@ -822,6 +994,8 @@ How can I help you today? You can ask me with keywords like 'call', 'mail', 'hel
             if (queryToSend) {
               stopListening();
               speechTranscriptRef.current = '';
+              setLiveTranscript('');
+              setDetectedIntent(null);
               handleSendMessage(queryToSend);
             }
           }, 1800);
@@ -836,6 +1010,8 @@ How can I help you today? You can ask me with keywords like 'call', 'mail', 'hel
         if (existingText) {
           stopListening();
           speechTranscriptRef.current = '';
+          setLiveTranscript('');
+          setDetectedIntent(null);
           handleSendMessage(existingText);
           return;
         }
@@ -858,7 +1034,10 @@ How can I help you today? You can ask me with keywords like 'call', 'mail', 'hel
         setIsListening(false);
         const finalText = speechTranscriptRef.current.trim() || inputValue.trim();
         if (finalText) {
+          stopListening();
           speechTranscriptRef.current = '';
+          setLiveTranscript('');
+          setDetectedIntent(null);
           handleSendMessage(finalText);
         }
       };
@@ -993,6 +1172,16 @@ How can I help you today? You can ask me with keywords like 'call', 'mail', 'hel
                 <span>Test Voice</span>
               </button>
 
+              {/* Clear Stored Conversation History */}
+              <button
+                onClick={handleClearChat}
+                aria-label="Clear chat history"
+                className="p-1.5 text-slate-400 hover:text-rose-400 rounded-lg hover:bg-slate-800 transition-colors"
+                title="Clear saved chat history"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+              </button>
+
               {/* Mute / Unmute Toggle */}
               <button
                 onClick={() => {
@@ -1016,6 +1205,7 @@ How can I help you today? You can ask me with keywords like 'call', 'mail', 'hel
               <button
                 onClick={() => {
                   setIsOpen(false);
+                  stopListening();
                   if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
                     window.speechSynthesis.cancel();
                   }
@@ -1100,20 +1290,86 @@ How can I help you today? You can ask me with keywords like 'call', 'mail', 'hel
             ))}
           </div>
 
-          {/* Active Listening Indicator */}
+          {/* Active Recording & Real-Time Audio Analysis Console */}
           {isListening && (
-            <div className="px-3.5 py-2 bg-rose-950/80 border-t border-rose-500/40 flex items-center justify-between text-[11px] text-rose-300 font-mono animate-fadeIn">
-              <div className="flex items-center gap-2">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500" />
-                </span>
-                <span className="font-semibold">Listening... Speak now</span>
-                <span className="text-slate-400 text-[10px] hidden sm:inline">(tap mic to finish &amp; send)</span>
+            <div className="p-3 bg-gradient-to-b from-slate-900 to-slate-950 border-t border-rose-500/50 text-xs font-mono animate-fadeIn space-y-2.5">
+              {/* Header with Visual Audio Waveform Equalizer */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500" />
+                  </span>
+                  <span className="font-bold text-rose-300">REAL-TIME RECORDING ACTIVE</span>
+                </div>
+
+                {/* Animated 5-Bar Audio Waveform reacting to mic volume */}
+                <div className="flex items-end gap-1 h-5 px-2 py-0.5 rounded bg-slate-950 border border-slate-800">
+                  {[25, 50, 90, 60, 35].map((baseHeight, idx) => {
+                    const dynamicHeight = Math.max(15, Math.min(100, Math.round((baseHeight * Math.max(audioVolume, 15)) / 45)));
+                    return (
+                      <span
+                        key={idx}
+                        className="w-1.5 rounded-full bg-gradient-to-t from-emerald-500 via-cyan-400 to-rose-400 transition-all duration-75"
+                        style={{ height: `${dynamicHeight}%` }}
+                      />
+                    );
+                  })}
+                </div>
               </div>
-              <span className="text-[10px] px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold border border-rose-500/30 animate-pulse">
-                LIVE MIC
-              </span>
+
+              {/* Real-time live speech transcript */}
+              <div className="p-2 rounded-xl bg-slate-950/90 border border-slate-800 text-slate-200">
+                <div className="text-[10px] text-slate-400 flex items-center justify-between mb-1">
+                  <span>Live Speech Transcript:</span>
+                  <span className="text-cyan-400 font-semibold">
+                    {audioVolume > 5 ? `Mic Level: ${audioVolume}%` : 'Speak into microphone...'}
+                  </span>
+                </div>
+                <div className="text-xs text-white font-sans font-medium min-h-[20px] italic">
+                  {liveTranscript ? `"${liveTranscript}"` : 'Listening... Say "call", "email", "help", "5 papers", or "dual masters"'}
+                </div>
+              </div>
+
+              {/* Live detected intent match pill */}
+              {detectedIntent && (
+                <div className="flex items-center justify-between text-[11px] bg-cyan-950/60 border border-cyan-800/60 px-2.5 py-1.5 rounded-lg text-cyan-200">
+                  <span className="flex items-center gap-1.5 font-semibold">
+                    <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-spin" />
+                    <span>Matched Intent:</span>
+                    <span className="text-white font-bold">{detectedIntent}</span>
+                  </span>
+                  <span className="text-[10px] text-cyan-300/80">Auto-sending in 1.8s</span>
+                </div>
+              )}
+
+              {/* Actions */}
+              <div className="flex items-center justify-between pt-0.5">
+                <button
+                  onClick={() => {
+                    stopListening();
+                    const toSend = liveTranscript.trim() || inputValue.trim();
+                    if (toSend) {
+                      handleSendMessage(toSend);
+                    }
+                  }}
+                  disabled={!liveTranscript.trim() && !inputValue.trim()}
+                  className="px-3 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 disabled:opacity-40 text-slate-950 font-bold text-xs transition-colors flex items-center gap-1.5"
+                >
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span>Send Query Now</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    stopListening();
+                    setLiveTranscript('');
+                  }}
+                  className="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
           )}
 
