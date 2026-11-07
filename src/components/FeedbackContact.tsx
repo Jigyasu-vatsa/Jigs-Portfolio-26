@@ -553,53 +553,68 @@ export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault })
               </ul>
             </div>
 
-            {/* Col 3: Professional Networks */}
-            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-purple-500/30 transition-colors">
-              <div className="text-[11px] font-mono uppercase tracking-wider text-purple-400 font-semibold mb-3 flex items-center gap-1.5">
-                <Linkedin className="w-3.5 h-3.5 text-purple-400" />
-                <span>Professional Networks</span>
+            {/* Col 3: Related Web Presence */}
+            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-cyan-500/30 transition-colors">
+              <div className="text-[11px] font-mono uppercase tracking-wider text-cyan-400 font-semibold mb-3 flex items-center gap-1.5">
+                <Globe className="w-3.5 h-3.5 text-cyan-400" />
+                <span>Related Web Presence</span>
               </div>
               <ul className="space-y-2.5">
                 <li>
                   <a
-                    href={PERSONAL_INFO.linkedin}
+                    href="https://zerowfm.jigsy.in"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between text-slate-300 hover:text-purple-300 group py-0.5"
+                    className="flex items-center justify-between text-slate-300 hover:text-emerald-300 group py-0.5"
                   >
                     <div>
-                      <div className="font-semibold text-slate-200 group-hover:text-purple-300">LinkedIn Profile</div>
-                      <div className="text-[10px] text-slate-500 font-mono">in/jigyasu-vatsa</div>
+                      <div className="font-semibold text-slate-200 group-hover:text-emerald-300 flex items-center gap-1.5">
+                        <span>ZeroWFM</span>
+                        <span className="text-[9px] px-1.5 py-0.2 rounded font-sans uppercase font-bold tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                          Active Prototype
+                        </span>
+                      </div>
+                      <div className="text-[10px] text-slate-500 font-mono">zerowfm.jigsy.in</div>
                     </div>
-                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-purple-300 ml-1 shrink-0" />
+                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-emerald-300 ml-1 shrink-0" />
                   </a>
                 </li>
                 <li>
                   <a
-                    href={PERSONAL_INFO.github}
+                    href="https://aifm.jigsy.in"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between text-slate-300 hover:text-purple-300 group py-0.5"
+                    className="flex items-center justify-between text-slate-300 hover:text-cyan-300 group py-0.5"
                   >
                     <div>
-                      <div className="font-semibold text-slate-200 group-hover:text-purple-300">GitHub Repositories</div>
-                      <div className="text-[10px] text-slate-500 font-mono">github.com/jigyasu-vatsa</div>
+                      <div className="font-semibold text-slate-200 group-hover:text-cyan-300 flex items-center gap-1.5">
+                        <span>AI-AssistedFM</span>
+                        <span className="text-[9px] px-1.5 py-0.2 rounded font-sans uppercase font-bold tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                          Next Soon
+                        </span>
+                      </div>
+                      <div className="text-[10px] text-slate-500 font-mono">aifm.jigsy.in</div>
                     </div>
-                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-purple-300 ml-1 shrink-0" />
+                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-cyan-300 ml-1 shrink-0" />
                   </a>
                 </li>
                 <li>
                   <a
-                    href={PERSONAL_INFO.twitter}
+                    href="https://ctfm.jigsy.in"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between text-slate-300 hover:text-purple-300 group py-0.5"
+                    className="flex items-center justify-between text-slate-300 hover:text-cyan-300 group py-0.5"
                   >
                     <div>
-                      <div className="font-semibold text-slate-200 group-hover:text-purple-300">X (Twitter) Feed</div>
-                      <div className="text-[10px] text-slate-500 font-mono">@jigyasuvatsa</div>
+                      <div className="font-semibold text-slate-200 group-hover:text-cyan-300 flex items-center gap-1.5">
+                        <span>CyberTrustedFM</span>
+                        <span className="text-[9px] px-1.5 py-0.2 rounded font-sans uppercase font-bold tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                          Next Soon
+                        </span>
+                      </div>
+                      <div className="text-[10px] text-slate-500 font-mono">ctfm.jigsy.in</div>
                     </div>
-                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-purple-300 ml-1 shrink-0" />
+                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-cyan-300 ml-1 shrink-0" />
                   </a>
                 </li>
               </ul>

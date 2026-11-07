@@ -18,7 +18,7 @@ interface ProjectsShowcaseProps {
 export const ProjectsShowcase: React.FC<ProjectsShowcaseProps> = ({ projects }) => {
   const [activeCategory, setActiveCategory] = useState<string>('All');
 
-  const categories = ['All', 'Enterprise & Infrastructure', 'AI & Bots', 'Web & SaaS Platform'];
+  const categories = ['All', ...Array.from(new Set(projects.map((p) => p.category)))];
 
   const filteredProjects = projects.filter((p) => {
     if (activeCategory === 'All') return true;
@@ -105,26 +105,63 @@ export const ProjectsShowcase: React.FC<ProjectsShowcaseProps> = ({ projects }) 
 
               {/* Tech Stack & Links */}
               <div className="mt-5 pt-4 border-t border-slate-800">
-                <div className="flex flex-wrap gap-1.5 mb-3">
-                  {project.techStack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="text-[11px] font-mono text-slate-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-850"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+                {project.webLinks && project.webLinks.length > 0 ? (
+                  <div className="mb-3 space-y-1.5">
+                    <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                      <Globe className="w-3 h-3 text-cyan-400" />
+                      <span>Web Presence &amp; Prototypes:</span>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {project.webLinks.map((link) => (
+                        <a
+                          key={link.url}
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title={link.note}
+                          className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-mono transition-all border ${
+                            link.status === 'active'
+                              ? 'bg-emerald-950/60 border-emerald-500/40 text-emerald-300 hover:bg-emerald-900/60 hover:border-emerald-300'
+                              : 'bg-slate-950/80 border-slate-800 text-slate-300 hover:text-cyan-300 hover:border-cyan-500/50'
+                          }`}
+                        >
+                          <span className="font-semibold">{link.label}</span>
+                          <span
+                            className={`text-[9px] px-1.5 py-0.2 rounded font-sans uppercase font-bold tracking-wider ${
+                              link.status === 'active'
+                                ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                                : 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20'
+                            }`}
+                          >
+                            {link.badge}
+                          </span>
+                          <ExternalLink className="w-2.5 h-2.5 text-slate-400" />
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-wrap gap-1.5 mb-3">
+                    {project.techStack.map((tech) => (
+                      <span
+                        key={tech}
+                        className="text-[11px] font-mono text-slate-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-850"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                )}
 
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-slate-500 font-mono text-[11px]">{project.category}</span>
                   <a
-                    href="pdfiles/IRCTCinternshipReportSubmission.PDF"
+                    href={project.docUrl || "pdfiles/IRCTCinternshipReportSubmission.PDF"}
                     target="_blank"
                     rel="noreferrer"
                     className="flex items-center gap-1 text-cyan-400 hover:text-cyan-300 font-medium"
                   >
-                    <span>Technical Doc</span>
+                    <span>{project.docLabel || "Technical Doc"}</span>
                     <ExternalLink className="w-3 h-3" />
                   </a>
                 </div>

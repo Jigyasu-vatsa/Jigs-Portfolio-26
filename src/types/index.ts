@@ -43,6 +43,9 @@ export interface ResearchPaper {
   citationsCount: number;
   paperUrl?: string;
   certificateUrl?: string;
+  prototypeUrl?: string;
+  prototypeLabel?: string;
+  prototypeNote?: string;
   bibtex: string;
 }
 
@@ -113,6 +116,9 @@ export interface ConferenceItem {
   topics: string[];
   certificateUrl?: string;
   driveUrl?: string;
+  prototypeUrl?: string;
+  prototypeLabel?: string;
+  prototypeNote?: string;
 }
 
 export type ExperienceCategory = 'industrial' | 'internship' | 'teaching';
@@ -135,6 +141,14 @@ export interface ExperienceItem {
   certificateUrl?: string;
 }
 
+export interface ProjectWebLink {
+  label: string;
+  url: string;
+  badge?: string;
+  status?: 'active' | 'upcoming';
+  note?: string;
+}
+
 export interface ProjectItem {
   id: string;
   title: string;
@@ -144,6 +158,9 @@ export interface ProjectItem {
   techStack: string[];
   impact: string;
   reportUrl?: string;
+  docUrl?: string;
+  docLabel?: string;
+  webLinks?: ProjectWebLink[];
   featured?: boolean;
 }
 

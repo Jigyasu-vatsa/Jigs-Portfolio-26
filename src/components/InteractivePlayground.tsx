@@ -17,6 +17,7 @@ import {
   Eye,
   X,
   FileCheck,
+  Globe,
 } from 'lucide-react';
 import { AUTHORED_BOOK } from '../data/portfolioData';
 
@@ -64,6 +65,8 @@ export const InteractivePlayground: React.FC = () => {
       desc: 'Pioneering web engineering heuristics and client-server queue synchronization for urban food surplus redistribution.',
       driveUrl: 'https://drive.google.com/file/d/1hl1eKE5VZfyXvZCZT3E7dMydZQXKRzYm/view',
       certificateUrl: '/assets/aistudio/GTISD_Certificate_5305ebbb.jpeg',
+      prototypeUrl: 'https://zerowfm.jigsy.in',
+      prototypeLabel: 'ZeroWFM Prototype (zerowfm.jigsy.in)',
       color: 'from-emerald-600 via-teal-600 to-cyan-700',
     },
     {
@@ -150,6 +153,7 @@ export const InteractivePlayground: React.FC = () => {
   };
 
   const downloadOptions = [
+    { label: 'ZeroWFM Prototype (zerowfm.jigsy.in)', url: 'https://zerowfm.jigsy.in', ext: 'PROTOTYPE' },
     { label: 'GTISD-2026 Paper (Google Drive)', url: 'https://drive.google.com/file/d/1hl1eKE5VZfyXvZCZT3E7dMydZQXKRzYm/view', ext: 'DRIVE' },
     { label: 'Vedanjali UGC-CARE Paper (Google Drive)', url: 'https://drive.google.com/file/d/11vEgJhOBTcCGlTU7WsO1KHsqDBz3XYaj/view', ext: 'DRIVE' },
     { label: 'Mastering DSA Without Fear (Amazon Book)', url: AUTHORED_BOOK.amazonUrl, ext: 'AMAZON' },
@@ -356,6 +360,19 @@ export const InteractivePlayground: React.FC = () => {
                     >
                       <span>DOI Link</span>
                       <ExternalLink className="w-3 h-3 text-cyan-200" />
+                    </a>
+                  )}
+
+                  {currentPub.prototypeUrl && (
+                    <a
+                      href={currentPub.prototypeUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition-colors shadow-md"
+                    >
+                      <Globe className="w-3.5 h-3.5" />
+                      <span>ZeroWFM Live</span>
+                      <ExternalLink className="w-3 h-3" />
                     </a>
                   )}
                 </div>

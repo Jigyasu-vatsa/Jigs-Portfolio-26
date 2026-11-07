@@ -9,6 +9,7 @@ import {
   ExternalLink,
   Presentation,
   Filter,
+  Globe,
 } from 'lucide-react';
 
 interface ConferencesSectionProps {
@@ -143,6 +144,33 @@ export const ConferencesSection: React.FC<ConferencesSectionProps> = ({ conferen
                   </div>
                 )}
 
+                {/* Live Prototype Callout if defined */}
+                {conf.prototypeUrl && (
+                  <div className="mt-3 p-3 rounded-xl bg-emerald-950/50 border border-emerald-500/40 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                    <div>
+                      <div className="flex items-center gap-1.5 text-emerald-300 font-semibold text-xs">
+                        <Globe className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>{conf.prototypeLabel || 'ZeroWFM Prototype (zerowfm.jigsy.in)'}</span>
+                        <span className="text-[9px] px-1.5 py-0.2 rounded font-sans uppercase font-bold tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                          Active Prototype
+                        </span>
+                      </div>
+                      <div className="text-[11px] text-slate-300 mt-0.5">
+                        Interactive prototype framework showing how food redistribution works before publication.
+                      </div>
+                    </div>
+                    <a
+                      href={conf.prototypeUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-lg bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition-colors shrink-0"
+                    >
+                      <span>Open zerowfm.jigsy.in</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                )}
+
                 {/* Description */}
                 <p className="mt-3 text-xs sm:text-sm text-slate-300 leading-relaxed">
                   {conf.description}
@@ -170,6 +198,19 @@ export const ConferencesSection: React.FC<ConferencesSectionProps> = ({ conferen
                 </span>
 
                 <div className="flex items-center gap-2">
+                  {conf.prototypeUrl && (
+                    <a
+                      href={conf.prototypeUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center gap-1 text-emerald-300 hover:text-white px-2 py-1 rounded bg-emerald-950/80 border border-emerald-500/40 font-medium"
+                    >
+                      <Globe className="w-3 h-3 text-emerald-400" />
+                      <span>ZeroWFM</span>
+                      <ExternalLink className="w-3 h-3 text-emerald-400" />
+                    </a>
+                  )}
+
                   {conf.driveUrl && (
                     <a
                       href={conf.driveUrl}
