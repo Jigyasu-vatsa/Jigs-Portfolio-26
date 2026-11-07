@@ -67,6 +67,8 @@ export const InteractivePlayground: React.FC = () => {
       certificateUrl: '/assets/aistudio/GTISD_Certificate_5305ebbb.jpeg',
       prototypeUrl: 'https://zerowfm.jigsy.in',
       prototypeLabel: 'ZeroWFM Prototype (zerowfm.jigsy.in)',
+      prototypeBadge: 'Active Prototype',
+      prototypeStatus: 'active',
       color: 'from-emerald-600 via-teal-600 to-cyan-700',
     },
     {
@@ -110,6 +112,10 @@ export const InteractivePlayground: React.FC = () => {
       desc: 'Priority queue algorithm using mathematical decay indices for perishable surplus logistics within circular economy networks.',
       doiUrl: 'https://doi.org/10.2991/978-94-6239-789-7_18',
       certificateUrl: '/assets/aistudio/ICIPAI_Certificate_29406d59.jpg',
+      prototypeUrl: 'https://aifm.jigsy.in',
+      prototypeLabel: 'AI-AssistedFM (aifm.jigsy.in)',
+      prototypeBadge: 'Next Soon',
+      prototypeStatus: 'upcoming',
       color: 'from-blue-600 via-cyan-600 to-teal-700',
     },
     {
@@ -120,6 +126,10 @@ export const InteractivePlayground: React.FC = () => {
       stat: 'Noida International University (NIU)',
       desc: 'Cryptographically secured priority queue architecture preventing adversarial tampering in circular welfare distribution.',
       certificateUrl: '/assets/aistudio/241_Jigyasu_Vatsa_b3005cd7.pdf',
+      prototypeUrl: 'https://ctfm.jigsy.in',
+      prototypeLabel: 'CyberTrustedFM (ctfm.jigsy.in)',
+      prototypeBadge: 'Next Soon',
+      prototypeStatus: 'upcoming',
       color: 'from-teal-600 via-emerald-600 to-cyan-700',
     },
   ];
@@ -153,7 +163,9 @@ export const InteractivePlayground: React.FC = () => {
   };
 
   const downloadOptions = [
-    { label: 'ZeroWFM Prototype (zerowfm.jigsy.in)', url: 'https://zerowfm.jigsy.in', ext: 'PROTOTYPE' },
+    { label: 'ZeroWFM Prototype (zerowfm.jigsy.in) — Active', url: 'https://zerowfm.jigsy.in', ext: 'ACTIVE' },
+    { label: 'AI-AssistedFM (aifm.jigsy.in) — Next Soon', url: 'https://aifm.jigsy.in', ext: 'NEXT SOON' },
+    { label: 'CyberTrustedFM (ctfm.jigsy.in) — Next Soon', url: 'https://ctfm.jigsy.in', ext: 'NEXT SOON' },
     { label: 'GTISD-2026 Paper (Google Drive)', url: 'https://drive.google.com/file/d/1hl1eKE5VZfyXvZCZT3E7dMydZQXKRzYm/view', ext: 'DRIVE' },
     { label: 'Vedanjali UGC-CARE Paper (Google Drive)', url: 'https://drive.google.com/file/d/11vEgJhOBTcCGlTU7WsO1KHsqDBz3XYaj/view', ext: 'DRIVE' },
     { label: 'Mastering DSA Without Fear (Amazon Book)', url: AUTHORED_BOOK.amazonUrl, ext: 'AMAZON' },
@@ -368,10 +380,17 @@ export const InteractivePlayground: React.FC = () => {
                       href={currentPub.prototypeUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition-colors shadow-md"
+                      className={`px-3 py-1.5 rounded-lg font-bold text-xs flex items-center gap-1.5 transition-colors shadow-md ${
+                        currentPub.prototypeStatus === 'active'
+                          ? 'bg-emerald-500 hover:bg-emerald-400 text-slate-950'
+                          : 'bg-cyan-400 hover:bg-cyan-300 text-slate-950'
+                      }`}
                     >
                       <Globe className="w-3.5 h-3.5" />
-                      <span>ZeroWFM Live</span>
+                      <span>{currentPub.prototypeLabel ? currentPub.prototypeLabel.split(' ')[0] : 'Prototype'}</span>
+                      <span className="text-[9px] px-1 py-0.2 rounded font-sans uppercase font-bold tracking-wider bg-slate-950/20">
+                        {currentPub.prototypeBadge || (currentPub.prototypeStatus === 'active' ? 'Active' : 'Next Soon')}
+                      </span>
                       <ExternalLink className="w-3 h-3" />
                     </a>
                   )}

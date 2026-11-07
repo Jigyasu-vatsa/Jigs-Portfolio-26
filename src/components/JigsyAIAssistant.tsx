@@ -1096,6 +1096,8 @@ How can I help you today? You can ask me with keywords like 'call', 'mail', 'hel
     'IRCTC & DMRC Systems',
     'Mastering DSA Book',
     'ZeroWFM (zerowfm.jigsy.in)',
+    'AI-AssistedFM (aifm.jigsy.in)',
+    'CyberTrustedFM (ctfm.jigsy.in)',
     'JIGSY INDIA Verticals',
     "Jigyasu's Previous Portfolio",
   ];

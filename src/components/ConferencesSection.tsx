@@ -146,26 +146,42 @@ export const ConferencesSection: React.FC<ConferencesSectionProps> = ({ conferen
 
                 {/* Live Prototype Callout if defined */}
                 {conf.prototypeUrl && (
-                  <div className="mt-3 p-3 rounded-xl bg-emerald-950/50 border border-emerald-500/40 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                  <div className={`mt-3 p-3 rounded-xl border text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 ${
+                    conf.prototypeStatus === 'active'
+                      ? 'bg-emerald-950/50 border-emerald-500/40'
+                      : 'bg-cyan-950/50 border-cyan-500/40'
+                  }`}>
                     <div>
-                      <div className="flex items-center gap-1.5 text-emerald-300 font-semibold text-xs">
-                        <Globe className="w-3.5 h-3.5 text-emerald-400" />
-                        <span>{conf.prototypeLabel || 'ZeroWFM Prototype (zerowfm.jigsy.in)'}</span>
-                        <span className="text-[9px] px-1.5 py-0.2 rounded font-sans uppercase font-bold tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                          Active Prototype
+                      <div className={`flex items-center gap-1.5 font-semibold text-xs ${
+                        conf.prototypeStatus === 'active' ? 'text-emerald-300' : 'text-cyan-300'
+                      }`}>
+                        <Globe className={`w-3.5 h-3.5 ${
+                          conf.prototypeStatus === 'active' ? 'text-emerald-400' : 'text-cyan-400'
+                        }`} />
+                        <span>{conf.prototypeLabel || 'Prototype'}</span>
+                        <span className={`text-[9px] px-1.5 py-0.2 rounded font-sans uppercase font-bold tracking-wider ${
+                          conf.prototypeStatus === 'active'
+                            ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                            : 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20'
+                        }`}>
+                          {conf.prototypeBadge || (conf.prototypeStatus === 'active' ? 'Active Prototype' : 'Next Soon')}
                         </span>
                       </div>
                       <div className="text-[11px] text-slate-300 mt-0.5">
-                        Interactive prototype framework showing how food redistribution works before publication.
+                        {conf.prototypeNote || 'Interactive prototype platform showing how food redistribution works.'}
                       </div>
                     </div>
                     <a
                       href={conf.prototypeUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-lg bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition-colors shrink-0"
+                      className={`inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-lg text-slate-950 transition-colors shrink-0 ${
+                        conf.prototypeStatus === 'active'
+                          ? 'bg-emerald-500 hover:bg-emerald-400'
+                          : 'bg-cyan-400 hover:bg-cyan-300'
+                      }`}
                     >
-                      <span>Open zerowfm.jigsy.in</span>
+                      <span>Open {conf.prototypeLabel ? conf.prototypeLabel.split(' ')[0] : 'Prototype'}</span>
                       <ExternalLink className="w-3 h-3" />
                     </a>
                   </div>
@@ -203,11 +219,23 @@ export const ConferencesSection: React.FC<ConferencesSectionProps> = ({ conferen
                       href={conf.prototypeUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex items-center gap-1 text-emerald-300 hover:text-white px-2 py-1 rounded bg-emerald-950/80 border border-emerald-500/40 font-medium"
+                      className={`flex items-center gap-1.5 px-2.5 py-1 rounded border text-xs font-medium transition-all ${
+                        conf.prototypeStatus === 'active'
+                          ? 'text-emerald-300 hover:text-white bg-emerald-950/80 border-emerald-500/40'
+                          : 'text-cyan-300 hover:text-white bg-cyan-950/80 border-cyan-500/40'
+                      }`}
+                      title={conf.prototypeNote || conf.prototypeLabel}
                     >
-                      <Globe className="w-3 h-3 text-emerald-400" />
-                      <span>ZeroWFM</span>
-                      <ExternalLink className="w-3 h-3 text-emerald-400" />
+                      <Globe className={`w-3 h-3 ${conf.prototypeStatus === 'active' ? 'text-emerald-400' : 'text-cyan-400'}`} />
+                      <span>{conf.prototypeLabel ? conf.prototypeLabel.split(' ')[0] : 'Prototype'}</span>
+                      <span className={`text-[9px] px-1 py-0.2 rounded font-sans uppercase font-bold tracking-wider ${
+                        conf.prototypeStatus === 'active'
+                          ? 'bg-emerald-500/20 text-emerald-300'
+                          : 'bg-cyan-500/10 text-cyan-400'
+                      }`}>
+                        {conf.prototypeBadge || (conf.prototypeStatus === 'active' ? 'Active' : 'Next Soon')}
+                      </span>
+                      <ExternalLink className={`w-3 h-3 ${conf.prototypeStatus === 'active' ? 'text-emerald-400' : 'text-cyan-400'}`} />
                     </a>
                   )}
 

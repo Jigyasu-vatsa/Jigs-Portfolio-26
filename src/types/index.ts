@@ -45,6 +45,8 @@ export interface ResearchPaper {
   certificateUrl?: string;
   prototypeUrl?: string;
   prototypeLabel?: string;
+  prototypeBadge?: string;
+  prototypeStatus?: 'active' | 'upcoming';
   prototypeNote?: string;
   bibtex: string;
 }
@@ -118,6 +120,8 @@ export interface ConferenceItem {
   driveUrl?: string;
   prototypeUrl?: string;
   prototypeLabel?: string;
+  prototypeBadge?: string;
+  prototypeStatus?: 'active' | 'upcoming';
   prototypeNote?: string;
 }
 
