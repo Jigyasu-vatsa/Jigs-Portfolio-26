@@ -143,6 +143,7 @@ export interface ExperienceItem {
   achievements: string[];
   skills: string[];
   certificateUrl?: string;
+  reportUrl?: string;
 }
 
 export interface ProjectWebLink {

@@ -146,20 +146,20 @@ export const ConferencesSection: React.FC<ConferencesSectionProps> = ({ conferen
 
                 {/* Live Prototype Callout if defined */}
                 {conf.prototypeUrl && (
-                  <div className={`mt-3 p-3 rounded-xl border text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 ${
+                  <div className={`mt-3 p-3 rounded-xl border text-xs flex flex-col sm:flex-col lg:flex-row sm:items-start lg:items-center justify-between gap-2.5 ${
                     conf.prototypeStatus === 'active'
                       ? 'bg-emerald-50 border-emerald-200 text-slate-800 dark:bg-emerald-950/50 dark:border-emerald-500/40 dark:text-emerald-200'
                       : 'bg-cyan-50 border-cyan-200 text-slate-800 dark:bg-cyan-950/50 dark:border-cyan-500/40 dark:text-cyan-200'
                   }`}>
-                    <div>
-                      <div className={`flex items-center gap-1.5 font-semibold text-xs ${
+                    <div className="min-w-0 flex-1">
+                      <div className={`flex flex-wrap items-center gap-1.5 font-semibold text-xs ${
                         conf.prototypeStatus === 'active' ? 'text-emerald-800 dark:text-emerald-300' : 'text-cyan-800 dark:text-cyan-300'
                       }`}>
-                        <Globe className={`w-3.5 h-3.5 ${
+                        <Globe className={`w-3.5 h-3.5 shrink-0 ${
                           conf.prototypeStatus === 'active' ? 'text-emerald-600 dark:text-emerald-400' : 'text-cyan-600 dark:text-cyan-400'
                         }`} />
-                        <span>{conf.prototypeLabel || 'Prototype'}</span>
-                        <span className={`text-[9px] px-1.5 py-0.2 rounded font-sans uppercase font-bold tracking-wider ${
+                        <span className="truncate">{conf.prototypeLabel || 'Prototype'}</span>
+                        <span className={`text-[9px] px-1.5 py-0.2 rounded font-sans uppercase font-bold tracking-wider shrink-0 ${
                           conf.prototypeStatus === 'active'
                             ? 'bg-emerald-100 text-emerald-800 border border-emerald-300 dark:bg-emerald-500/20 dark:text-emerald-300 dark:border-emerald-500/30'
                             : 'bg-cyan-100 text-cyan-800 border border-cyan-300 dark:bg-cyan-500/10 dark:text-cyan-400 dark:border-cyan-500/20'
@@ -167,7 +167,7 @@ export const ConferencesSection: React.FC<ConferencesSectionProps> = ({ conferen
                           {conf.prototypeBadge || (conf.prototypeStatus === 'active' ? 'Prototype' : 'Next Soon')}
                         </span>
                       </div>
-                      <div className="text-[11px] text-emerald-950/80 dark:text-slate-300 mt-0.5">
+                      <div className="text-[11px] text-emerald-950/80 dark:text-slate-300 mt-0.5 leading-snug">
                         {conf.prototypeNote || 'Interactive prototype platform showing how food redistribution works.'}
                       </div>
                     </div>
@@ -175,7 +175,7 @@ export const ConferencesSection: React.FC<ConferencesSectionProps> = ({ conferen
                       href={conf.prototypeUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className={`inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-lg transition-colors shrink-0 ${
+                      className={`inline-flex items-center justify-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors shrink-0 w-full sm:w-auto ${
                         conf.prototypeStatus === 'active'
                           ? 'bg-emerald-600 hover:bg-emerald-500 text-white dark:bg-emerald-500 dark:hover:bg-emerald-400 dark:text-slate-950'
                           : 'bg-cyan-600 hover:bg-cyan-500 text-white dark:bg-cyan-400 dark:hover:bg-cyan-300 dark:text-slate-950'
@@ -208,43 +208,18 @@ export const ConferencesSection: React.FC<ConferencesSectionProps> = ({ conferen
               </div>
 
               {/* Bottom Card Footer */}
-              <div className="mt-5 pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">
-                <span className="text-slate-500 dark:text-slate-400">
+              <div className="mt-5 pt-3 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
+                <span className="text-slate-500 dark:text-slate-400 leading-snug">
                   Organizer: <strong className="text-slate-800 dark:text-slate-300 font-medium">{conf.organizer}</strong>
                 </span>
 
-                <div className="flex items-center gap-2">
-                  {conf.prototypeUrl && (
-                    <a
-                      href={conf.prototypeUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className={`flex items-center gap-1.5 px-2.5 py-1 rounded border text-xs font-medium transition-all ${
-                        conf.prototypeStatus === 'active'
-                          ? 'text-emerald-800 hover:text-emerald-950 bg-emerald-50 hover:bg-emerald-100 border-emerald-300 dark:text-emerald-300 dark:hover:text-white dark:bg-emerald-950/80 dark:border-emerald-500/40'
-                          : 'text-cyan-800 hover:text-cyan-950 bg-cyan-50 hover:bg-cyan-100 border-cyan-300 dark:text-cyan-300 dark:hover:text-white dark:bg-cyan-950/80 dark:border-cyan-500/40'
-                      }`}
-                      title={conf.prototypeNote || conf.prototypeLabel}
-                    >
-                      <Globe className={`w-3 h-3 ${conf.prototypeStatus === 'active' ? 'text-emerald-600 dark:text-emerald-400' : 'text-cyan-600 dark:text-cyan-400'}`} />
-                      <span>{conf.prototypeLabel ? conf.prototypeLabel.split(' ')[0] : 'Prototype'}</span>
-                      <span className={`text-[9px] px-1 py-0.2 rounded font-sans uppercase font-bold tracking-wider ${
-                        conf.prototypeStatus === 'active'
-                          ? 'bg-emerald-100 text-emerald-800 border border-emerald-200 dark:bg-emerald-500/20 dark:text-emerald-300'
-                          : 'bg-cyan-100 text-cyan-800 border border-cyan-200 dark:bg-cyan-500/10 dark:text-cyan-400'
-                      }`}>
-                        {conf.prototypeBadge || (conf.prototypeStatus === 'active' ? 'Prototype' : 'Next Soon')}
-                      </span>
-                      <ExternalLink className={`w-3 h-3 ${conf.prototypeStatus === 'active' ? 'text-emerald-600 dark:text-emerald-400' : 'text-cyan-600 dark:text-cyan-400'}`} />
-                    </a>
-                  )}
-
+                <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto shrink-0">
                   {conf.driveUrl && (
                     <a
                       href={conf.driveUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex items-center gap-1 text-slate-700 hover:text-slate-950 px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 border border-slate-200 dark:text-slate-300 dark:hover:text-white dark:bg-slate-950 dark:border-slate-800 font-medium"
+                      className="inline-flex items-center gap-1 text-slate-700 hover:text-slate-950 px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-200 dark:text-slate-300 dark:hover:text-white dark:bg-slate-950 dark:border-slate-800 font-medium transition-colors"
                     >
                       <span>Google Drive</span>
                       <ExternalLink className="w-3 h-3 text-cyan-600 dark:text-cyan-400" />
@@ -256,7 +231,7 @@ export const ConferencesSection: React.FC<ConferencesSectionProps> = ({ conferen
                       href={conf.certificateUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex items-center gap-1 text-cyan-400 hover:text-cyan-300 font-medium"
+                      className="inline-flex items-center gap-1 text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300 font-semibold px-2 py-1 transition-colors"
                     >
                       <FileCheck className="w-3.5 h-3.5" />
                       <span>View Proceedings</span>

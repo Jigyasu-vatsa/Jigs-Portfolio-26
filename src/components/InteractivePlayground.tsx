@@ -294,10 +294,10 @@ export const InteractivePlayground: React.FC = () => {
                       href={currentPub.driveUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="px-3.5 py-1.5 rounded-lg bg-white text-slate-950 hover:bg-cyan-100 font-bold text-xs flex items-center gap-1.5 shadow-md transition-colors"
+                      className="px-3 py-1.5 rounded-lg bg-white text-slate-950 hover:bg-cyan-100 font-bold text-xs flex items-center gap-1.5 shadow-md transition-colors"
                     >
                       <BookOpen className="w-3.5 h-3.5 text-blue-600" />
-                      <span>Open on Google Drive</span>
+                      <span>Google Drive</span>
                       <ExternalLink className="w-3 h-3 ml-0.5 text-slate-500" />
                     </a>
                   )}
@@ -307,10 +307,10 @@ export const InteractivePlayground: React.FC = () => {
                       href={currentPub.amazonUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="px-3.5 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-md transition-colors"
+                      className="px-3 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-md transition-colors"
                     >
                       <BookOpen className="w-3.5 h-3.5 text-slate-950" />
-                      <span>View on Amazon.com</span>
+                      <span>Amazon Book</span>
                       <ExternalLink className="w-3 h-3 ml-0.5 text-slate-700" />
                     </a>
                   )}
@@ -327,7 +327,7 @@ export const InteractivePlayground: React.FC = () => {
                       className="px-3 py-1.5 rounded-lg bg-black/40 hover:bg-black/60 text-white font-medium text-xs flex items-center gap-1.5 transition-colors border border-white/20"
                     >
                       <Eye className="w-3.5 h-3.5 text-cyan-300" />
-                      <span>View Book Cover</span>
+                      <span>Book Cover</span>
                     </button>
                   )}
 
@@ -343,7 +343,7 @@ export const InteractivePlayground: React.FC = () => {
                       className="px-3 py-1.5 rounded-lg bg-white text-slate-950 hover:bg-cyan-100 font-bold text-xs flex items-center gap-1.5 shadow-md transition-colors"
                     >
                       <FileCheck className="w-3.5 h-3.5 text-purple-600" />
-                      <span>View ISBN Proceeding Scan</span>
+                      <span>ISBN Proceeding</span>
                     </button>
                   )}
 
@@ -359,7 +359,7 @@ export const InteractivePlayground: React.FC = () => {
                       className="px-3 py-1.5 rounded-lg bg-black/40 hover:bg-black/60 text-white font-medium text-xs flex items-center gap-1.5 transition-colors border border-white/20"
                     >
                       <Award className="w-3.5 h-3.5 text-emerald-300" />
-                      <span>View Official Certificate</span>
+                      <span>Certificate</span>
                     </button>
                   )}
 
@@ -370,7 +370,7 @@ export const InteractivePlayground: React.FC = () => {
                       rel="noreferrer"
                       className="px-3 py-1.5 rounded-lg bg-white/20 hover:bg-white/30 text-white font-medium text-xs flex items-center gap-1.5 transition-colors border border-white/20"
                     >
-                      <span>DOI Link</span>
+                      <span>DOI</span>
                       <ExternalLink className="w-3 h-3 text-cyan-200" />
                     </a>
                   )}

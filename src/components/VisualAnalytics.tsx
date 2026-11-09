@@ -293,7 +293,7 @@ export const VisualAnalytics: React.FC<VisualAnalyticsProps> = ({
                   })}
                 </div>
 
-                <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mt-4 font-mono">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs text-slate-500 dark:text-slate-400 mt-4 font-mono">
                   <span>Hover over any year to view output volume</span>
                   <span className="text-cyan-700 dark:text-cyan-400 font-semibold">Total Citation Volume: 38+</span>
                 </div>

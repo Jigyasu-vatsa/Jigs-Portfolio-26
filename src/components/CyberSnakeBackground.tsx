@@ -562,75 +562,77 @@ export const CyberSnakeBackground: React.FC = () => {
         </aside>
       )}
 
-      {/* Interactive Cyber-Snake & Frog Universe Control Dock (Independent z-50, 100% Clickable) */}
+      {/* Interactive Cyber-Snake & Frog Universe Control Dock (Compact Low-Profile Bar, z-40) */}
       {isCardHidden && playMode === 'auto' ? (
         /* Minimized Floating Trigger Pill when card is hidden */
         <button
           type="button"
           onClick={() => setIsCardHidden(false)}
-          className="fixed bottom-5 right-5 sm:bottom-6 sm:right-24 z-50 cursor-pointer pointer-events-auto px-3.5 py-2 rounded-2xl bg-slate-900/95 hover:bg-slate-850 border border-emerald-500/50 text-emerald-400 hover:text-white text-xs font-mono shadow-2xl backdrop-blur-xl flex items-center gap-2 transition-all hover:scale-105 active:scale-95"
+          className="fixed bottom-3 right-3 sm:bottom-6 sm:right-6 md:right-24 z-40 cursor-pointer pointer-events-auto px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl bg-slate-900/95 hover:bg-slate-850 border border-emerald-500/50 text-emerald-400 hover:text-white text-[11px] sm:text-xs font-mono shadow-xl backdrop-blur-xl flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95"
           title="Show Cyber-Snake Play / Stats Card"
         >
-          <Gamepad2 className="w-4 h-4 text-emerald-400 animate-pulse" />
+          <Gamepad2 className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
           <span className="font-bold">Snake: {score} pts</span>
-          <span className="text-[10px] text-cyan-400 underline ml-0.5">Open Card</span>
+          <span className="text-[10px] text-cyan-400 underline ml-0.5 hidden xs:inline">Open</span>
         </button>
       ) : (
-        <div className="fixed bottom-5 right-5 sm:bottom-6 sm:right-24 z-50 pointer-events-auto">
-          <div className="p-3 sm:p-3.5 rounded-2xl bg-slate-950/95 border border-cyan-500/40 backdrop-blur-2xl shadow-2xl shadow-cyan-500/20 text-xs text-slate-200 transition-all max-w-sm">
-            {/* Main Top Status Bar */}
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex items-center gap-2">
-                <span className="relative flex h-3 w-3 shrink-0">
+        <div className="fixed bottom-3 right-3 sm:bottom-6 sm:right-6 md:right-24 z-40 pointer-events-auto max-w-[calc(100vw-7rem)] sm:max-w-sm">
+          <div className="py-1 px-2 sm:p-3 rounded-xl sm:rounded-2xl bg-slate-950/95 border border-cyan-500/40 backdrop-blur-2xl shadow-xl shadow-cyan-500/10 text-xs text-slate-200 transition-all">
+            {/* Main Slim Status Bar */}
+            <div className="flex items-center justify-between gap-1.5 sm:gap-3">
+              <div className="flex items-center gap-1 sm:gap-2 min-w-0">
+                <span className="relative flex h-2 w-2 sm:h-3 sm:w-3 shrink-0">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 sm:h-3 sm:w-3 bg-emerald-500" />
                 </span>
-                <div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-bold text-white font-mono text-[11px] block leading-tight">
-                      Cyber-Snake
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1 sm:gap-1.5">
+                    <span className="font-bold text-white font-mono text-[9px] sm:text-[11px] truncate leading-tight">
+                      <span className="sm:hidden">Snake</span>
+                      <span className="hidden sm:inline">Cyber-Snake</span>
                     </span>
-                    <span className="px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-300 font-mono text-[10px] font-bold">
-                      {score} pts
+                    <span className="px-1 py-0.2 rounded bg-cyan-500/20 text-cyan-300 font-mono text-[8px] sm:text-[10px] font-bold shrink-0">
+                      {score} <span className="hidden sm:inline">pts</span>
                     </span>
                   </div>
-                  <span className="text-[10px] text-cyan-400 font-mono">
+                  <span className="text-[9px] text-cyan-400 font-mono hidden sm:block">
                     {playMode === 'auto' ? 'AI Auto-Hunt' : 'Manual Arcade'}
                   </span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
                 {/* Play / Stats Toggle */}
                 <button
                   onClick={() => setIsExpanded(!isExpanded)}
-                  className={`px-2.5 py-1 text-[10px] font-mono rounded-lg transition-colors flex items-center gap-1 font-semibold ${
+                  className={`px-2 py-1 text-[9px] sm:text-[10px] font-mono rounded-lg transition-colors flex items-center gap-1 font-semibold ${
                     isExpanded
                       ? 'bg-cyan-500 text-slate-950 shadow-sm'
-                      : 'bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700'
+                      : 'bg-slate-850 hover:bg-slate-800 text-cyan-300 border border-slate-750'
                   }`}
                   title={isExpanded ? 'Collapse card stats' : 'Expand score stats & game controls'}
                 >
                   <Gamepad2 className="w-3 h-3" />
-                  <span>{isExpanded ? 'Collapse' : 'Play / Stats'}</span>
+                  <span className="hidden sm:inline">{isExpanded ? 'Collapse' : 'Play / Stats'}</span>
+                  <span className="sm:hidden">{isExpanded ? 'Hide' : 'Play'}</span>
                 </button>
 
                 {/* Canvas Animation Toggle */}
                 <button
                   onClick={() => setEnabled(!enabled)}
-                  className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors"
+                  className="p-1 rounded-lg bg-slate-850 hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
                   title={enabled ? 'Turn snake canvas off' : 'Turn snake canvas on'}
                 >
-                  {enabled ? <Eye className="w-3.5 h-3.5 text-cyan-400" /> : <EyeOff className="w-3.5 h-3.5 text-slate-500" />}
+                  {enabled ? <Eye className="w-3 h-3 text-cyan-400" /> : <EyeOff className="w-3 h-3 text-slate-500" />}
                 </button>
 
                 {/* Hide Card Completely */}
                 <button
                   onClick={() => setIsCardHidden(true)}
-                  className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-rose-400 transition-colors"
+                  className="p-1 rounded-lg bg-slate-850 hover:bg-slate-800 text-slate-400 hover:text-rose-400 transition-colors"
                   title="Hide this card"
                 >
-                  <X className="w-3.5 h-3.5" />
+                  <X className="w-3 h-3" />
                 </button>
               </div>
             </div>

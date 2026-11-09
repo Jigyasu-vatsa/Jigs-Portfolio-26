@@ -206,7 +206,7 @@ export const HeroDashboard: React.FC<HeroDashboardProps> = ({
               </div>
 
               {/* Research Focus Matrix mini-grid inside card */}
-              <div className="grid grid-cols-2 gap-3 mt-6 pt-5 border-t border-slate-200 dark:border-slate-800/80 text-xs">
+              <div className="grid grid-cols-1 xs:grid-cols-2 gap-2.5 sm:gap-3 mt-6 pt-5 border-t border-slate-200 dark:border-slate-800/80 text-xs">
                 <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800">
                   <span className="text-slate-500 dark:text-slate-400 block text-[11px]">Dual Masters</span>
                   <span className="font-semibold text-slate-800 dark:text-slate-100 mt-0.5 block">Regular M.Tech + ODL MBA</span>
@@ -229,7 +229,7 @@ export const HeroDashboard: React.FC<HeroDashboardProps> = ({
         </div>
 
         {/* 4-Column KPI Strip in full-width row below hero split */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-10 pt-8 border-t border-slate-200 dark:border-slate-800/80">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-slate-200 dark:border-slate-800/80">
           <div className="p-4 rounded-xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/80 flex items-center gap-3.5 shadow-sm">
             <div className="p-3 rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
               <BookOpen className="w-5 h-5" />

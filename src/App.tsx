@@ -142,7 +142,7 @@ export default function App() {
 
   return (
     <div
-      className={`min-h-screen ${
+      className={`min-h-screen max-w-full overflow-x-hidden ${
         darkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'
       } selection:bg-cyan-500 selection:text-slate-950 transition-colors relative`}
     >
@@ -159,7 +159,7 @@ export default function App() {
       />
 
       {/* Main Content Sections (Supports both unified dashboard and detached page views) */}
-      <main className="relative z-10">
+      <main className="relative z-10 max-w-full overflow-x-hidden">
         {/* Render sections according to activeView */}
         {/* Unified Dashboard View: Shows complete portfolio footprint */}
         {activeView === 'all' && (
@@ -329,9 +329,9 @@ export default function App() {
         <button
           onClick={scrollToTop}
           aria-label="Scroll back to top"
-          className="fixed bottom-6 right-6 z-40 p-3 rounded-xl bg-slate-900/90 text-cyan-400 hover:text-white hover:bg-cyan-500 hover:text-slate-950 border border-slate-750 shadow-xl transition-all duration-300 backdrop-blur-md group"
+          className="fixed bottom-14 sm:bottom-20 right-3 sm:right-6 z-40 p-2 sm:p-2.5 rounded-xl bg-slate-900/90 text-cyan-400 hover:text-white hover:bg-cyan-500 hover:text-slate-950 border border-slate-750 shadow-xl transition-all duration-300 backdrop-blur-md group"
         >
-          <ArrowUp className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" />
+          <ArrowUp className="w-4 h-4 sm:w-5 sm:h-5 group-hover:-translate-y-0.5 transition-transform" />
         </button>
       )}
 

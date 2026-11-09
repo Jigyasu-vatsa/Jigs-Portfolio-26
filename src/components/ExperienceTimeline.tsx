@@ -138,17 +138,31 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({ experien
                       {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                     </button>
 
-                    {exp.certificateUrl && (
-                      <a
-                        href={exp.certificateUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="px-3 py-1.5 text-xs font-semibold text-cyan-700 dark:text-cyan-400 hover:text-cyan-800 dark:hover:text-cyan-300 bg-cyan-50 dark:bg-cyan-950/40 hover:bg-cyan-100 dark:hover:bg-cyan-900/40 border border-cyan-200 dark:border-cyan-800/50 rounded-lg transition-colors flex items-center gap-1.5"
-                      >
-                        <FileCheck className="w-3.5 h-3.5" />
-                        <span>Certificate &darr;</span>
-                      </a>
-                    )}
+                    <div className="flex flex-wrap items-center gap-2">
+                      {exp.certificateUrl && (
+                        <a
+                          href={exp.certificateUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="px-3 py-1.5 text-xs font-semibold text-cyan-700 dark:text-cyan-400 hover:text-cyan-800 dark:hover:text-cyan-300 bg-cyan-50 dark:bg-cyan-950/40 hover:bg-cyan-100 dark:hover:bg-cyan-900/40 border border-cyan-200 dark:border-cyan-800/50 rounded-lg transition-colors flex items-center gap-1.5"
+                        >
+                          <FileCheck className="w-3.5 h-3.5" />
+                          <span>Certificate &darr;</span>
+                        </a>
+                      )}
+
+                      {exp.reportUrl && (
+                        <a
+                          href={exp.reportUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="px-3 py-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 border border-emerald-200 dark:border-emerald-800/50 rounded-lg transition-colors flex items-center gap-1.5"
+                        >
+                          <FileCheck className="w-3.5 h-3.5" />
+                          <span>Report &darr;</span>
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
 

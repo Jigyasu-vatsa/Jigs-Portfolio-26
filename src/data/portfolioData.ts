@@ -512,7 +512,8 @@ export const EXPERIENCES: ExperienceItem[] = [
       'Implemented data consistency monitors reducing booking drop-offs during high-load Tatkal windows.',
     ],
     skills: ['Java Enterprise', 'SQL & Oracle DB', 'API Integration', 'Stress Testing', 'Concurrency Control'],
-    certificateUrl: 'pdfiles/IRCTCinternship6MonthsDec24May25.pdf',
+    certificateUrl: '/pdfiles/IRCTCinternship6MonthsDec24May25.pdf',
+    reportUrl: '/pdfiles/IRCTCinternshipReportSubmission.PDF',
   },
   {
     id: 'exp-4',
@@ -532,7 +533,7 @@ export const EXPERIENCES: ExperienceItem[] = [
       'Delivered tested patches that restored operational uptime for institutional library clients.',
     ],
     skills: ['C#', 'SQL Server', 'Bug Remediation', 'Client Systems'],
-    certificateUrl: 'pdfiles/RenukaAssociatesOfferLetterJigyasuVatsaNov24.pdf',
+    certificateUrl: '/pdfiles/RenukaAssociatesOfferLetterJigyasuVatsaNov24.pdf',
   },
   {
     id: 'exp-5',
@@ -552,7 +553,7 @@ export const EXPERIENCES: ExperienceItem[] = [
       'Engineered structured automated ETL scripts synchronizing external operational telemetry into centralized reporting stores.',
     ],
     skills: ['MySQL', 'Query Optimization', 'ETL Pipelines', 'Schema Normalization'],
-    certificateUrl: 'pdfiles/CertificateNabengTechnoSolutionsPvtLtdJun24.PDF',
+    certificateUrl: '/pdfiles/CertificateNabengTechnoSolutionsPvtLtdJun24.PDF',
   },
   {
     id: 'exp-6',
@@ -572,7 +573,7 @@ export const EXPERIENCES: ExperienceItem[] = [
       'Developed diagnostic scripts tracking database latency spikes during high-load periods.',
     ],
     skills: ['Database Auditing', 'Sprint Planning', 'Automation Utilities', 'System Testing'],
-    certificateUrl: 'pdfiles/IrctcCertificate3MonthsJan24.PDF',
+    certificateUrl: '/pdfiles/IrctcCertificate3MonthsJan24.PDF',
   },
   {
     id: 'exp-7',
@@ -592,7 +593,7 @@ export const EXPERIENCES: ExperienceItem[] = [
       'Refactored legacy form validation routines to modern client-side error handling standards.',
     ],
     skills: ['JavaScript', 'HTML5/CSS3', 'JSP', 'Web Performance'],
-    certificateUrl: 'pdfiles/IrctcCertificate1MonthJul23.PDF',
+    certificateUrl: '/pdfiles/IrctcCertificate1MonthJul23.PDF',
   },
 ];
 

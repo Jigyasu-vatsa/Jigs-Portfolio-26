@@ -1109,19 +1109,19 @@ How can I help you today? You can ask me with keywords like 'call', 'mail', 'hel
 
   return (
     <>
-      {/* Floating Trigger Button Container with Attention Callout */}
-      <div className="fixed bottom-6 left-6 z-40 flex flex-col items-start gap-2">
+      {/* Floating Trigger Button Container with Attention Callout (z-50, always on top and accessible) */}
+      <div className="fixed bottom-3 left-3 sm:bottom-6 sm:left-6 z-50 flex flex-col items-start gap-1.5 pointer-events-auto">
         {/* Callout Bubble attracting user on load */}
         {showCalloutBadge && !isOpen && (
-          <div className="animate-bounce mb-1 px-3 py-1.5 rounded-xl bg-slate-900 border border-cyan-500/50 shadow-xl text-[11px] font-semibold text-cyan-300 flex items-center gap-1.5 backdrop-blur-md">
-            <Radio className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
-            <span>Tap to talk with JIGSY AI!</span>
+          <div className="animate-bounce mb-1 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl bg-slate-900 border border-cyan-500/50 shadow-xl text-[10px] sm:text-[11px] font-semibold text-cyan-300 flex items-center gap-1.5 backdrop-blur-md max-w-[calc(100vw-2rem)]">
+            <Radio className="w-3.5 h-3.5 text-cyan-400 animate-pulse shrink-0" />
+            <span className="truncate">Tap to talk with JIGSY AI!</span>
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 setShowCalloutBadge(false);
               }}
-              className="text-slate-400 hover:text-white ml-1 p-0.5"
+              className="text-slate-400 hover:text-white ml-0.5 p-0.5"
             >
               <X className="w-3 h-3" />
             </button>
@@ -1136,12 +1136,12 @@ How can I help you today? You can ask me with keywords like 'call', 'mail', 'hel
             setIsAttracting(false);
           }}
           aria-label="Open JIGSY AI Voice & Chat Assistant"
-          className={`p-2.5 sm:px-4 sm:py-3 rounded-2xl bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-600 text-slate-950 font-bold shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center gap-3 group backdrop-blur-md border border-cyan-300/60 ${
+          className={`p-2 sm:px-4 sm:py-2.5 rounded-2xl bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-600 text-slate-950 font-bold shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center gap-2.5 group backdrop-blur-md border border-cyan-300/60 ${
             isAttracting ? 'animate-attract-3x' : ''
           }`}
         >
           {/* Provided Official JIGSY AI Logo Avatar - Pure Cutout Without Black Box */}
-          <div className="relative w-11 h-11 sm:w-12 sm:h-12 shrink-0 flex items-center justify-center">
+          <div className="relative w-9 h-9 sm:w-11 sm:h-11 shrink-0 flex items-center justify-center">
             <img
               src={JIGSY_AI_LOGO}
               alt="JIGSY AI Assistant Logo"
@@ -1160,12 +1160,12 @@ How can I help you today? You can ask me with keywords like 'call', 'mail', 'hel
         </button>
       </div>
 
-      {/* Floating Chat Modal with Increased Height & Pop Larger-to-Smaller Animation */}
+      {/* Floating Chat Modal with Responsive Dimensions & Pop Larger-to-Smaller Animation */}
       {isOpen && (
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed bottom-6 left-6 z-50 w-[calc(100vw-3rem)] max-w-md sm:max-w-lg bg-slate-900 border border-slate-750 rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[690px] max-h-[92vh] sm:h-[730px] animate-pop-larger origin-bottom-left"
+          className="fixed bottom-3 left-3 sm:bottom-6 sm:left-6 z-50 w-[calc(100vw-1.5rem)] max-w-md sm:max-w-lg bg-slate-900 border border-slate-750 rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[620px] max-h-[88vh] sm:h-[720px] animate-pop-larger origin-bottom-left"
         >
           {/* Header with Transparent Cutout Logo & Soft Voice Indicator */}
           <div className="p-3.5 sm:p-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
