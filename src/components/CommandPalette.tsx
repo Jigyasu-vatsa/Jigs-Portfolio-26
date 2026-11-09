@@ -153,17 +153,17 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                       onSelectPaper(paper);
                       onClose();
                     }}
-                    className="p-2.5 rounded-xl hover:bg-slate-800/80 cursor-pointer transition-colors flex items-center justify-between group"
+                    className="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/80 cursor-pointer transition-colors flex items-center justify-between group"
                   >
                     <div>
-                      <div className="font-semibold text-white group-hover:text-cyan-300 line-clamp-1">
+                      <div className="font-semibold text-slate-900 dark:text-white group-hover:text-cyan-700 dark:group-hover:text-cyan-300 line-clamp-1">
                         {paper.title}
                       </div>
-                      <div className="text-[11px] text-slate-400 mt-0.5">
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                         {paper.type} · {paper.year} · {paper.indexing.join(', ')}
                       </div>
                     </div>
-                    <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-cyan-400 shrink-0 ml-2" />
+                    <ArrowRight className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 shrink-0 ml-2" />
                   </div>
                 ))}
               </div>
@@ -174,7 +174,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
           {matchingConferences.length > 0 && (
             <div>
               <div className="px-3 py-1 text-[11px] font-mono uppercase text-slate-500 flex items-center gap-1.5">
-                <Users className="w-3.5 h-3.5 text-purple-400" />
+                <Users className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
                 <span>Conferences Attended</span>
               </div>
               <div className="space-y-1 mt-1">
@@ -183,17 +183,17 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                     key={conf.id}
                     href="#conferences"
                     onClick={onClose}
-                    className="p-2.5 rounded-xl hover:bg-slate-800/80 cursor-pointer transition-colors flex items-center justify-between group block"
+                    className="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/80 cursor-pointer transition-colors flex items-center justify-between group block"
                   >
                     <div>
-                      <div className="font-semibold text-white group-hover:text-purple-300 line-clamp-1">
+                      <div className="font-semibold text-slate-900 dark:text-white group-hover:text-purple-700 dark:group-hover:text-purple-300 line-clamp-1">
                         {conf.conferenceName}
                       </div>
-                      <div className="text-[11px] text-slate-400 mt-0.5">
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                         {conf.acronym} · {conf.role} · {conf.dates}
                       </div>
                     </div>
-                    <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-purple-400 shrink-0 ml-2" />
+                    <ArrowRight className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-purple-600 dark:group-hover:text-purple-400 shrink-0 ml-2" />
                   </a>
                 ))}
               </div>
@@ -204,7 +204,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
           {matchingProjects.length > 0 && (
             <div>
               <div className="px-3 py-1 text-[11px] font-mono uppercase text-slate-500 flex items-center gap-1.5">
-                <Code2 className="w-3.5 h-3.5 text-emerald-400" />
+                <Code2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                 <span>Engineering Projects</span>
               </div>
               <div className="space-y-1 mt-1">
@@ -213,17 +213,17 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                     key={proj.id}
                     href="#projects"
                     onClick={onClose}
-                    className="p-2.5 rounded-xl hover:bg-slate-800/80 cursor-pointer transition-colors flex items-center justify-between group block"
+                    className="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/80 cursor-pointer transition-colors flex items-center justify-between group block"
                   >
                     <div>
-                      <div className="font-semibold text-white group-hover:text-emerald-300 line-clamp-1">
+                      <div className="font-semibold text-slate-900 dark:text-white group-hover:text-emerald-700 dark:group-hover:text-emerald-300 line-clamp-1">
                         {proj.title}
                       </div>
-                      <div className="text-[11px] text-slate-400 mt-0.5">
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                         {proj.associatedWith} · {proj.category}
                       </div>
                     </div>
-                    <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-emerald-400 shrink-0 ml-2" />
+                    <ArrowRight className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 shrink-0 ml-2" />
                   </a>
                 ))}
               </div>
@@ -240,7 +240,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         </div>
 
         {/* Footer info */}
-        <div className="px-4 py-2.5 bg-slate-950 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-500 font-mono">
+        <div className="px-4 py-2.5 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-500 font-mono">
           <span>Tip: Jump directly to any paper or section</span>
           <span>Use ⌘K / Ctrl+K anytime</span>
         </div>

@@ -14,6 +14,7 @@ import {
   Gamepad2,
   ShieldCheck,
 } from 'lucide-react';
+import { PortfolioNexusDropdown } from './PortfolioNexusDropdown';
 
 interface HeroDashboardProps {
   metrics: ResearchMetrics;
@@ -90,16 +91,16 @@ export const HeroDashboard: React.FC<HeroDashboardProps> = ({
 
               <button
                 onClick={onExploreConferences}
-                className="px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-200 hover:text-white bg-slate-900 hover:bg-slate-850 border border-slate-750 rounded-xl transition-all flex items-center gap-2"
+                className="px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-700 hover:text-slate-950 bg-slate-100 hover:bg-slate-200 border border-slate-200 dark:text-slate-200 dark:hover:text-white dark:bg-slate-900 dark:hover:bg-slate-850 dark:border-slate-750 rounded-xl transition-all flex items-center gap-2 shadow-sm"
               >
-                <Users className="w-4 h-4 text-cyan-400" />
+                <Users className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
                 <span>4 International Conferences</span>
               </button>
 
               {onExploreJigsy && (
                 <button
                   onClick={onExploreJigsy}
-                  className="px-4 py-2.5 text-xs sm:text-sm font-semibold text-cyan-300 hover:text-white bg-cyan-950/60 hover:bg-cyan-900/60 border border-cyan-800/80 rounded-xl transition-all flex items-center gap-2 shadow-sm"
+                  className="px-4 py-2.5 text-xs sm:text-sm font-semibold text-cyan-800 hover:text-cyan-950 bg-cyan-50 hover:bg-cyan-100 border border-cyan-200 dark:text-cyan-300 dark:hover:text-white dark:bg-cyan-950/60 dark:hover:bg-cyan-900/60 dark:border-cyan-800/80 rounded-xl transition-all flex items-center gap-2 shadow-sm"
                 >
                   <img
                     src="/assets/aistudio/image_bdd66c74.png"
@@ -112,37 +113,28 @@ export const HeroDashboard: React.FC<HeroDashboardProps> = ({
 
               <button
                 onClick={onExploreFdp}
-                className="px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-200 hover:text-white bg-slate-900 hover:bg-slate-850 border border-slate-750 rounded-xl transition-all flex items-center gap-2"
+                className="px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-700 hover:text-slate-950 bg-slate-100 hover:bg-slate-200 border border-slate-200 dark:text-slate-200 dark:hover:text-white dark:bg-slate-900 dark:hover:bg-slate-850 dark:border-slate-750 rounded-xl transition-all flex items-center gap-2 shadow-sm"
               >
-                <Award className="w-4 h-4 text-emerald-400" />
+                <Award className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                 <span>3 FDPs &amp; Workshops</span>
               </button>
 
               <button
                 onClick={onExploreInteractive}
-                className="px-4 py-2.5 text-xs sm:text-sm font-medium text-slate-300 hover:text-white bg-slate-950/80 hover:bg-slate-900 border border-slate-800 rounded-xl transition-all flex items-center gap-1.5"
+                className="px-4 py-2.5 text-xs sm:text-sm font-medium text-slate-700 hover:text-slate-950 bg-slate-100 hover:bg-slate-200 border border-slate-200 dark:text-slate-300 dark:hover:text-white dark:bg-slate-950/80 dark:hover:bg-slate-900 dark:border-slate-800 rounded-xl transition-all flex items-center gap-1.5 shadow-sm"
               >
-                <Gamepad2 className="w-4 h-4 text-purple-400" />
+                <Gamepad2 className="w-4 h-4 text-purple-600 dark:text-purple-400" />
                 <span>Interactive Lab</span>
               </button>
 
-              {/* Quick Navigation to Jigyasu's X (Previous Portfolio) */}
-              <a
-                href="https://jigyasu1.jigsy.in"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Visit Jigyasu's X (Previous Portfolio)"
-                className="px-4 py-2.5 text-xs sm:text-sm font-semibold text-blue-700 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 border border-blue-200 dark:text-cyan-300 dark:hover:text-white dark:bg-cyan-950/60 dark:hover:bg-cyan-900/60 dark:border-cyan-800/80 rounded-xl transition-all flex items-center gap-1.5 shadow-sm"
-              >
-                <ExternalLink className="w-4 h-4 text-blue-600 dark:text-cyan-400" />
-                <span>Jigyasu&apos;s Previous Portfolio</span>
-              </a>
+              {/* Portfolio Nexus Dropdown */}
+              <PortfolioNexusDropdown variant="hero" />
             </div>
           </div>
 
           {/* Right Column: Visual Portrait & Research Snapshot Card */}
           <div className="lg:col-span-5">
-            <div className="relative rounded-2xl bg-gradient-to-b from-slate-900/90 via-slate-900 to-slate-950 border border-slate-750 p-6 shadow-2xl backdrop-blur-xl">
+            <div className="relative rounded-2xl bg-white dark:bg-gradient-to-b dark:from-slate-900/90 dark:via-slate-900 dark:to-slate-950 border border-slate-200 dark:border-slate-750 p-6 shadow-xl backdrop-blur-xl">
               {/* Profile image with executive styling */}
               <div className="flex flex-col sm:flex-row items-center gap-5">
                 <div className="relative shrink-0">
@@ -150,9 +142,9 @@ export const HeroDashboard: React.FC<HeroDashboardProps> = ({
                   <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-cyan-500/30 via-teal-400/20 to-blue-600/30 blur-md opacity-75" />
                   
                   {/* Active Status Beacon - Placed cleanly above photo on top right */}
-                  <div className="absolute -top-4 -right-3 z-20 flex items-center gap-1.5 bg-slate-900/95 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-emerald-500/60 shadow-lg shadow-emerald-500/20">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="text-[10px] font-mono font-bold text-emerald-300">ACTIVE</span>
+                  <div className="absolute -top-4 -right-3 z-20 flex items-center gap-1.5 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-emerald-500/60 shadow-lg shadow-emerald-500/20">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
+                    <span className="text-[10px] font-mono font-bold text-emerald-700 dark:text-emerald-300">ACTIVE</span>
                   </div>
 
                   {/* Executive double-ring luxury frame */}
@@ -180,21 +172,21 @@ export const HeroDashboard: React.FC<HeroDashboardProps> = ({
                 </div>
 
                 <div className="text-center sm:text-left">
-                  <h3 className="text-xl font-bold text-white flex items-center justify-center sm:justify-start gap-2">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center justify-center sm:justify-start gap-2">
                     {PERSONAL_INFO.name}
                   </h3>
-                  <p className="text-xs text-cyan-400 font-mono mt-0.5 font-medium">
+                  <p className="text-xs text-cyan-700 dark:text-cyan-400 font-mono mt-0.5 font-medium">
                     Chairperson @ JIGSY INDIA (DPIIT Recognised)
                   </p>
-                  <p className="text-xs text-slate-300 mt-1">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 mt-1">
                     Asst. Exam Coordinator (SOCSE) · Dual Masters: M.Tech CSE &amp; MBA
                   </p>
-                  <div className="flex items-center justify-center sm:justify-start gap-3 mt-3 text-xs text-slate-300 font-mono">
+                  <div className="flex items-center justify-center sm:justify-start gap-3 mt-3 text-xs text-slate-600 dark:text-slate-300 font-mono">
                     <a
                       href={PERSONAL_INFO.orcidId}
                       target="_blank"
                       rel="noreferrer"
-                      className="hover:text-emerald-400 text-emerald-300 transition-colors flex items-center gap-1"
+                      className="hover:text-emerald-600 text-emerald-700 dark:text-emerald-300 dark:hover:text-emerald-400 transition-colors flex items-center gap-1 font-medium"
                     >
                       <ExternalLink className="w-3 h-3" />
                       ORCID Profile
@@ -204,7 +196,7 @@ export const HeroDashboard: React.FC<HeroDashboardProps> = ({
                       href={PERSONAL_INFO.linkedin}
                       target="_blank"
                       rel="noreferrer"
-                      className="hover:text-cyan-400 transition-colors flex items-center gap-1"
+                      className="hover:text-cyan-600 text-cyan-700 dark:text-cyan-300 dark:hover:text-cyan-400 transition-colors flex items-center gap-1 font-medium"
                     >
                       <ExternalLink className="w-3 h-3" />
                       LinkedIn
@@ -214,22 +206,22 @@ export const HeroDashboard: React.FC<HeroDashboardProps> = ({
               </div>
 
               {/* Research Focus Matrix mini-grid inside card */}
-              <div className="grid grid-cols-2 gap-3 mt-6 pt-5 border-t border-slate-800/80 text-xs">
-                <div className="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800">
-                  <span className="text-slate-400 block text-[11px]">Dual Masters</span>
-                  <span className="font-semibold text-slate-100 mt-0.5 block">Regular M.Tech + ODL MBA</span>
+              <div className="grid grid-cols-2 gap-3 mt-6 pt-5 border-t border-slate-200 dark:border-slate-800/80 text-xs">
+                <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800">
+                  <span className="text-slate-500 dark:text-slate-400 block text-[11px]">Dual Masters</span>
+                  <span className="font-semibold text-slate-800 dark:text-slate-100 mt-0.5 block">Regular M.Tech + ODL MBA</span>
                 </div>
-                <div className="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800">
-                  <span className="text-slate-400 block text-[11px]">Primary Domain</span>
-                  <span className="font-semibold text-slate-100 mt-0.5 block">CSE in AI &amp; Cyber Security</span>
+                <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800">
+                  <span className="text-slate-500 dark:text-slate-400 block text-[11px]">Primary Domain</span>
+                  <span className="font-semibold text-slate-800 dark:text-slate-100 mt-0.5 block">CSE in AI &amp; Cyber Security</span>
                 </div>
-                <div className="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800">
-                  <span className="text-slate-400 block text-[11px]">Corporate Status</span>
-                  <span className="font-semibold text-emerald-300 mt-0.5 block">Developer</span>
+                <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800">
+                  <span className="text-slate-500 dark:text-slate-400 block text-[11px]">Corporate Status</span>
+                  <span className="font-semibold text-emerald-700 dark:text-emerald-300 mt-0.5 block">Developer</span>
                 </div>
-                <div className="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800">
-                  <span className="text-slate-400 block text-[11px]">Academic Roles</span>
-                  <span className="font-semibold text-cyan-300 mt-0.5 block">Asst. Exam Coor. &amp; Faculty</span>
+                <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800">
+                  <span className="text-slate-500 dark:text-slate-400 block text-[11px]">Academic Roles</span>
+                  <span className="font-semibold text-cyan-700 dark:text-cyan-300 mt-0.5 block">Asst. Exam Coor. &amp; Faculty</span>
                 </div>
               </div>
             </div>
@@ -237,55 +229,55 @@ export const HeroDashboard: React.FC<HeroDashboardProps> = ({
         </div>
 
         {/* 4-Column KPI Strip in full-width row below hero split */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-10 pt-8 border-t border-slate-800/80">
-          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 flex items-center gap-3.5">
-            <div className="p-3 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-10 pt-8 border-t border-slate-200 dark:border-slate-800/80">
+          <div className="p-4 rounded-xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/80 flex items-center gap-3.5 shadow-sm">
+            <div className="p-3 rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
               <BookOpen className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-2xl font-bold font-mono text-white tabular-nums">
+              <div className="text-2xl font-bold font-mono text-slate-900 dark:text-white tabular-nums">
                 5
               </div>
-              <div className="text-xs text-slate-400">
+              <div className="text-xs text-slate-600 dark:text-slate-400">
                 Research Publications
               </div>
             </div>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 flex items-center gap-3.5">
-            <div className="p-3 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20">
+          <div className="p-4 rounded-xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/80 flex items-center gap-3.5 shadow-sm">
+            <div className="p-3 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
               <Users className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-2xl font-bold font-mono text-white tabular-nums">
+              <div className="text-2xl font-bold font-mono text-slate-900 dark:text-white tabular-nums">
                 4
               </div>
-              <div className="text-xs text-slate-400">
+              <div className="text-xs text-slate-600 dark:text-slate-400">
                 International Conferences
               </div>
             </div>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 flex items-center gap-3.5">
-            <div className="p-3 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          <div className="p-4 rounded-xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/80 flex items-center gap-3.5 shadow-sm">
+            <div className="p-3 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
               <Award className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-2xl font-bold font-mono text-white tabular-nums">
+              <div className="text-2xl font-bold font-mono text-slate-900 dark:text-white tabular-nums">
                 3
               </div>
-              <div className="text-xs text-slate-400">
+              <div className="text-xs text-slate-600 dark:text-slate-400">
                 FDPs &amp; Workshops
               </div>
             </div>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 flex items-center gap-3.5">
-            <div className="p-3 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20">
+          <div className="p-4 rounded-xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/80 flex items-center gap-3.5 shadow-sm">
+            <div className="p-3 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
               <GraduationCap className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-2xl font-bold font-mono text-white tabular-nums">
+              <div className="text-2xl font-bold font-mono text-slate-900 dark:text-white tabular-nums">
                 2
               </div>
               <div className="text-xs text-slate-400">

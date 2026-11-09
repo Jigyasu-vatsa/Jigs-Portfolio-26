@@ -22,6 +22,8 @@ import {
   Globe,
   BookOpen,
   Award,
+  Compass,
+  Layers,
 } from 'lucide-react';
 
 interface FeedbackContactProps {
@@ -449,11 +451,16 @@ export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault })
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
-            {/* Col 1: Web Portals */}
-            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-cyan-500/30 transition-colors">
-              <div className="text-[11px] font-mono uppercase tracking-wider text-cyan-400 font-semibold mb-3 flex items-center gap-1.5">
-                <Globe className="w-3.5 h-3.5 text-cyan-400" />
-                <span>Official Web Portals</span>
+            {/* Col 1: Portfolio Nexus & Web Portals */}
+            <div className="p-4 rounded-xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/80 hover:border-cyan-500/30 transition-colors shadow-sm">
+              <div className="text-[11px] font-mono uppercase tracking-wider text-cyan-700 dark:text-cyan-400 font-semibold mb-3 flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  <Compass className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+                  <span>Portfolio Nexus</span>
+                </div>
+                <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-cyan-100 text-cyan-800 dark:bg-cyan-950 dark:text-cyan-300">
+                  Nexus
+                </span>
               </div>
               <ul className="space-y-2.5">
                 <li>
@@ -461,13 +468,13 @@ export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault })
                     href="https://jigyasu1.jigsy.in"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between text-slate-300 hover:text-cyan-300 group py-0.5"
+                    className="flex items-center justify-between text-slate-700 hover:text-cyan-700 dark:text-slate-300 dark:hover:text-cyan-300 group py-0.5"
                   >
                     <div>
-                      <div className="font-semibold text-slate-200 group-hover:text-cyan-300">Jigyasu&apos;s Previous Portfolio</div>
-                      <div className="text-[10px] text-slate-500 font-mono">Archive &amp; Foundational Work</div>
+                      <div className="font-semibold text-slate-900 dark:text-slate-200 group-hover:text-cyan-700 dark:group-hover:text-cyan-300">Jigyasu&apos;s Previous Portfolio</div>
+                      <div className="text-[10px] text-slate-500 font-mono">jigyasu1.jigsy.in (Archive)</div>
                     </div>
-                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-cyan-300 ml-1 shrink-0" />
+                    <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-cyan-600 dark:text-slate-500 dark:group-hover:text-cyan-300 ml-1 shrink-0" />
                   </a>
                 </li>
                 <li>
@@ -475,36 +482,34 @@ export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault })
                     href="https://jigsy.in"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between text-slate-300 hover:text-cyan-300 group py-0.5"
+                    className="flex items-center justify-between text-slate-700 hover:text-cyan-700 dark:text-slate-300 dark:hover:text-cyan-300 group py-0.5"
                   >
                     <div>
-                      <div className="font-semibold text-slate-200 group-hover:text-cyan-300">JIGSY INDIA Corporate</div>
+                      <div className="font-semibold text-slate-900 dark:text-slate-200 group-hover:text-cyan-700 dark:group-hover:text-cyan-300">About at JIGSY INDIA</div>
                       <div className="text-[10px] text-slate-500 font-mono">jigsy.in (DPIIT Startup)</div>
                     </div>
-                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-cyan-300 ml-1 shrink-0" />
+                    <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-cyan-600 dark:text-slate-500 dark:group-hover:text-cyan-300 ml-1 shrink-0" />
                   </a>
                 </li>
                 <li>
                   <a
-                    href="https://jigyasu.jigsy.in"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between text-slate-300 hover:text-cyan-300 group py-0.5"
+                    href="#projects"
+                    className="flex items-center justify-between text-slate-700 hover:text-cyan-700 dark:text-slate-300 dark:hover:text-cyan-300 group py-0.5"
                   >
                     <div>
-                      <div className="font-semibold text-slate-200 group-hover:text-cyan-300">Research &amp; Dossier (Current)</div>
-                      <div className="text-[10px] text-slate-500 font-mono">jigyasu.jigsy.in</div>
+                      <div className="font-semibold text-slate-900 dark:text-slate-200 group-hover:text-cyan-700 dark:group-hover:text-cyan-300">About at Portfolio Builder</div>
+                      <div className="text-[10px] text-slate-500 font-mono">Modular R&amp;D Architecture</div>
                     </div>
-                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-cyan-300 ml-1 shrink-0" />
+                    <Layers className="w-3 h-3 text-slate-400 group-hover:text-cyan-600 dark:text-slate-500 dark:group-hover:text-cyan-300 ml-1 shrink-0" />
                   </a>
                 </li>
               </ul>
             </div>
 
             {/* Col 2: Scholarly Profiles & Author Catalog */}
-            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-emerald-500/30 transition-colors">
-              <div className="text-[11px] font-mono uppercase tracking-wider text-emerald-400 font-semibold mb-3 flex items-center gap-1.5">
-                <BookOpen className="w-3.5 h-3.5 text-emerald-400" />
+            <div className="p-4 rounded-xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/80 hover:border-emerald-500/30 transition-colors shadow-sm">
+              <div className="text-[11px] font-mono uppercase tracking-wider text-emerald-700 dark:text-emerald-400 font-semibold mb-3 flex items-center gap-1.5">
+                <BookOpen className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                 <span>Scholarly &amp; Books</span>
               </div>
               <ul className="space-y-2.5">
@@ -513,13 +518,13 @@ export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault })
                     href="https://orcid.org/0009-0006-1712-8520"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between text-slate-300 hover:text-emerald-300 group py-0.5"
+                    className="flex items-center justify-between text-slate-700 hover:text-emerald-700 dark:text-slate-300 dark:hover:text-emerald-300 group py-0.5"
                   >
                     <div>
-                      <div className="font-semibold text-slate-200 group-hover:text-emerald-300">ORCID Researcher ID</div>
+                      <div className="font-semibold text-slate-900 dark:text-slate-200 group-hover:text-emerald-700 dark:group-hover:text-emerald-300">ORCID Researcher ID</div>
                       <div className="text-[10px] text-slate-500 font-mono">0009-0006-1712-8520</div>
                     </div>
-                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-emerald-300 ml-1 shrink-0" />
+                    <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-emerald-600 dark:text-slate-500 dark:group-hover:text-emerald-300 ml-1 shrink-0" />
                   </a>
                 </li>
                 <li>
@@ -527,13 +532,13 @@ export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault })
                     href="https://www.amazon.in/dp/B0H5QK7MF2"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between text-slate-300 hover:text-emerald-300 group py-0.5"
+                    className="flex items-center justify-between text-slate-700 hover:text-emerald-700 dark:text-slate-300 dark:hover:text-emerald-300 group py-0.5"
                   >
                     <div>
-                      <div className="font-semibold text-slate-200 group-hover:text-emerald-300">Amazon Authored Book</div>
+                      <div className="font-semibold text-slate-900 dark:text-slate-200 group-hover:text-emerald-700 dark:group-hover:text-emerald-300">Amazon Authored Book</div>
                       <div className="text-[10px] text-slate-500 font-mono">Mastering DSA Without Fear</div>
                     </div>
-                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-emerald-300 ml-1 shrink-0" />
+                    <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-emerald-600 dark:text-slate-500 dark:group-hover:text-emerald-300 ml-1 shrink-0" />
                   </a>
                 </li>
                 <li>
@@ -541,22 +546,22 @@ export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault })
                     href="https://doi.org/10.1007/978-981-96-4848-1_15"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between text-slate-300 hover:text-emerald-300 group py-0.5"
+                    className="flex items-center justify-between text-slate-700 hover:text-emerald-700 dark:text-slate-300 dark:hover:text-emerald-300 group py-0.5"
                   >
                     <div>
-                      <div className="font-semibold text-slate-200 group-hover:text-emerald-300">Springer Nature ICIPAI-2026</div>
+                      <div className="font-semibold text-slate-900 dark:text-slate-200 group-hover:text-emerald-700 dark:group-hover:text-emerald-300">Springer Nature ICIPAI-2026</div>
                       <div className="text-[10px] text-slate-500 font-mono">WoS Indexed DOI Paper</div>
                     </div>
-                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-emerald-300 ml-1 shrink-0" />
+                    <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-emerald-600 dark:text-slate-500 dark:group-hover:text-emerald-300 ml-1 shrink-0" />
                   </a>
                 </li>
               </ul>
             </div>
 
             {/* Col 3: Related Web Presence */}
-            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-cyan-500/30 transition-colors">
-              <div className="text-[11px] font-mono uppercase tracking-wider text-cyan-400 font-semibold mb-3 flex items-center gap-1.5">
-                <Globe className="w-3.5 h-3.5 text-cyan-400" />
+            <div className="p-4 rounded-xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/80 hover:border-cyan-500/30 transition-colors shadow-sm">
+              <div className="text-[11px] font-mono uppercase tracking-wider text-cyan-700 dark:text-cyan-400 font-semibold mb-3 flex items-center gap-1.5">
+                <Globe className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
                 <span>Related Web Presence</span>
               </div>
               <ul className="space-y-2.5">
@@ -565,18 +570,18 @@ export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault })
                     href="https://zerowfm.jigsy.in"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between text-slate-300 hover:text-emerald-300 group py-0.5"
+                    className="flex items-center justify-between text-slate-700 hover:text-emerald-700 dark:text-slate-300 dark:hover:text-emerald-300 group py-0.5"
                   >
                     <div>
-                      <div className="font-semibold text-slate-200 group-hover:text-emerald-300 flex items-center gap-1.5">
+                      <div className="font-semibold text-slate-900 dark:text-slate-200 group-hover:text-emerald-700 dark:group-hover:text-emerald-300 flex items-center gap-1.5">
                         <span>ZeroWFM</span>
-                        <span className="text-[9px] px-1.5 py-0.2 rounded font-sans uppercase font-bold tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                          Active Prototype
+                        <span className="text-[9px] px-1.5 py-0.2 rounded font-sans uppercase font-bold tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-300 dark:bg-emerald-500/20 dark:text-emerald-300 dark:border-emerald-500/30">
+                          Prototype
                         </span>
                       </div>
                       <div className="text-[10px] text-slate-500 font-mono">zerowfm.jigsy.in</div>
                     </div>
-                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-emerald-300 ml-1 shrink-0" />
+                    <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-emerald-600 dark:text-slate-500 dark:group-hover:text-emerald-300 ml-1 shrink-0" />
                   </a>
                 </li>
                 <li>
@@ -584,18 +589,18 @@ export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault })
                     href="https://aifm.jigsy.in"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between text-slate-300 hover:text-cyan-300 group py-0.5"
+                    className="flex items-center justify-between text-slate-700 hover:text-emerald-700 dark:text-slate-300 dark:hover:text-emerald-300 group py-0.5"
                   >
                     <div>
-                      <div className="font-semibold text-slate-200 group-hover:text-cyan-300 flex items-center gap-1.5">
+                      <div className="font-semibold text-slate-900 dark:text-slate-200 group-hover:text-emerald-700 dark:group-hover:text-emerald-300 flex items-center gap-1.5">
                         <span>AI-AssistedFM</span>
-                        <span className="text-[9px] px-1.5 py-0.2 rounded font-sans uppercase font-bold tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
-                          Next Soon
+                        <span className="text-[9px] px-1.5 py-0.2 rounded font-sans uppercase font-bold tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-300 dark:bg-emerald-500/20 dark:text-emerald-300 dark:border-emerald-500/30">
+                          Prototype
                         </span>
                       </div>
                       <div className="text-[10px] text-slate-500 font-mono">aifm.jigsy.in</div>
                     </div>
-                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-cyan-300 ml-1 shrink-0" />
+                    <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-emerald-600 dark:text-slate-500 dark:group-hover:text-emerald-300 ml-1 shrink-0" />
                   </a>
                 </li>
                 <li>
@@ -603,40 +608,40 @@ export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault })
                     href="https://ctfm.jigsy.in"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between text-slate-300 hover:text-cyan-300 group py-0.5"
+                    className="flex items-center justify-between text-slate-700 hover:text-cyan-700 dark:text-slate-300 dark:hover:text-cyan-300 group py-0.5"
                   >
                     <div>
-                      <div className="font-semibold text-slate-200 group-hover:text-cyan-300 flex items-center gap-1.5">
+                      <div className="font-semibold text-slate-900 dark:text-slate-200 group-hover:text-cyan-700 dark:group-hover:text-cyan-300 flex items-center gap-1.5">
                         <span>CyberTrustedFM</span>
-                        <span className="text-[9px] px-1.5 py-0.2 rounded font-sans uppercase font-bold tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                        <span className="text-[9px] px-1.5 py-0.2 rounded font-sans uppercase font-bold tracking-wider bg-cyan-100 text-cyan-800 border border-cyan-200 dark:bg-cyan-500/10 dark:text-cyan-400 dark:border-cyan-500/20">
                           Next Soon
                         </span>
                       </div>
                       <div className="text-[10px] text-slate-500 font-mono">ctfm.jigsy.in</div>
                     </div>
-                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-cyan-300 ml-1 shrink-0" />
+                    <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-cyan-600 dark:text-slate-500 dark:group-hover:text-cyan-300 ml-1 shrink-0" />
                   </a>
                 </li>
               </ul>
             </div>
 
             {/* Col 4: Accreditations & Roles */}
-            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-amber-500/30 transition-colors">
-              <div className="text-[11px] font-mono uppercase tracking-wider text-amber-400 font-semibold mb-3 flex items-center gap-1.5">
-                <Award className="w-3.5 h-3.5 text-amber-400" />
+            <div className="p-4 rounded-xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/80 hover:border-amber-500/30 transition-colors shadow-sm">
+              <div className="text-[11px] font-mono uppercase tracking-wider text-amber-700 dark:text-amber-400 font-semibold mb-3 flex items-center gap-1.5">
+                <Award className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                 <span>Accreditations &amp; Roles</span>
               </div>
               <ul className="space-y-2.5">
                 <li className="py-0.5">
-                  <div className="font-semibold text-slate-200">UGC-NET Qualified (Ph.D.)</div>
+                  <div className="font-semibold text-slate-900 dark:text-slate-200">UGC-NET Qualified (Ph.D.)</div>
                   <div className="text-[10px] text-slate-500 font-mono">Computer Science &amp; Applications</div>
                 </li>
                 <li className="py-0.5">
-                  <div className="font-semibold text-slate-200">Bihar STET Qualified</div>
+                  <div className="font-semibold text-slate-900 dark:text-slate-200">Bihar STET Qualified</div>
                   <div className="text-[10px] text-slate-500 font-mono">Paper II (Computer Science)</div>
                 </li>
                 <li className="py-0.5">
-                  <div className="font-semibold text-slate-200">Assistant Exam Coordinator</div>
+                  <div className="font-semibold text-slate-900 dark:text-slate-200">Assistant Exam Coordinator</div>
                   <div className="text-[10px] text-slate-500 font-mono">SOCSE, Sandip University</div>
                 </li>
               </ul>

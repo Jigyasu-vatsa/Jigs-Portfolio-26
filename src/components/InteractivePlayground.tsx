@@ -67,7 +67,7 @@ export const InteractivePlayground: React.FC = () => {
       certificateUrl: '/assets/aistudio/GTISD_Certificate_5305ebbb.jpeg',
       prototypeUrl: 'https://zerowfm.jigsy.in',
       prototypeLabel: 'ZeroWFM Prototype (zerowfm.jigsy.in)',
-      prototypeBadge: 'Active Prototype',
+      prototypeBadge: 'Prototype',
       prototypeStatus: 'active',
       color: 'from-emerald-600 via-teal-600 to-cyan-700',
     },
@@ -114,8 +114,8 @@ export const InteractivePlayground: React.FC = () => {
       certificateUrl: '/assets/aistudio/ICIPAI_Certificate_29406d59.jpg',
       prototypeUrl: 'https://aifm.jigsy.in',
       prototypeLabel: 'AI-AssistedFM (aifm.jigsy.in)',
-      prototypeBadge: 'Next Soon',
-      prototypeStatus: 'upcoming',
+      prototypeBadge: 'Prototype',
+      prototypeStatus: 'active',
       color: 'from-blue-600 via-cyan-600 to-teal-700',
     },
     {
@@ -163,8 +163,8 @@ export const InteractivePlayground: React.FC = () => {
   };
 
   const downloadOptions = [
-    { label: 'ZeroWFM Prototype (zerowfm.jigsy.in) — Active', url: 'https://zerowfm.jigsy.in', ext: 'ACTIVE' },
-    { label: 'AI-AssistedFM (aifm.jigsy.in) — Next Soon', url: 'https://aifm.jigsy.in', ext: 'NEXT SOON' },
+    { label: 'ZeroWFM Prototype (zerowfm.jigsy.in)', url: 'https://zerowfm.jigsy.in', ext: 'PROTOTYPE' },
+    { label: 'AI-AssistedFM Prototype (aifm.jigsy.in)', url: 'https://aifm.jigsy.in', ext: 'PROTOTYPE' },
     { label: 'CyberTrustedFM (ctfm.jigsy.in) — Next Soon', url: 'https://ctfm.jigsy.in', ext: 'NEXT SOON' },
     { label: 'GTISD-2026 Paper (Google Drive)', url: 'https://drive.google.com/file/d/1hl1eKE5VZfyXvZCZT3E7dMydZQXKRzYm/view', ext: 'DRIVE' },
     { label: 'Vedanjali UGC-CARE Paper (Google Drive)', url: 'https://drive.google.com/file/d/11vEgJhOBTcCGlTU7WsO1KHsqDBz3XYaj/view', ext: 'DRIVE' },
@@ -239,23 +239,23 @@ export const InteractivePlayground: React.FC = () => {
         {/* Dual Interaction Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Feature 1: Drag to Explore Authentic Attached Papers */}
-          <div className="lg:col-span-7 p-6 sm:p-7 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-xl flex flex-col justify-between">
+          <div className="lg:col-span-7 p-6 sm:p-7 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-xl flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <div className="p-2 rounded-lg bg-cyan-500/10 text-cyan-400">
+                  <div className="p-2 rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400">
                     <Layers className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="text-base font-bold text-white">
-                      Explore Attached Papers, Book & ISBN Proceedings
+                    <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                      Explore Attached Papers, Book &amp; ISBN Proceedings
                     </h3>
-                    <p className="text-xs text-slate-400">
+                    <p className="text-xs text-slate-600 dark:text-slate-400">
                       Tap or cycle through authentic research documents with direct Google Drive and certificate links.
                     </p>
                   </div>
                 </div>
-                <span className="text-xs font-mono text-cyan-400 font-bold">
+                <span className="text-xs font-mono text-cyan-700 dark:text-cyan-400 font-bold">
                   {activeDraggableIndex + 1} / {attachedPublications.length}
                 </span>
               </div>
@@ -389,7 +389,7 @@ export const InteractivePlayground: React.FC = () => {
                       <Globe className="w-3.5 h-3.5" />
                       <span>{currentPub.prototypeLabel ? currentPub.prototypeLabel.split(' ')[0] : 'Prototype'}</span>
                       <span className="text-[9px] px-1 py-0.2 rounded font-sans uppercase font-bold tracking-wider bg-slate-950/20">
-                        {currentPub.prototypeBadge || (currentPub.prototypeStatus === 'active' ? 'Active' : 'Next Soon')}
+                        {currentPub.prototypeBadge || (currentPub.prototypeStatus === 'active' ? 'Prototype' : 'Next Soon')}
                       </span>
                       <ExternalLink className="w-3 h-3" />
                     </a>
@@ -398,14 +398,16 @@ export const InteractivePlayground: React.FC = () => {
               </div>
 
               {/* Slider Dots & Navigation Controls */}
-              <div className="flex items-center justify-between mt-5 pt-3 border-t border-slate-800">
+              <div className="flex items-center justify-between mt-5 pt-3 border-t border-slate-200 dark:border-slate-800">
                 <div className="flex items-center gap-1.5">
                   {attachedPublications.map((_, idx) => (
                     <button
                       key={idx}
                       onClick={() => setActiveDraggableIndex(idx)}
                       className={`h-2.5 rounded-full transition-all ${
-                        activeDraggableIndex === idx ? 'w-8 bg-cyan-400' : 'w-2.5 bg-slate-800 hover:bg-slate-700'
+                        activeDraggableIndex === idx
+                          ? 'w-8 bg-cyan-500'
+                          : 'w-2.5 bg-slate-300 dark:bg-slate-800 hover:bg-slate-400 dark:hover:bg-slate-700'
                       }`}
                       aria-label={`Go to publication slide ${idx + 1}`}
                     />
@@ -417,7 +419,7 @@ export const InteractivePlayground: React.FC = () => {
                     onClick={() =>
                       setActiveDraggableIndex((prev) => (prev > 0 ? prev - 1 : attachedPublications.length - 1))
                     }
-                    className="px-3 py-1.5 text-xs font-medium text-slate-400 hover:text-white bg-slate-950 hover:bg-slate-800 rounded-lg border border-slate-800 transition-colors"
+                    className="px-3 py-1.5 text-xs font-medium text-slate-700 hover:text-slate-950 bg-slate-100 hover:bg-slate-200 rounded-lg border border-slate-200 dark:text-slate-400 dark:hover:text-white dark:bg-slate-950 dark:hover:bg-slate-800 dark:border-slate-800 transition-colors shadow-xs"
                   >
                     Previous
                   </button>

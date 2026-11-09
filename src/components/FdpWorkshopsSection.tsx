@@ -30,21 +30,21 @@ export const FdpWorkshopsSection: React.FC<FdpWorkshopsSectionProps> = ({ items 
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
           <div>
-            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-cyan-400 mb-2">
+            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-cyan-600 dark:text-cyan-400 mb-2">
               <Award className="w-3.5 h-3.5" />
               <span>Pedagogy & National Research Summits</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
               Faculty Development Programs (FDPs) & Workshops
             </h2>
-            <p className="mt-2 text-sm sm:text-base text-slate-400 max-w-2xl">
+            <p className="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl">
               Completed certified educator programs with Ardent Computech, high-level AI presentations alongside C-DAC,
               and AICTE-VAANI regional computational workshops.
             </p>
           </div>
 
-          <div className="text-xs text-slate-400 font-mono self-start md:self-auto bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
-            Total Completed: <span className="text-cyan-400 font-bold">{items.length} Programs</span>
+          <div className="text-xs text-slate-600 dark:text-slate-400 font-mono self-start md:self-auto bg-white dark:bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800">
+            Total Completed: <span className="text-cyan-600 dark:text-cyan-400 font-bold">{items.length} Programs</span>
           </div>
         </div>
 
@@ -53,54 +53,54 @@ export const FdpWorkshopsSection: React.FC<FdpWorkshopsSectionProps> = ({ items 
           {items.map((item) => (
             <div
               key={item.id}
-              className="p-6 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between group shadow-sm hover:shadow-cyan-500/5"
+              className="p-6 rounded-2xl bg-white dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between group shadow-sm hover:shadow-cyan-500/5"
             >
               <div>
                 {/* Meta Header */}
-                <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
-                  <span className="text-cyan-400 font-bold">{item.type}</span>
+                <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">
+                  <span className="text-cyan-700 dark:text-cyan-400 font-bold">{item.type}</span>
                   <span>{item.year}</span>
                 </div>
 
-                <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white group-hover:text-cyan-700 dark:group-hover:text-cyan-300 transition-colors leading-snug">
                   {item.title}
                 </h3>
 
-                <div className="text-xs font-semibold text-slate-300 mt-2 flex items-center gap-1.5">
-                  <Building className="w-3.5 h-3.5 text-slate-500" />
+                <div className="text-xs font-semibold text-slate-700 dark:text-slate-300 mt-2 flex items-center gap-1.5">
+                  <Building className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
                   <span>{item.organizer}</span>
                 </div>
 
                 {item.collaboration && (
-                  <div className="text-[11px] text-slate-400 mt-1 italic">
+                  <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 italic">
                     In collaboration with: {item.collaboration}
                   </div>
                 )}
 
                 {item.sponsorOrPartner && (
-                  <div className="text-[11px] font-mono text-cyan-300/90 bg-cyan-950/40 p-2 rounded-lg border border-cyan-800/40 mt-2.5">
+                  <div className="text-[11px] font-mono text-cyan-900 dark:text-cyan-300/90 bg-cyan-50 dark:bg-cyan-950/40 p-2 rounded-lg border border-cyan-200 dark:border-cyan-800/40 mt-2.5">
                     {item.sponsorOrPartner}
                   </div>
                 )}
 
-                <div className="flex items-center gap-2 text-xs text-slate-400 mt-3 font-mono">
-                  <Calendar className="w-3.5 h-3.5 text-slate-500" />
+                <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mt-3 font-mono">
+                  <Calendar className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
                   <span>{item.dates}</span>
                 </div>
 
-                <p className="mt-3 text-xs text-slate-300 leading-relaxed">
+                <p className="mt-3 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   {item.description}
                 </p>
 
                 {item.certificateId && (
-                  <div className="mt-3 text-[11px] font-mono text-slate-400">
-                    Certificate ID: <strong className="text-slate-200">{item.certificateId}</strong>
+                  <div className="mt-3 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                    Certificate ID: <strong className="text-slate-800 dark:text-slate-200">{item.certificateId}</strong>
                   </div>
                 )}
               </div>
 
               {/* Bottom Card Actions */}
-              <div className="mt-5 pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
+              <div className="mt-5 pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">
                 {item.certificateUrl && (
                   <button
                     onClick={() =>
@@ -110,7 +110,7 @@ export const FdpWorkshopsSection: React.FC<FdpWorkshopsSectionProps> = ({ items 
                         type: item.certificateUrl!.endsWith('.pdf') ? 'pdf' : 'image',
                       })
                     }
-                    className="text-cyan-400 hover:text-cyan-300 font-medium flex items-center gap-1 transition-colors"
+                    className="text-cyan-700 hover:text-cyan-800 dark:text-cyan-400 dark:hover:text-cyan-300 font-medium flex items-center gap-1 transition-colors"
                   >
                     <FileText className="w-3.5 h-3.5" />
                     <span>View Official Certificate</span>
@@ -122,7 +122,7 @@ export const FdpWorkshopsSection: React.FC<FdpWorkshopsSectionProps> = ({ items 
                     href={item.verificationLink}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-slate-400 hover:text-white flex items-center gap-1 font-mono text-[11px]"
+                    className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center gap-1 font-mono text-[11px]"
                   >
                     <span>Verify Link</span>
                     <ExternalLink className="w-3 h-3" />

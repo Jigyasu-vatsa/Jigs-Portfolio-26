@@ -350,8 +350,8 @@ export const JigsyAIAssistant: React.FC<JigsyAIAssistantProps> = ({ pulseSignal,
     if (/\b(conference|conferences|seminar|symposium|proceeding|fair|gtisd|icipai|ictti|lnmi|talk)\b/i.test(q)) {
       return '🎙️ Conferences & Proceedings';
     }
-    if (/\b(previous|jigyasu1|old portfolio|x portfolio|former)\b/i.test(q)) {
-      return '🔗 Previous Portfolio (jigyasu1)';
+    if (/\b(nexus|previous|jigyasu1|old portfolio|x portfolio|builder|portfolio builder|former)\b/i.test(q)) {
+      return '🌐 Portfolio Nexus (Addresses)';
     }
     if (/\b(hi|hello|hey|good morning|good afternoon|good evening|namaste|greetings)\b/i.test(q)) {
       return '👋 Greeting & Welcome';
@@ -591,27 +591,32 @@ He also serves as Assistant Examination Coordinator at Sandip University SOCSE.`
       q.includes('prototype')
     ) {
       return `Mr. Jigyasu Vatsa's Smart Food Redistribution & Circular Economy Research Ecosystem:
-• 🌐 ZeroWFM (Active Prototype): https://zerowfm.jigsy.in
+• 🌐 ZeroWFM (Prototype): https://zerowfm.jigsy.in
   Web-based circular economy prototype demonstrating how urban food surplus redistribution, priority heuristics, and real-time donor-beneficiary allocation work before this paper and conference publications were done.
-• 🔜 AI-AssistedFM (Upcoming): https://aifm.jigsy.in
-  AI priority heuristics and predictive shelf-life modeling engine.
-• 🔜 CyberTrustedFM (Upcoming): https://ctfm.jigsy.in
+• 🌐 AI-AssistedFM (Prototype): https://aifm.jigsy.in
+  Live AI priority heuristics and predictive shelf-life modeling engine.
+• 🔜 CyberTrustedFM (Upcoming / Next Soon): https://ctfm.jigsy.in
   Cryptographically tamper-proofed supply validation and audit logs for Industry 5.0.
 This research is published in Springer Nature (ICIPAI-2026), Taylor & Francis (ICTTI-2026), and Sandip University (GTISD-2026).`;
     }
 
-    // 11. Jigyasu's Previous Portfolio
+    // 11. Portfolio Nexus & Related Portfolios
     if (
+      q.includes('nexus') ||
       q.includes('previous') ||
       q.includes('jigyasu1') ||
       q.includes('old portfolio') ||
       q.includes('x portfolio') ||
+      q.includes('builder') ||
       q.includes('former')
     ) {
-      return `You can explore Jigyasu's Previous Portfolio at:
-🔗 https://jigyasu1.jigsy.in
-
-Jigyasu's Previous Portfolio chronicles his foundational projects, earlier systems engineering, and developmental milestones before this unified research dossier.`;
+      return `Explore Mr. Jigyasu Vatsa's Portfolio Nexus & Related Portfolios Directory:
+• 🌐 Jigyasu's Previous Portfolio: https://jigyasu1.jigsy.in
+  Archive chronicling foundational projects, earlier systems engineering, and developmental milestones before this unified research dossier.
+• 🏢 About at JIGSY INDIA: https://jigsy.in
+  Official corporate profile for DPIIT-recognized enterprise, digital infrastructure, and innovation verticals.
+• 🛠️ About at Portfolio Builder: #projects
+  Modular academic dossier blueprints, full-stack architectures, and live systems.`;
     }
 
     // 9. 5 Research Papers & Publications
@@ -1099,7 +1104,7 @@ How can I help you today? You can ask me with keywords like 'call', 'mail', 'hel
     'AI-AssistedFM (aifm.jigsy.in)',
     'CyberTrustedFM (ctfm.jigsy.in)',
     'JIGSY INDIA Verticals',
-    "Jigyasu's Previous Portfolio",
+    'Portfolio Nexus',
   ];
 
   return (

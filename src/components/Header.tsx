@@ -16,6 +16,7 @@ import {
   ExternalLink,
   PhoneCall,
 } from 'lucide-react';
+import { PortfolioNexusDropdown } from './PortfolioNexusDropdown';
 
 interface HeaderProps {
   darkMode: boolean;
@@ -104,17 +105,8 @@ export const Header: React.FC<HeaderProps> = ({
             </span>
           </button>
 
-          {/* Quick link to Previous Portfolio X */}
-          <a
-            href="https://jigyasu1.jigsy.in"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Visit Jigyasu's X (Previous Portfolio)"
-            className="hidden lg:flex items-center gap-1 text-[11px] font-mono px-2 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 dark:bg-indigo-950/70 dark:hover:bg-indigo-900/70 dark:text-indigo-300 dark:border-indigo-800/80 transition-colors shrink-0"
-          >
-            <span>Jigyasu&apos;s Previous Portfolio</span>
-            <ExternalLink className="w-3 h-3 text-indigo-500" />
-          </a>
+          {/* Portfolio Nexus Dropdown */}
+          <PortfolioNexusDropdown variant="header" className="hidden lg:block shrink-0" />
         </div>
 
         {/* Zone 2: Navigation Page Links / Tabs */}
@@ -172,7 +164,8 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Mobile Page View Navigation Bar */}
-      <div className="md:hidden px-4 py-2 border-t border-slate-200 dark:border-slate-850 overflow-x-auto flex gap-1.5 bg-white/95 dark:bg-slate-950/95 no-scrollbar">
+      <div className="md:hidden px-4 py-2 border-t border-slate-200 dark:border-slate-850 overflow-x-auto flex items-center gap-1.5 bg-white/95 dark:bg-slate-950/95 no-scrollbar">
+        <PortfolioNexusDropdown variant="header" className="shrink-0" />
         {navTabs.map((tab) => (
           <button
             key={tab.id}
