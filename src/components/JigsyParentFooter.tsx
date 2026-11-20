@@ -358,10 +358,11 @@ export const JigsyParentFooter: React.FC<JigsyParentFooterProps> = ({
                 CIN: {COMPANY_DETAILS.cin}
               </div>
               <div className="text-slate-300 font-serif">
-                Jigyasu Integrated Global Services with You
+                {COMPANY_DETAILS.mottoEnglish}
               </div>
             </div>
           </div>
+          
 
           {/* Bottom Copyright */}
           <div className="pt-4 border-t border-slate-800 text-center space-y-1 text-xs text-slate-400">
