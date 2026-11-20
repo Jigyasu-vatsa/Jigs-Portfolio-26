@@ -338,15 +338,28 @@ export const JigsyParentFooter: React.FC<JigsyParentFooterProps> = ({
 
           {/* Statutory Regulatory Disclosures */}
           <div className="space-y-2 text-center text-slate-400 text-xs">
-            <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-1.5">
-              <span>{PARENT_COMPANY_DETAILS.taglineSanskrit}</span>
-              <span>DPIIT: {PARENT_COMPANY_DETAILS.dpiit}</span>
-              <span>GSTIN: {PARENT_COMPANY_DETAILS.gstin}</span>
-            </div>
-            <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-1.5">
-              <span>MSME: {PARENT_COMPANY_DETAILS.msme}</span>
-              <span>CIN: {PARENT_COMPANY_DETAILS.cin}</span>
-              <span>{PARENT_COMPANY_DETAILS.mottoEnglish}</span>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-y-3.5 gap-x-4 text-center text-xs text-slate-400">
+              {/* Row 1 */}
+              <div className="font-serif text-slate-300 font-medium tracking-wide">
+                {COMPANY_DETAILS.taglineSanskrit}
+              </div>
+              <div>
+                DPIIT: {COMPANY_DETAILS.dpiit}
+              </div>
+              <div>
+                GSTIN: {COMPANY_DETAILS.gstin}
+              </div>
+  
+              {/* Row 2 */}
+              <div>
+                MSME: {COMPANY_DETAILS.msme}
+              </div>
+              <div>
+                CIN: {COMPANY_DETAILS.cin}
+              </div>
+              <div className="text-slate-300 font-serif">
+                Jigyasu Integrated Global Services with You
+              </div>
             </div>
           </div>
 
