@@ -658,7 +658,7 @@ export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault })
                 Developed &amp; Maintained by Mr. JIGYASU VATSA
               </div>
               <div className="text-[11px] text-slate-400">
-                &copy; 2025{currentYear > 2025 ? ` - ${currentYear}` : ''} All rights reserved. Hosted by Jigyasu Integrated Global Services Private Limited
+                &copy; 2025 - 2026 All rights reserved. Hosted by Jigyasu Integrated Global Services Private Limited
               </div>
             </div>
             <div className="flex flex-wrap items-center justify-center md:justify-end gap-3 text-[11px] font-mono text-cyan-400">
