@@ -338,6 +338,21 @@ html:not(.dark) .preserve-dark.bg-gradient-to-r {
   animation-play-state: paused;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.45s ease-out both;
+}
+
 /* Also ensure vibrant gradient publication cards maintain white text in light mode */
 .preserve-card-text,
 .preserve-card-text * {

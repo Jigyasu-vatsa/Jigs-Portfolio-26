@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Sun,
   Moon,
@@ -22,6 +22,7 @@ import {
   ParentLanguage,
   resolveParentPortalUrl,
 } from '../data/parentCompanyData';
+import { CorporateHeaderBanner } from './CorporateHeaderBanner';
 
 interface JigsyParentNavbarProps {
   language: ParentLanguage;
@@ -45,22 +46,6 @@ export const JigsyParentNavbar: React.FC<JigsyParentNavbarProps> = ({
   const [isLangOpen, setIsLangOpen] = useState(false);
   const langOpenedByHoverRef = useRef<boolean>(false);
 
-  const [taglineIndex, setTaglineIndex] = useState(0);
-  const taglineOptions = [
-    PARENT_COMPANY_DETAILS.taglineSanskrit,
-    PARENT_COMPANY_DETAILS.mottoEnglish,
-    language === 'mai'
-      ? 'जिज्ञासु एकीकृत वैश्विक सेवा अहाँक संग'
-      : 'जिज्ञासु ईक्षण ग्रंथि समृद्धि युक्ति',
-  ];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTaglineIndex((prev) => (prev + 1) % taglineOptions.length);
-    }, 4500);
-    return () => clearInterval(timer);
-  }, [taglineOptions.length]);
-
   return (
     <header
       data-testid="parent-company-navbar"
@@ -81,54 +66,8 @@ export const JigsyParentNavbar: React.FC<JigsyParentNavbarProps> = ({
         </div>
       </div>
 
-      {/* 2. Main Corporate Header Brand Banner (Company Name strictly untranslated) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 md:py-3">
-        <div className="flex items-center justify-between gap-4">
-          <a
-            href={resolveParentPortalUrl('home')}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-bypass-error-guard="true"
-            aria-label="JIGSY INDIA Home"
-            className="flex items-center gap-3 cursor-pointer select-none group shrink-0"
-          >
-            <div className="relative w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-amber-400 p-0.5 bg-white shadow-md group-hover:scale-105 transition-transform">
-              <img
-                src={PARENT_COMPANY_DETAILS.logoUrl}
-                loading="eager"
-                alt="JIGSY Official Seal"
-                className="w-full h-full object-contain rounded-full"
-              />
-            </div>
-          </a>
-
-          <div className="text-center flex-1 px-2 min-w-0">
-            <div className="text-xs sm:text-sm md:text-base lg:text-lg font-extrabold text-red-700 dark:text-amber-400 tracking-wide uppercase leading-snug">
-              <a
-                href={resolveParentPortalUrl('home')}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-bypass-error-guard="true"
-                className="cursor-pointer hover:opacity-90 transition-opacity uppercase tracking-wide"
-              >
-                {PARENT_COMPANY_DETAILS.name}
-              </a>
-            </div>
-            <div className="text-[11px] sm:text-xs font-semibold text-slate-600 dark:text-slate-300 min-h-[18px] transition-all duration-500 mt-0.5">
-              <span className="italic font-serif">{taglineOptions[taglineIndex]}</span>
-            </div>
-          </div>
-
-          <div className="shrink-0 flex items-center">
-            <img
-              src={PARENT_COMPANY_DETAILS.makeInIndiaUrl}
-              loading="eager"
-              alt="Make in India"
-              className="h-10 sm:h-12 w-auto object-contain select-none"
-            />
-          </div>
-        </div>
-      </div>
+      {/* 2. Main Corporate Header Brand Banner (Shared CorporateHeaderBanner) */}
+      <CorporateHeaderBanner isDark={isDark} language={language} />
 
       {/* 3. Primary Corporate Navigation Bar */}
       <nav
