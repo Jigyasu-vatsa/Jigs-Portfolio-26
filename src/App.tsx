@@ -24,6 +24,8 @@ import { CitationModal } from './components/CitationModal';
 import { CommandPalette } from './components/CommandPalette';
 import { JigsyIndiaSection } from './components/JigsyIndiaSection';
 import { AdminVaultPage } from './components/AdminVaultPage';
+import { ErrorDetourPage } from './components/ErrorDetourPage';
+import { AppErrorBoundary } from './components/AppErrorBoundary';
 import {
   RESEARCH_PAPERS,
   CONFERENCES,
@@ -33,8 +35,17 @@ import {
   SKILLS_DATA,
 } from './data/portfolioData';
 import { calculateResearchMetrics } from './utils/researchUtils';
+import {
+  AppErrorState,
+  VALID_SECTION_HASHES,
+  classifyResourceResponse,
+  getErrorDescriptor,
+  isDocumentOrAssetPath,
+  isInactiveLinkHref,
+  resolveRouteState,
+} from './utils/errorHandling';
 import { ResearchPaper, PageView } from './types';
-import { ArrowUp, Sun, Moon, Sparkles, Check, X } from 'lucide-react';
+import { Sun, Moon, Sparkles, Check, X } from 'lucide-react';
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(() => {
@@ -48,10 +59,16 @@ export default function App() {
     }
     return true;
   });
+  const initialRoute =
+    typeof window !== 'undefined'
+      ? resolveRouteState(window.location.pathname, window.location.search, window.location.hash)
+      : { view: 'all' as PageView, error: null };
+
   const [selectedPaperForCite, setSelectedPaperForCite] = useState<ResearchPaper | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [activeView, setActiveView] = useState<PageView>('all');
+  const [activeView, setActiveView] = useState<PageView>(initialRoute.view);
+  const [appError, setAppError] = useState<AppErrorState | null>(initialRoute.error);
   const [showThemeFacilityModal, setShowThemeFacilityModal] = useState(false);
   const [assistantPulseSignal, setAssistantPulseSignal] = useState(false);
 
@@ -119,13 +136,269 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const resetUrlToHome = () => {
+    try {
+      if (
+        window.location.pathname !== '/' ||
+        window.location.search !== '' ||
+        window.location.hash !== ''
+      ) {
+        window.history.pushState(null, '', '/');
+      }
+    } catch {
+      // ignore history errors in sandboxed iframes
+    }
+  };
+
   const handleSelectView = (view: PageView) => {
+    setAppError(null);
     setActiveView(view);
+    resetUrlToHome();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // SEO & UX: Keep page title optimized for "Jigyasu" and "Jigyasu Vatsa" across all child pages
+  const handleOpenContactFromError = () => {
+    const contactEl = document.getElementById('contact');
+    if (contactEl) {
+      contactEl.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+    setAppError(null);
+    setActiveView('all');
+    resetUrlToHome();
+    setTimeout(() => {
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    }, 120);
+  };
+
+  const triggerProgrammaticNavigation = (href: string, target: string | null) => {
+    if (target === '_blank') {
+      const tempLink = document.createElement('a');
+      tempLink.href = href;
+      tempLink.target = '_blank';
+      tempLink.rel = 'noopener noreferrer';
+      tempLink.setAttribute('data-bypass-error-guard', 'true');
+      tempLink.style.display = 'none';
+      document.body.appendChild(tempLink);
+      tempLink.click();
+      document.body.removeChild(tempLink);
+    } else {
+      window.location.assign(href);
+    }
+  };
+
+  // Sync URL navigation (popstate & hashchange) with app state and 404/error handler
   useEffect(() => {
+    const syncFromLocation = () => {
+      const resolved = resolveRouteState(
+        window.location.pathname,
+        window.location.search,
+        window.location.hash
+      );
+      if (resolved.error) {
+        setAppError(resolved.error);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        setAppError(null);
+        setActiveView(resolved.view);
+        if (resolved.scrollToId) {
+          setTimeout(() => {
+            document.getElementById(resolved.scrollToId!)?.scrollIntoView({ behavior: 'smooth' });
+          }, 80);
+        }
+      }
+    };
+
+    window.addEventListener('popstate', syncFromLocation);
+    window.addEventListener('hashchange', syncFromLocation);
+    return () => {
+      window.removeEventListener('popstate', syncFromLocation);
+      window.removeEventListener('hashchange', syncFromLocation);
+    };
+  }, []);
+
+  // Global link guard: intercepts unavailable PDFs, inactive links, offline external requests, and missing pages
+  useEffect(() => {
+    const handleDocumentClick = async (event: MouseEvent) => {
+      if (event.defaultPrevented) return;
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+        return;
+      }
+
+      const targetEl = event.target as HTMLElement | null;
+      const anchor = targetEl?.closest('a') as HTMLAnchorElement | null;
+      if (!anchor) return;
+      if (anchor.getAttribute('data-bypass-error-guard') === 'true') return;
+
+      const rawHref = anchor.getAttribute('href');
+      if (!rawHref || rawHref.startsWith('mailto:') || rawHref.startsWith('tel:')) return;
+
+      // 1. Inactive / placeholder hrefs (#, javascript:void(0), empty)
+      if (isInactiveLinkHref(rawHref)) {
+        event.preventDefault();
+        setAppError({
+          kind: 'inactive_link',
+          requestedPath: rawHref === '#' ? anchor.textContent?.trim() || '#' : rawHref,
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
+      // 2. In-page hash links (#contact, #projects, etc.)
+      if (rawHref.startsWith('#')) {
+        const sectionId = rawHref.slice(1).trim();
+        const lowerId = sectionId.toLowerCase();
+        const existingTarget = document.getElementById(sectionId);
+        if (existingTarget) {
+          if (appError && lowerId !== 'contact') {
+            event.preventDefault();
+            setAppError(null);
+            setActiveView('all');
+            resetUrlToHome();
+            setTimeout(() => {
+              document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+          }
+          return;
+        }
+        if (VALID_SECTION_HASHES.has(lowerId)) {
+          event.preventDefault();
+          setAppError(null);
+          setActiveView('all');
+          resetUrlToHome();
+          setTimeout(() => {
+            document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+          }, 120);
+          return;
+        }
+        event.preventDefault();
+        setAppError({
+          kind: 'inactive_link',
+          requestedPath: rawHref,
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
+      // 3. Parse URL to inspect same-origin PDFs/assets vs external links
+      let parsedUrl: URL;
+      try {
+        parsedUrl = new URL(rawHref, window.location.origin);
+      } catch {
+        event.preventDefault();
+        setAppError({
+          kind: 'inactive_link',
+          requestedPath: rawHref,
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
+      // 4. Upcoming / "Next Soon" links (e.g., CyberTrustedFM not live yet)
+      if (
+        anchor.getAttribute('data-link-status') === 'inactive' ||
+        parsedUrl.hostname.toLowerCase() === 'ctfm.jigsy.in'
+      ) {
+        event.preventDefault();
+        setAppError({
+          kind: 'inactive_link',
+          requestedPath: parsedUrl.href,
+          detail:
+            'CyberTrustedFM (ctfm.jigsy.in) is currently in upcoming deployment ("Next Soon") and is not active yet. You can return home, explore live prototypes, or attempt the URL directly.',
+          externalFallbackUrl: parsedUrl.href,
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
+      const isSameOrigin = parsedUrl.origin === window.location.origin;
+
+      // 5. Same-origin local PDFs, certificates, reports, and static assets -> verify availability before opening
+      if (isSameOrigin && isDocumentOrAssetPath(parsedUrl.pathname)) {
+        event.preventDefault();
+        const linkTarget = anchor.getAttribute('target');
+        const controller = new AbortController();
+        const timeoutId = window.setTimeout(() => controller.abort(), 4500);
+        try {
+          const response = await fetch(parsedUrl.href, {
+            method: 'HEAD',
+            cache: 'no-store',
+            signal: controller.signal,
+          });
+          window.clearTimeout(timeoutId);
+          const errorKind = classifyResourceResponse(
+            parsedUrl.pathname,
+            response.status,
+            response.headers.get('content-type'),
+            !navigator.onLine
+          );
+          if (errorKind) {
+            setAppError({
+              kind: errorKind,
+              requestedPath: parsedUrl.pathname,
+              statusCode: response.status >= 400 ? String(response.status) : '404',
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } else {
+            triggerProgrammaticNavigation(parsedUrl.href, linkTarget);
+          }
+        } catch {
+          window.clearTimeout(timeoutId);
+          setAppError({
+            kind: navigator.onLine ? 'pdf_not_found' : 'not_responding',
+            requestedPath: parsedUrl.pathname,
+            statusCode: navigator.onLine ? '404' : '503',
+          });
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        return;
+      }
+
+      // 6. Same-origin non-asset route links -> resolve via SPA router
+      if (isSameOrigin && anchor.getAttribute('target') !== '_blank') {
+        event.preventDefault();
+        const resolved = resolveRouteState(parsedUrl.pathname, parsedUrl.search, parsedUrl.hash);
+        try {
+          window.history.pushState(null, '', parsedUrl.pathname + parsedUrl.search + parsedUrl.hash);
+        } catch {
+          // ignore
+        }
+        if (resolved.error) {
+          setAppError(resolved.error);
+        } else {
+          setAppError(null);
+          setActiveView(resolved.view);
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
+      // 7. External links when device is offline -> show not responding error page
+      if (!isSameOrigin && !navigator.onLine) {
+        event.preventDefault();
+        setAppError({
+          kind: 'not_responding',
+          requestedPath: parsedUrl.href,
+          statusCode: '503',
+          detail:
+            'Your connection appears to be offline or the destination link is not responding. Reconnect and try again, or continue exploring locally available sections.',
+          externalFallbackUrl: parsedUrl.href,
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    };
+
+    document.addEventListener('click', handleDocumentClick);
+    return () => document.removeEventListener('click', handleDocumentClick);
+  }, [appError]);
+
+  // SEO & UX: Keep page title optimized for "Jigyasu" and "Jigyasu Vatsa" across all child pages & errors
+  useEffect(() => {
+    if (appError) {
+      const descriptor = getErrorDescriptor(appError);
+      document.title = `${descriptor.badge} | Jigyasu Vatsa | jigyasu.jigsy.in`;
+      return;
+    }
     const titles: Record<PageView, string> = {
       all: 'Jigyasu Vatsa | Official Website & Research Portfolio | jigyasu.jigsy.in',
       research: 'Research & Publications | Jigyasu Vatsa | jigyasu.jigsy.in',
@@ -138,7 +411,7 @@ export default function App() {
       'admin-vault': 'Confidential Admin Vault | Jigyasu Vatsa | jigyasu.jigsy.in',
     };
     document.title = titles[activeView] || 'Jigyasu Vatsa | Official Website & Research Portfolio | jigyasu.jigsy.in';
-  }, [activeView]);
+  }, [activeView, appError]);
 
   return (
     <div
@@ -158,8 +431,35 @@ export default function App() {
         onSelectView={handleSelectView}
       />
 
-      {/* Main Content Sections (Supports both unified dashboard and detached page views) */}
+      {/* Main Content Sections (Supports unified dashboard, detached page views, and universal error page with Header & Footer) */}
       <main className="relative z-10 max-w-full overflow-x-hidden">
+        <AppErrorBoundary
+          onReturnHome={() => handleSelectView('all')}
+          onExploreResearch={() => handleSelectView('research')}
+          onOpenContact={handleOpenContactFromError}
+        >
+        {appError ? (
+          <>
+            <ErrorDetourPage
+              error={appError}
+              onReturnHome={() => handleSelectView('all')}
+              onExploreResearch={() => handleSelectView('research')}
+              onOpenContact={handleOpenContactFromError}
+              onRetry={() => {
+                if (navigator.onLine) {
+                  window.location.reload();
+                } else {
+                  setAppError({
+                    ...appError,
+                    detail: 'Still offline — please check your internet connection and try again.',
+                  });
+                }
+              }}
+            />
+            <FeedbackContact onOpenVault={() => handleSelectView('admin-vault')} />
+          </>
+        ) : (
+        <>
         {/* Render sections according to activeView */}
         {/* Unified Dashboard View: Shows complete portfolio footprint */}
         {activeView === 'all' && (
@@ -301,6 +601,9 @@ export default function App() {
             <FeedbackContact onOpenVault={() => handleSelectView('admin-vault')} />
           </div>
         )}
+        </>
+        )}
+        </AppErrorBoundary>
       </main>
 
       {/* Floating JIGSY AI Voice & Chat Assistant */}
@@ -324,14 +627,19 @@ export default function App() {
         }}
       />
 
-      {/* Floating Scroll to Top Button */}
+      {/* Floating Scroll to Top Button with Custom JIGSY Upward Monogram Icon */}
       {showScrollTop && (
         <button
           onClick={scrollToTop}
           aria-label="Scroll back to top"
-          className="fixed bottom-14 sm:bottom-20 right-3 sm:right-6 z-40 p-2 sm:p-2.5 rounded-xl bg-slate-900/90 text-cyan-400 hover:text-white hover:bg-cyan-500 hover:text-slate-950 border border-slate-750 shadow-xl transition-all duration-300 backdrop-blur-md group"
+          title="Back to top"
+          className="fixed bottom-14 sm:bottom-20 right-3 sm:right-6 z-40 w-10 h-11 sm:w-11 sm:h-12 flex items-center justify-center rounded-xl bg-white/95 dark:bg-slate-900/95 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700/90 hover:border-cyan-500 dark:hover:border-cyan-400/70 shadow-xl hover:shadow-cyan-500/20 transition-all duration-300 backdrop-blur-md group cursor-pointer"
         >
-          <ArrowUp className="w-4 h-4 sm:w-5 sm:h-5 group-hover:-translate-y-0.5 transition-transform" />
+          <img
+            src="/assets/aistudio/image_ac5cb4ac.png"
+            alt="Scroll to top"
+            className="h-7 sm:h-8 w-auto object-contain mix-blend-multiply dark:mix-blend-screen dark:invert group-hover:-translate-y-0.5 transition-transform select-none pointer-events-none"
+          />
         </button>
       )}
 

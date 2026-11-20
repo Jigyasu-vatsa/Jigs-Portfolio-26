@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 import { FeedbackSubmission } from '../types';
+import { formatCopyrightYearRange } from '../utils/errorHandling';
 import {
   Send,
   Mail,
@@ -40,6 +41,7 @@ export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault })
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const copyrightYearRange = formatCopyrightYearRange(2025);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -658,7 +660,7 @@ export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault })
                 Developed &amp; Maintained by Mr. JIGYASU VATSA
               </div>
               <div className="text-[11px] text-slate-400">
-                &copy; 2025 - 2026 All rights reserved. Hosted by Jigyasu Integrated Global Services Private Limited
+                &copy; {copyrightYearRange} All rights reserved. Hosted by Jigyasu Integrated Global Services Private Limited
               </div>
             </div>
             <div className="flex flex-wrap items-center justify-center md:justify-end gap-3 text-[11px] font-mono text-cyan-400">
