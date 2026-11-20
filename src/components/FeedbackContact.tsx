@@ -649,6 +649,7 @@ export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault })
           </div>
         </div>
 
+
         {/* Bottom Credits & Corporate Registrations */}
         <div className="mt-14 pt-8 border-t border-slate-900 flex flex-col items-center justify-between gap-4 text-xs text-slate-400 text-center md:text-left">
           <div className="w-full flex flex-col md:flex-row items-center justify-between gap-3">
@@ -657,7 +658,12 @@ export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault })
                 Developed &amp; Maintained by Mr. JIGYASU VATSA
               </div>
               <div className="text-[11px] text-slate-400">
-                &copy; 2010{currentYear !== 2025 ? ` - ${currentYear}` : ''} All rights reserved. Hosted by Jigyasu Integrated Global Services Private Limited
+                &copy; 2010 - 
+                <script>
+                  const currentYear = new Date().getFullYear();
+                  document.write(currentYear !== 2025 ? currentYear : '');
+                </script> 
+                All rights reserved. Hosted by Jigyasu Integrated Global Services Private Limited
               </div>
             </div>
             <div className="flex flex-wrap items-center justify-center md:justify-end gap-3 text-[11px] font-mono text-cyan-400">
@@ -673,6 +679,7 @@ export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault })
               <span className="text-slate-400">Darbhanga, Bihar</span>
             </div>
           </div>
+
 
           {/* Official Corporate & Government Identifiers Ribbon */}
           <div className="w-full mt-1 pt-2.5 border-t border-slate-900/60 flex flex-wrap items-center justify-center md:justify-between gap-2 text-[11px] font-mono bg-slate-900/50 px-3.5 py-2 rounded-xl border border-slate-800/70">
