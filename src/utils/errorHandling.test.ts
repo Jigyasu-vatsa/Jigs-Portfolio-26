@@ -113,3 +113,13 @@ test('getErrorDescriptor and quick facts provide complete messaging', () => {
 
   assert.ok(JIGSY_QUICK_FACTS.length >= 4);
 });
+
+test('parent company portal URLs map founder and sectors accurately', async () => {
+  const { resolveParentPortalUrl, PARENT_COMPANY_DETAILS } = await import('../data/parentCompanyData');
+  assert.equal(PARENT_COMPANY_DETAILS.founderAboutUrl, 'https://jigsy.in/about/founder');
+  assert.equal(resolveParentPortalUrl('about-founder'), 'https://jigsy.in/about/founder');
+  assert.equal(resolveParentPortalUrl('sectors'), 'https://jigsy.in/sectors');
+  assert.equal(resolveParentPortalUrl('sector-detail', 'rd'), 'https://jigsy.in/sectors/rd');
+  assert.equal(resolveParentPortalUrl('sector-detail', 'youth'), 'https://youth.jigsy.in');
+  assert.equal(resolveParentPortalUrl('contact'), 'https://jigsy.in/contact');
+});

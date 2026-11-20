@@ -365,7 +365,7 @@ export function getErrorDescriptor(error: AppErrorState): ErrorDescriptor {
         title: 'This route took an unexpected detour',
         message:
           error.detail ||
-          "The page or link you requested is either unavailable, moved, or no longer active on Jigyasu Vatsa's Portfolio (JIGSY INDIA). Choose one of the quick paths below to continue exploring smoothly.",
+          'The page or link you requested is either unavailable, moved, or no longer active on JIGSY INDIA. Choose one of the quick paths below to continue exploring smoothly.',
         icon: 'compass',
       };
   }

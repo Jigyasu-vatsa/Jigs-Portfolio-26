@@ -114,14 +114,16 @@ export const ErrorDetourPage: React.FC<ErrorDetourPageProps> = ({
               <span className="text-white">Return to Home</span>
             </button>
 
-            <button
-              type="button"
-              onClick={onExploreResearch}
+            <a
+              href="https://jigsy.in/sectors"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-bypass-error-guard="true"
               className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-800 text-slate-100 border border-slate-700 font-semibold text-sm transition-all cursor-pointer"
             >
               <Layers className="w-4 h-4 shrink-0 text-blue-400" />
-              <span>Explore Research &amp; Work</span>
-            </button>
+              <span>Explore All 6 Sectors</span>
+            </a>
 
             <button
               type="button"

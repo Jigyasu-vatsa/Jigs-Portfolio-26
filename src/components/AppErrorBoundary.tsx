@@ -1,8 +1,15 @@
 import React from 'react';
 import { ErrorDetourPage } from './ErrorDetourPage';
+import { JigsyParentNavbar } from './JigsyParentNavbar';
+import { JigsyParentFooter } from './JigsyParentFooter';
+import { ParentLanguage } from '../data/parentCompanyData';
 
 interface AppErrorBoundaryProps {
   children: React.ReactNode;
+  isDark: boolean;
+  onToggleTheme: () => void;
+  language: ParentLanguage;
+  onLanguageChange: (lang: ParentLanguage) => void;
   onReturnHome: () => void;
   onExploreResearch: () => void;
   onOpenContact: () => void;
@@ -44,26 +51,47 @@ export class AppErrorBoundary extends React.Component<
           ? `${window.location.pathname}${window.location.search}${window.location.hash}`
           : '/';
       return (
-        <ErrorDetourPage
-          error={{
-            kind: 'runtime_error',
-            requestedPath: currentPath,
-            detail: `An unexpected error occurred while rendering this section (${this.state.errorMessage}). Choose one of the quick paths below to continue smoothly.`,
-          }}
-          onReturnHome={() => {
-            this.handleReset();
-            this.props.onReturnHome();
-          }}
-          onExploreResearch={() => {
-            this.handleReset();
-            this.props.onExploreResearch();
-          }}
-          onOpenContact={() => {
-            this.handleReset();
-            this.props.onOpenContact();
-          }}
-          onRetry={this.handleReset}
-        />
+        <>
+          <JigsyParentNavbar
+            language={this.props.language}
+            onLanguageChange={this.props.onLanguageChange}
+            isDark={this.props.isDark}
+            onToggleTheme={this.props.onToggleTheme}
+            onOpenContact={() => {
+              this.handleReset();
+              this.props.onOpenContact();
+            }}
+          />
+          <main className="relative z-10 max-w-full overflow-x-hidden">
+            <ErrorDetourPage
+              error={{
+                kind: 'runtime_error',
+                requestedPath: currentPath,
+                detail: `An unexpected error occurred while rendering this section (${this.state.errorMessage}). Choose one of the quick paths below to continue smoothly.`,
+              }}
+              onReturnHome={() => {
+                this.handleReset();
+                this.props.onReturnHome();
+              }}
+              onExploreResearch={() => {
+                this.handleReset();
+                this.props.onExploreResearch();
+              }}
+              onOpenContact={() => {
+                this.handleReset();
+                this.props.onOpenContact();
+              }}
+              onRetry={this.handleReset}
+            />
+          </main>
+          <JigsyParentFooter
+            language={this.props.language}
+            onReturnPortfolioHome={() => {
+              this.handleReset();
+              this.props.onReturnHome();
+            }}
+          />
+        </>
       );
     }
 

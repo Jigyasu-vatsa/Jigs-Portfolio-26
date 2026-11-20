@@ -481,14 +481,14 @@ export const FeedbackContact: React.FC<FeedbackContactProps> = ({ onOpenVault })
                 </li>
                 <li>
                   <a
-                    href="https://jigsy.in"
+                    href="https://jigsy.in/about/founder"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-between text-slate-700 hover:text-cyan-700 dark:text-slate-300 dark:hover:text-cyan-300 group py-0.5"
                   >
                     <div>
                       <div className="font-semibold text-slate-900 dark:text-slate-200 group-hover:text-cyan-700 dark:group-hover:text-cyan-300">About at JIGSY INDIA</div>
-                      <div className="text-[10px] text-slate-500 font-mono">jigsy.in (DPIIT Startup)</div>
+                      <div className="text-[10px] text-slate-500 font-mono">jigsy.in/about/founder</div>
                     </div>
                     <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-cyan-600 dark:text-slate-500 dark:group-hover:text-cyan-300 ml-1 shrink-0" />
                   </a>

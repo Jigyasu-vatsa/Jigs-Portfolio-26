@@ -26,6 +26,9 @@ import { JigsyIndiaSection } from './components/JigsyIndiaSection';
 import { AdminVaultPage } from './components/AdminVaultPage';
 import { ErrorDetourPage } from './components/ErrorDetourPage';
 import { AppErrorBoundary } from './components/AppErrorBoundary';
+import { JigsyParentNavbar } from './components/JigsyParentNavbar';
+import { JigsyParentFooter } from './components/JigsyParentFooter';
+import { ParentLanguage } from './data/parentCompanyData';
 import {
   RESEARCH_PAPERS,
   CONFERENCES,
@@ -69,6 +72,7 @@ export default function App() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [activeView, setActiveView] = useState<PageView>(initialRoute.view);
   const [appError, setAppError] = useState<AppErrorState | null>(initialRoute.error);
+  const [parentLanguage, setParentLanguage] = useState<ParentLanguage>('en');
   const [showThemeFacilityModal, setShowThemeFacilityModal] = useState(false);
   const [assistantPulseSignal, setAssistantPulseSignal] = useState(false);
 
@@ -422,44 +426,61 @@ export default function App() {
       {/* Background Interactive Cyber-Snake Animation */}
       <CyberSnakeBackground />
 
-      {/* Top Bar Header with Page-View Switcher */}
-      <Header
-        darkMode={darkMode}
+      {/* Main Shell wrapped in ErrorBoundary (Parent Company JIGSY INDIA handles all 404/invalid hash/missing doc/not responding/runtime error screens) */}
+      <AppErrorBoundary
+        isDark={darkMode}
         onToggleTheme={() => setDarkMode(!darkMode)}
-        onOpenSearch={() => setIsSearchOpen(true)}
-        activeView={activeView}
-        onSelectView={handleSelectView}
-      />
-
-      {/* Main Content Sections (Supports unified dashboard, detached page views, and universal error page with Header & Footer) */}
-      <main className="relative z-10 max-w-full overflow-x-hidden">
-        <AppErrorBoundary
-          onReturnHome={() => handleSelectView('all')}
-          onExploreResearch={() => handleSelectView('research')}
-          onOpenContact={handleOpenContactFromError}
-        >
+        language={parentLanguage}
+        onLanguageChange={setParentLanguage}
+        onReturnHome={() => handleSelectView('all')}
+        onExploreResearch={() => handleSelectView('research')}
+        onOpenContact={handleOpenContactFromError}
+      >
         {appError ? (
           <>
-            <ErrorDetourPage
-              error={appError}
-              onReturnHome={() => handleSelectView('all')}
-              onExploreResearch={() => handleSelectView('research')}
+            <JigsyParentNavbar
+              language={parentLanguage}
+              onLanguageChange={setParentLanguage}
+              isDark={darkMode}
+              onToggleTheme={() => setDarkMode(!darkMode)}
               onOpenContact={handleOpenContactFromError}
-              onRetry={() => {
-                if (navigator.onLine) {
-                  window.location.reload();
-                } else {
-                  setAppError({
-                    ...appError,
-                    detail: 'Still offline — please check your internet connection and try again.',
-                  });
-                }
-              }}
             />
-            <FeedbackContact onOpenVault={() => handleSelectView('admin-vault')} />
+            <main className="relative z-10 max-w-full overflow-x-hidden">
+              <ErrorDetourPage
+                error={appError}
+                onReturnHome={() => handleSelectView('all')}
+                onExploreResearch={() => handleSelectView('research')}
+                onOpenContact={handleOpenContactFromError}
+                onRetry={() => {
+                  if (navigator.onLine) {
+                    window.location.reload();
+                  } else {
+                    setAppError({
+                      ...appError,
+                      detail: 'Still offline — please check your internet connection and try again.',
+                    });
+                  }
+                }}
+              />
+            </main>
+            <JigsyParentFooter
+              language={parentLanguage}
+              onReturnPortfolioHome={() => handleSelectView('all')}
+            />
           </>
         ) : (
-        <>
+          <>
+            {/* Top Bar Header with Page-View Switcher */}
+            <Header
+              darkMode={darkMode}
+              onToggleTheme={() => setDarkMode(!darkMode)}
+              onOpenSearch={() => setIsSearchOpen(true)}
+              activeView={activeView}
+              onSelectView={handleSelectView}
+            />
+
+            {/* Main Content Sections */}
+            <main className="relative z-10 max-w-full overflow-x-hidden">
         {/* Render sections according to activeView */}
         {/* Unified Dashboard View: Shows complete portfolio footprint */}
         {activeView === 'all' && (
@@ -601,10 +622,10 @@ export default function App() {
             <FeedbackContact onOpenVault={() => handleSelectView('admin-vault')} />
           </div>
         )}
-        </>
+            </main>
+          </>
         )}
-        </AppErrorBoundary>
-      </main>
+      </AppErrorBoundary>
 
       {/* Floating JIGSY AI Voice & Chat Assistant */}
       <JigsyAIAssistant pulseSignal={assistantPulseSignal} />
@@ -644,7 +665,7 @@ export default function App() {
       )}
 
       {/* First-Time Site Loading Theme Facility Available Info Modal */}
-      {showThemeFacilityModal && (
+      {!appError && showThemeFacilityModal && (
         <div
           role="dialog"
           aria-modal="true"

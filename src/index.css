@@ -283,6 +283,61 @@ html:not(.dark) .preserve-dark .text-emerald-400 {
   color: #34d399 !important;
 }
 
+html:not(.dark) .preserve-dark .text-amber-300 {
+  color: #fcd34d !important;
+}
+
+html:not(.dark) .preserve-dark .text-amber-400 {
+  color: #fbbf24 !important;
+}
+
+html:not(.dark) .preserve-dark .text-blue-300 {
+  color: #93c5fd !important;
+}
+
+html:not(.dark) .preserve-dark .text-blue-400 {
+  color: #60a5fa !important;
+}
+
+html:not(.dark) .preserve-dark.bg-slate-900,
+html:not(.dark) .preserve-dark .bg-slate-900 {
+  background-color: #0f172a !important;
+}
+
+html:not(.dark) .preserve-dark .bg-slate-800 {
+  background-color: #1e293b !important;
+}
+
+html:not(.dark) .preserve-dark .border-slate-800,
+html:not(.dark) .preserve-dark.border-slate-800 {
+  border-color: #1e293b !important;
+}
+
+html:not(.dark) .preserve-dark .border-slate-700 {
+  border-color: #334155 !important;
+}
+
+html:not(.dark) .preserve-dark.bg-gradient-to-r {
+  background-image: linear-gradient(to right, #1e3a8a, #312e81, #0f172a) !important;
+}
+
+@keyframes jigsyMarquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: jigsyMarquee 32s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
 /* Also ensure vibrant gradient publication cards maintain white text in light mode */
 .preserve-card-text,
 .preserve-card-text * {

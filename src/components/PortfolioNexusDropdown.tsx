@@ -34,8 +34,8 @@ export const NEXUS_LINKS: NexusLinkItem[] = [
   {
     id: 'about-jigsy-india',
     name: 'About at JIGSY INDIA',
-    url: 'https://jigsy.in',
-    displayUrl: 'jigsy.in',
+    url: 'https://jigsy.in/about/founder',
+    displayUrl: 'jigsy.in/about/founder',
     description: 'DPIIT recognized enterprise & startup initiatives',
     badge: 'Enterprise',
     isExternal: true,
