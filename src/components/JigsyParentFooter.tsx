@@ -341,24 +341,24 @@ export const JigsyParentFooter: React.FC<JigsyParentFooterProps> = ({
             <div className="grid grid-cols-1 md:grid-cols-3 gap-y-3.5 gap-x-4 text-center text-xs text-slate-400">
               {/* Row 1 */}
               <div className="font-serif text-slate-300 font-medium tracking-wide">
-                {COMPANY_DETAILS.taglineSanskrit}
+                {PARENT_COMPANY_DETAILS.taglineSanskrit}
               </div>
               <div>
-                DPIIT: {COMPANY_DETAILS.dpiit}
+                DPIIT: {PARENT_COMPANY_DETAILS.dpiit}
               </div>
               <div>
-                GSTIN: {COMPANY_DETAILS.gstin}
+                GSTIN: {PARENT_COMPANY_DETAILS.gstin}
               </div>
 
               {/* Row 2 */}
               <div>
-                MSME: {COMPANY_DETAILS.msme}
+                MSME: {PARENT_COMPANY_DETAILS.msme}
               </div>
               <div>
-                CIN: {COMPANY_DETAILS.cin}
+                CIN: {PARENT_COMPANY_DETAILS.cin}
               </div>
               <div className="text-slate-300 font-serif">
-                {COMPANY_DETAILS.mottoEnglish}
+                {PARENT_COMPANY_DETAILS.mottoEnglish}
               </div>
             </div>
           </div>
